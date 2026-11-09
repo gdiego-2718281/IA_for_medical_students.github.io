@@ -1,0 +1,1699 @@
+
+<!-- saved from url=(0063)https://groups.csail.mit.edu/medg/people/psz/ftp/AIM82/ch2.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Representation of Expert Knowledge for Consultation: The CASNET and EXPERT Projects</title>
+</head>
+
+<body>
+
+<h1>Representation of Expert Knowledge for Consultation: The CASNET and EXPERT Projects<sup><a href="https://groups.csail.mit.edu/medg/people/psz/ftp/AIM82/ch2.html#n1">(1)</a></sup></h1>
+<p><font size="5"><i>Casimir A. Kulikowski, Sholom M. Weiss</i></font></p>
+<blockquote>
+  <p><font size="3">Kulikowski, C. A. and Weiss, S. M.&nbsp;
+  "Representation of Expert Knowledge for Consultation: The CASNET and
+  EXPERT Projects."&nbsp; Chapter 2 in Szolovits, P. (Ed.) <i><a href="https://groups.csail.mit.edu/medg/people/psz/ftp/AIM82/ch0.html">Artificial
+  Intelligence in Medicine</a>.</i> Westview Press, Boulder, Colorado.&nbsp;
+  1982.</font></p>
+</blockquote>
+<h2><a name="c2_abstract"></a>Abstract</h2>
+<p>A major focus of research within the Rutgers Research Resource on Computers in Biomedicine is to investigate
+representations of expert knowledge and develop strategies of reasoning for consultation systems, with particular emphasis on medical consultation problems.<br>
+Past work includes the development of a causal-associational network (CASNET) model for describing disease processes, and its application in an expert-level
+consultation program in glaucoma (CASNET/Glaucoma), that incorporates the knowledge
+of a national network of clinical experts in the disease. Collaborative testing of the program has been extended to Japan, and a comparison of Japanese and American decision making rules is
+currently underway.</p>
+<p>Present work involves the formulation of a new representational scheme, called
+EXPERT, and its application in building models for reasoning in rheumatology and endocrinology.
+Experience to date with consultation programs based on the EXPERT models has shown that both the acquisition and the
+structuring of medical knowledge are significantly facilitated by this method.</p>
+<h2><a name="c2_intro"></a>Introduction</h2>
+<p>Expert medical consultation is a scarce, expensive, yet critical component of any health care system. Making the
+knowledge and expertise of human experts more widely available through computer consultation
+systems has been recognized as an important tool for improving the access to high quality health care
+[12 13]. The simulation of clinical cognition on the computer raises important
+scientific questions about the structure, consistency, completeness and uncertainty of medical
+knowledge. These considerations are of particular interest to researchers in artificial intelligence, 
+cognitive psychology and medical information processing, and are important if
+we are to assess the performance and understand the role of computer
+consultation systems in medical education and practice.</p>
+<p>This paper discusses the design and implementation of a computer system,
+called CASNET/Glaucoma [19,20], that draws on the clinical expertise of a
+network of glaucoma specialists and has reached a high level of competence in
+dealing with complex cases of disease. We will use examples from this system,
+which was a successful "participant" in a panel discussion at the 1976
+Symposium on Glaucoma sponsored by the National Society for the Prevention of
+Blindness [9] to illustrate some of the problems of acquiring, representing and
+applying expert medical knowledge. Generalizing on the experience with CASNET in
+several other medical domains besides ophthalmology, the Rutgers Computers
+Biomedicine Resource is investigating a variety of schemes for representing
+medical knowledge in modular and hierarchical forms. In this manner we can gain
+greater insight into how one can choose different types of problem solving
+methods at varying levels of complexity to match the nature and degree of
+difficulty of the decision-making tasks. One of the most concise yet versatile
+general schemes developed to date is the EXPERT
+system [21] which is currently
+being used in creating consultation systems in rheumatology and endocrinology.</p>
+
+<h2><a name="c2_example"></a>An Example of Expert Reasoning</h2>
+<p>To illustrate some of the features of expert reasoning we have taken as
+example the panel discussion of a case selected by Dr. Douglas Anderson,
+chairman of the 1976 Symposium on Glaucoma. He presents the clinical problem as
+follows [9].</p>
+<blockquote>
+<p>Dr. Anderson: This 87-year old man bad pain and blurred vision for two days
+in his right eye. lie had been followed by his ophthalmologist for quite a long
+time and was known to have narrow angles for a long time but he had never
+previously had an acute attack. For at least five years the right shallow
+anterior chamber, which is now involved with the attack, had been noted to be
+shallower than the left. He did have his pupils dilated on several occasions
+because of retinal conditions, however, and no episode of angle closure
+occurred. Therefore nothing was done about the narrow angle.</p>
+<p>At the time of presentation with acute glaucoma, the pressure in the right
+eye was 33. The angle was closed. The vision was hand movements because of
+corneal edema, there was a fixed dilated pupil, and glaukomflecken were present.
+I suppose that the pressure was a little lower at the time of examination than
+it had been in the preceding day or two. The left eye had 20/40 vision, a
+pressure of 11 mmHg, and a grade two to three angle.</p>
+</blockquote>
+<p>From this description one can see the importance of representing the process
+of an illness or clinical episode evolving over time, the relative changes of
+signs and symptoms, and the qualitative nature of many of the statements.</p>
+<p>Almost all consultation systems in the past have been concerned with the
+interpretation of a patient's findings at a single point in time. An item of
+historical information has typically been represented as but another
+manifestation of the patient, seen from the perspective of the present.
+Diagnosis is then viewed as the task of inferring from a static pattern of
+findings the possible diagnostic categories that the patient may belong to. This
+approach may be adequate for simple problems, but in those situations where
+detailed characteristics of the time course of the illness serve as important
+evidence for discovering the underlying mechanisms of disease, or proceeding to
+treatment, we need to explicitly represent the illness as a dynamic process.
+Feinstein has stressed the importance of the temporal aspects of disease for
+both clinical reasoning and epidemiological studies [4,51. The CASNET/Glaucoma
+system handles multiple return visits of a patient by storing all past
+information in a data base from which items can be retrieved, and judgments made
+about the change or rate of change of physiological parameters, clinical
+manifestations, and their relation to courses of treatment.</p>
+<p>The qualitative and approximate nature of many of the clinical findings has
+an effect on the types of reasoning that are best suited to them. Even
+probabilistic statements cannot be made with a high degree of precision when the
+propositions involved are inexactly defined. Most of the artificial intelligence
+approaches to consultation have found that expert reasoning can be simulated by
+using only a few levels of uncertainty. Expressed in terms of frequency of
+occurrence they could be: <i>always, almost always, usually, often, sometimes, almost
+never</i>. A typical
+reasoning rule might be:</p>
+<blockquote>
+<p>If a hemorrhage of the optic disc margin is observed there is usually
+ischemia and atrophy of the nerve head.</p>
+</blockquote>
+<p>There are, however, many situations in clinical medicine where more
+categorical (unqualified and non-probabilistic) decision rules are used:
+"If the intraocular pressure is 2lmm of Hg or higher, perform a visual
+field test." Although experts may explain their reasoning in terms of such
+rules, a review of complex cases of disease usually elicits qualifiers about the
+assumptions and certainty factors involved in the decision. In the above
+example, for instance, the age of the patient, the existence of prior records,
+and a suspicion of glaucoma would affect the decision of whether to perform a
+visual field examination. A recent review of categorical and probabilistic
+reasoning in artificial intelligence diagnostic systems has been carried out by
+Szolovits and Pauker [17].</p>
+
+<p><a href="https://groups.csail.mit.edu/medg/people/psz/ftp/AIM82/ch2.html#f1a">Fig. 1a.</a> shows a more complete description of the data presented to the
+CASNET/Glaucoma system for the case described above. The system's diagnostic conclusions and treatment recommendations are listed in
+<a href="https://groups.csail.mit.edu/medg/people/psz/ftp/AIM82/ch2.html#f1b"> Fig. 1b</a>. Similar
+conclusions were reached by the panel:</p>
+<blockquote>
+<p>Dr. Shaffer: Of course it is not the typical situation to have a pupillary
+block on only one side. when one has a difference in depth of anterior chamber
+between the two eyes and angle closure, one must think about the possibility of
+it being a ciliary block and not a pupillary block glaucoma</p>
+</blockquote>
+<p>In the above we see that Dr. Shaffer gives a concise decision rule for
+raising the possibility of ciliary block. As it turned out, a similar decision
+rule has been provided to us by our expert consultants and incorporated in the glaucoma knowledge base of
+CASNET.</p>
+
+<div align="center">
+  <center>
+  <table border="1" cellpadding="2">
+    <tbody><tr>
+      <td>
+        <pre><a name="f1a"></a>            CAUSAL-ASSOCIATIONAL NETWORK
+                 *RESEARCH USE ONLY*
+                 ******************
+                 *GLAUCOMA SUMMARY*
+                 ******************
+
+PERSONAL DATA:
+
+NAME:  001562         AGE: 87       RACE: W
+SEX: M                CASE NO: 17
+
+CLINICAL DATA SUMMARY FOR VISIT OF 7/10/74
+
+SYMPTOMS:
+        OCULAR/HEAD PAIN
+        COMPLAINTS OF DECREASED VISUAL ACUITY (OD)
+BEST CORRECTED VISUAL ACUITY:
+        OD: HM                OS: 20/40
+IOP:
+        OD: 33                OS: 11
+ANTERIOR CHAMBER DEPTH:
+        OD: SHALLOW           OS: MODERATE
+ANGLES:
+        OD: GRADE 0           OS: GRADE 3
+ANGLE CLOSURE:
+        OD: 360 DEGREES 
+MOST POSTERIOR STRUCTURE SEEN:
+        OD: SCHWALBE'S LINE   OS: CILIARY BODY
+STRUCTURAL ABNORMALITIES:
+PUPIL DIAMETER (MM):
+        OD:  6                OS: 3
+PUPIL ABNORMALITY:
+        UNEQUAL
+        LIGHT RESPONSE ABSENT (OD) 
+LENS ABNORMALITY
+        GLAUKONFLECKEM (00) 
+CORNEAL ABNORMALITY:
+CORNEAL EDEMA:
+        STROMAL (OD)
+EXTERNAL ABNORMALITY:
+        CONJUNCTIVAL HYPEREMIA (OD) 
+HORIZONTAL CUP/DISC RATIO:
+        0.10  (OU)
+VERTICAL CUP/DISC RATIO:
+        0.10  (OU)
+OPTIC NERVE RIM WIDTH:
+        UNIFORM-NORMAL (OU) 
+OPTHALMOSCOPY RELIABILITY:
+        OD:   FAIR
+VISUAL FIELDS:
+        NORMAL (OU)
+VF EXAM QUALITY:
+        FAIR
+HIGHEST PAST IOP:
+        21 (OU)</pre>
+<h4>Fig. 1a. Computer printout of clinical findings in a patient with<br>
+angle closure
+glaucoma of the right eye.</h4>
+      </td>
+    </tr>
+  </tbody></table>
+  </center>
+</div>
+<p></p>
+<div align="center">
+  <center>
+  <table border="1" cellpadding="2">
+    <tbody><tr>
+      <td>
+<pre><a name="f1b"></a>                    ***********************
+                    *DIAGNOSIS AND THERAPY*
+                    ***********************
+                    
+*   RIGHT EYE:   *
+[1]  PRESENT DIAGNOSTIC STATUS:
+
+   (PRIMARY) ANGLE CLOSURE GLAUCOMA.   POSSIBLE CILIARY BLOCK
+   MECHANISM.  PREVIOUS ACUTE ANGLE CLOSURE ATTACK.   DISPARITY
+   BETWEEN THE ANGLES OF THE TWO EYES SUGGESTS POSSIBILITY OF
+   SECONDARY MECHANISM IN ONE EYE.  TRAUMA IS A POSSIBLE CAUSE OF
+   THE OPEN ANGLE IN THE FELLOW EYE.  POSSIBLE SECONDARY CAUSES OF
+   THE NARROW ANGLE IN THIS EYE: SWOLLEN OR DISLOCATED LENS, TUMOR
+   OF THE CILIARY BODY, INFLAMMATION, OR A CILIARY BLOCK MECHANISM.
+
+[2]  TREATMENT RECOMMENDATIONS:
+
+   PERIPHERAL IRIDECTOMY IS INDICATED.   INSTITUTE WEAK MIOTIC
+   THERAPY AS NEEDED TO NORMALIZE TENSIONS. (ADD DIAMOX IF
+   NECESSARY)</pre>
+<h4>                    Fig. lb.  CASNET/Glaucoma diagnostic conclusions and recommendations for the case shown in Fig. la.
+</h4>
+      </td>
+    </tr>
+  </tbody></table>
+  </center>
+</div>
+
+<p>The commentary on the performance of the system in this case was a follows:</p>
+<blockquote>
+<p>Dr. Anderson: You will be interested to see how well the computer was able to
+do on the case I presented. Dr. Shaffer was so astute that I didn't have the
+chance to have the computer show him up. I have fed the eases into the computer
+before today's program without knowing what the computer was capable of doing.
+and I thought that for sure this is one case that the computer would miss. But,
+sure enough, here it has printed out, "chronic primary angle closure
+glaucoma, possible ciliary block mechanism, etc." [9]</p>
+</blockquote>
+<p>From Fig. 1 it can be seen that although the program did select the
+appropriate surgical treatment, it did not follow-up the possible diagnosis of
+ciliary block mechanism with a medical treatment because of its tentative
+status. It opted instead for the more conventional medical treatment of angle
+closure: miotics, of which pilocarpine is the most usual. This omitted
+possibility was subsequently easily added to the knowledge base, so that the
+program now adds to its recommendations for this case and other similar ones:</p>
+<blockquote>
+<p>If ciliary block is truly present, mydriatic/cycloplegic therapy is indicated
+(instead of miotics).</p>
+</blockquote>
+<p>CASNET recommendations have been designed to capture aspects of expert
+consultant advice in several ways:</p>
+<ol>
+  <li>multiple diagnostic hypotheses with varying degrees of certainty are
+presented as needed to cover the problem:</li>
+  <li>the statements of uncertainty are expressed in qualitative terms of
+probable, possible, almost definite, etc.; rather than with probabilities or
+numerical weights (although the latter are used in the internal reasoning of the
+system);</li>
+  <li>explanations of the possible causes of the patient's conditions are
+provided when no single cause is determined with certainty:</li>
+  <li>conditional recommendations such as the one on ciliary block described
+above can be easily added to the knowledge base to cover eventualities for which
+strong confirmatory evidence is lacking.</li>
+</ol>
+<p>In summary, the system provides a narrative interpretation of the case,
+rather than a simple listing of hypotheses. An additional feature of the system
+a link between its decision categories and references in the literature that
+amplify or support these conclusions. <a href="https://groups.csail.mit.edu/medg/people/psz/ftp/AIM82/ch2.html#f2"> Fig. 2</a> illustrates two quotes that support
+the recommendations given for the case under discussion. By making available
+up-to-date references, tied to specific reasoning, the system acts not as a
+passive information retrieval system, but as a dynamic knowledge base that
+simulates the expert's own abilities to explain and justify his opinions. It can
+be viewed as a case-oriented computer textbook. The effort of maintaining such 
+a knowledge base accurate and up-to-date is,
+however, a time consuming task for both the source experts and the information
+and computer scientists who help abstract the information.</p>
+
+<div align="center">
+  <center>
+  <table border="1" cellpadding="2">
+    <tbody><tr>
+      <td>
+<pre><a name="f2"></a>DO YOU WANT MORE INFORMATION (RESEARCH STUDIES OR OPINIONS)? • Y
+
+* RIGHT EYE:   *
+
+   "THE MEDICAL THERAPY FOR ANGLE-CLOSURE GLAUCOMA IS USEFUL ONLY
+   AS A PRELUDE TO SURGERY...  MIOTICS AND DIAMOX ARE STILL MOST
+   VALUABLE IN LOWERING TENSION.  THE ADDITION OF HYPEROSMOTIC
+   AGENTS PREOPERATIVELY SHOULD BE EMPLOYED IF NORMAL LEVELS OF
+   PRESSURE HAVE NOT BEEN ATTAINED."  (BECKER-SHAFFER,  1970)
+</pre>
+
+
+
+<pre>   "THE RESULTS OF 139 IRIDECTOMIES PERFORMED FOR NARROWNESS OF THE
+   ANGLE OF THE ANTERIOR CHAMBER INDICATE THAT THE OPERATION CAN BE
+   HELPFUL IN PATIENTS WITH ACUTE ANGLE CLOSURE, OR EVEN WITH
+   UNDERLYING CHRONIC OPEN-ANGLE GLAUCOMA.   INTRAOCULAR PRESSURE
+   BELOW 25 MM HG WITH OR WITHOUT MEDICAL THERAPY FOLLOWING
+   IRIDECTOMY WAS ACHIEVED IN 87% OF ALL CASES WITH ACUTE
+   ANGLE-CLOSURE,  INCLUDING 77% OF CASES IN WHICH THE ATTACK HAD
+   BEEN PRESENT FOR LONGER THAN THREE DAYS,  IN BO% OF CASES WITH
+   CHRONIC ANGLE-CLOSURE GLAUCOMA, AND IN BO% OF CASES WITH
+   CHRONIC OPEN ANGLE GLAUCOMA THAT HAD A SUPERIMPOSED ANGLE
+   CLOSURE ATTACK.  SUBSEQUENT SURGERY WAS NEEDED IN 8% OF THE
+   CASES...  THE EXPERIENCE GAINED IN THE PRESENT SERIES OF CASES
+   INDICATES THAT EVEN AFTER SYNECHIAL CLOSURE HAS DEVELOPED,
+   IRIDECTOMY MAY STILL BE THE PROCEDURE OF CHOICE IN MOST
+   INDIVIDUALS."  (MURPHY, SPAETH -- ARCH. OPHTH./VOL 91. FEB.
+   1974)</pre>
+
+
+
+        <h4>Fig. 2. Example of literature retrieval for the case described in Fig. 1.</h4>
+      </td>
+    </tr>
+  </tbody></table>
+  </center>
+</div>
+
+<p>So far we have only hinted at some of the reasoning by which CASNET system
+arrived at its conclusions. Before going into details of the representation and
+inference scheme used by the system, we give another excerpt from the panel
+discussion that highlights some of the issues involved:</p>
+<blockquote>
+  <p>Dr. Anderson: Forward movement of the lens increases the pupillary block by
+increasing the ins lens contact, and if the forward lens movement is severe
+enough, the lens itself can actually mechanically close the angle. This is
+essentially what we might consider to be "malignant glaucoma". ...
+Levene [Arch Ophthalmol 87:497, 1972] in the article where he redefined
+malignant glaucoma, divided the lens movement glaucomas into two types: 
+(1) primary, which is the spontaneous ciliary block glaucoma, and (2)
+secondary, due to or precipitated by miotics, trauma, inflammation, or surgery.
+[9]</p>
+</blockquote>
+
+<p>In commenting on the problem of ciliary block mechanism, Dr. Anderson brings
+into play the two major semantic relationships needed to qualitatively describe
+the process: a causal sequence of events, and a classification, or taxonomy for
+defining the different varieties of disease. In this example, the causal
+interpretation provides a basis for the classification. As is well known,
+taxonomic schemes are never unique, depending as they do on an inherently
+arbitrary choice of key features or attributes around which the classification
+is carried out. Uncertainty about the true nature and possible co-occurrences of
+mechanisms of disease further aggravate the situation in medical taxonomies. The
+International Classification of Diseases, Systematic Nomenclature of Medicine
+and other schemes do not delve deeply enough into the nuances of individual
+subspecialties to be more than a first approximation when building a taxonomy
+for an expert consultant system. Usually there are several alternative and
+sometimes disparate taxonomic schemes developed by different centers of
+scholarly and clinical research in a specialty. Debate on the validity and/or
+usefulness of each is usually reserved to panel discussions among experts at
+professional meetings. Unless these are recorded as was the case for the
+Glaucoma Symposium, much of the debate and possible synthesis emerging from
+alternative ideas remains as an oral tradition among experts. When new research
+findings arise to clarify existing concepts, they are usually presented from the
+particular viewpoint of the discoverer, and it may be some time before a fuller
+and more balanced assessment reaches the literature.</p>
+
+<p>One of the potential benefits of an online computer system that includes 
+<i>alternative modes of reasoning</i> derived from experts of different schools of
+thought, is that it will encourage more rapid and vigorous efforts to clarify,
+and justify the assumptions and logic of their reasoning. Automated schemes for
+examining the consistency of large knowledge bases could conceivably lead to
+suggestions for the design of new experiments that would resolve particular points 
+under dispute. This falls in the realm of theory formation, a subfield of
+artificial intelligence which is still at a very early stage of development. An
+example of this work is the METADENDRAL project [3] for learning the rules of 
+mass-spectrometry interpretation. Carefully and
+prospectively gathered data bases of clinical cases are, however, already having
+an impact on the delivery of health care through the matching of classes of
+similar patients for prognostic assessment [16].</p>
+
+<h2><a name="c2_casnet"></a>The CASNET Project<a name="c2_background"></a></h2>
+<h3>Background</h3>
+<p>One of the major areas of research within the Rutgers Research Resource since
+its establishment in 1971 has been that of medical modeling and decision-making
+[1]. The CASNET project was, until its completion in 1978, the principal vehicle
+for investigations in this area. It was supported by the NIH as a prototype
+demonstration for testing the feasibility of applying artificial intelligence
+methods to problems of biomedical interpretation. More specifically, our goal
+was to study and develop computer assisted strategies of decision-making based
+on physiological and functional models of disease. The experience up to that
+time had been predominantly with statistical, pattern recognition and clinical
+algorithms for diagnosis. We had observed the unease that physicians felt in
+using systems based strictly on formal mathematical schemes of inference. The
+alternative, of modeling a single expert's reasoning by an algorithm encoding
+the expert's verbalized surface reasoning processes, had the drawback that
+others might be reluctant to follow someone else's logic. We set out to combine
+some of the general ideas derived from formal schemes with a representation of
+disease processes that would be expressed in terms familiar to the clinician.</p>
+<p>Initially, we explored the application of probabilistic transition network
+models and grammatical description schemes [6]. Prototype descriptive models of
+thyroid dysfunction and diabetes were formulated, but the first large-scale
+modeling activity took place in ophthalmology. A collaboration with Dr. Aran
+Safir of the Mt. Sinai School of Medicine resulted in the choice of the
+glaucomas as a set of related diseases that would be well suited to our
+investigations. Several considerations suggested this choice.</p>
+
+<p>The early explorations had convinced us of the importance of causal
+relationships in explaining and justifying clinical reasoning on the basis of
+pathophysiological mechanisms. The state of our knowledge about glaucoma is such
+that we are able to explain most of the observed clinical phenomena in terms of
+fairly satisfactory causal models. Furthermore, many of the choices of treatment
+are based on this understanding of the mechanisms of disease. Both of these
+factors made glaucoma a good test of our thesis that model-based consultative
+reasoning was feasible.</p>
+
+<p>The glaucomas also had the advantage of being almost entirely restricted to
+an organ with a limited number of anatomical structures. Unlike thyroid disease
+or diabetes, its dependence on other body conditions is also limited. There are
+only a few major diagnostic tests and a relatively small number of medical and
+surgical therapies. This made the glaucomas an excellent candidate for in-depth
+modeling.</p>
+
+<p>Because many of the glaucomas are chronic conditions, they lend themselves to
+studies of the representation of temporal patterns in the course of a disease.
+In medical significance, glaucoma is a leading cause of blindness in the United
+States, and one whose subtleties are often overlooked until irreparable loss of
+vision has occurred. Complex cases that do not respond well to conventional
+treatment are often referred for expert consultation. It was with toe goal of
+achieving expert level performance for such cases that we set to develop a
+glaucoma consultation program.</p>
+
+<h3><a name="c2_model"></a>A Model-Based Approach</h3>
+
+<p>In developing the causal-associational network (CASNET) formalism we brought
+together ideas from two fields of computer science: statistical pattern
+recognition and artificial intelligence (Al). From pattern recognition we
+derived notions of inference networks and probabilistic scoring of hypotheses.
+From Al we derived the use of a conceptual structure to represent disease
+processes. The causal network of CASNET can be viewed as a special type of one
+such representation, a semantic network [23]. Early in our work we decided that
+it would be advantageous to separate the model of disease from the
+decision-making strategies. Although a data base of medical knowledge constantly
+changes to incorporate current research findings, the strategies of
+decision-making should be able to "roam-over" this data base requiring
+less frequent modifications. An additional advantage of a separate disease model
+is that other more general strategies for explanation, question-answering and
+teaching can be designed fairly independently of the decision-making strategies
+themselves.</p>
+
+<p>How should a model of disease be defined for representation on the computer?
+If we want to include both theoretical knowledge of pathophysiological
+mechanisms and the practical knowledge of phenomenological or empirical
+associations among clinical findings and diseases, two types of models can be
+distinguished. A descriptive model can provide a characterization of disease
+processes in the form familiarly found in textbooks of medicine: from the
+general categories to the specific mechanisms, dysfunctions, causes of illness
+and patterns of findings that they manifest. The hierarchical, causal and
+temporal relationships among these entities form a structured conceptual (or
+semantic) model. The results of epidemiological studies with well defined
+end-points yield statistical data on the frequency of association between
+patterns of findings and the diagnostic, prognostic or treatment categories under study. 
+They summarize in a systematic fashion, the accumulated experience
+of many clinical decisions. In this sense they constitute an experiential model.
+Unfortunately, due to the limitations of current knowledge, the difficulties of
+gathering clinical data and the variability of definitions in medicine, there
+are usually few systematic links between patterns of findings and intermediate
+pathophysiological states and mechanisms. The expert carries out the task of
+linking the conceptual and experiential components of a descriptive model.</p>
+
+<p>A second type, or normative model is needed to directly characterize the
+manner in which decisions are made. The direction of inference is generally the
+inverse of that in the descriptive model. Rules of interpretation must go from a
+specific pattern of findings to the more abstract hypotheses of illnesses, mechanisms 
+and diseases. Traditionally, the application of Bayesian reasoning has been used 
+to transform descriptive experiential statistics into the inverse probabilities 
+needed for decision- making. The additional knowledge from a semantic model introduces 
+constraints that make the simple Bayesian scheme inapplicable. In addition, it is 
+common to have incomplete statistics, and a medical expert is usually asked to estimate 
+the missing probabilities. When queried, experts are likely to report their clinical 
+decision-rules in the form of inverse inferences. For example:
+</p><blockquote>
+<p>If the tension of the eye is greater than 18 mm of Hg and peripheral anterior synechias 
+(adhesions between the iris and the trabecular meshwork) are observed by gonioscopy, then 
+it can be inferred that there have been probable (with probability .6 to .8) repeated 
+episodes of angle closure.
+</p></blockquote>
+The experience of deriving this kind of rule from experts has also been reported in 
+the MYCIN system [14,15] which developed a scheme of confidence weights that was more 
+easily expressed by physicians than probabilities. In the CASNET scheme, as in other 
+AI approaches, such as INTERNIST [11] and PIP [10] a set of heuristic confidence measures 
+has been developed to characterize the uncertainty relationships that experts use to 
+link findings and hypotheses.
+
+<p>The CASNET modeling scheme that has evolved since 1972 consists of descriptive and 
+normative elements mixed in such a manner that efficient and powerful strategies of 
+decision-making can be employed without sacrificing the generality of the underlying 
+description of the disease processes.</p>
+
+<h3><a name="c2_casnet_model"></a>The CASNET Model</h3>
+
+<p>The descriptive component of a CASNET model consists of four sets of elements:
+</p><ol>
+<li>Observations or findings of the patient-signs, symptoms and test results, such 
+as "degree of angle closure," "pain in the left eye," or a measurement of intraocular 
+pressure. These are related logically by observational constraints. For example, "the 
+cup-to-disc ratio at the optic nerve head can be determined only if an ophthalmoscopic 
+examination is performed."
+
+</li><li>Pathophysiological states that describe internal abnormal conditions or mechanisms 
+that can directly cause the observed phenomena, often also summarize a group of observations.  
+Examples would be: "elevated intraocular pressure," "cupping of the optic disc," 
+"glaucomatous visual field loss." They can be related by a network of cause and effect 
+relationships of the form s<sub>i</sub> --(a<sub>ij</sub>)--&gt; s<sub>j</sub> where
+  a<sub>ij</sub> stands for the degree of causal connection between states s<sub>i</sub>
+  and s<sub>j</sub>. E.g., "elevated 
+intraocular pressure usually causes cupping of the optic disc."
+
+</li><li>Disease States that are defined at a higher level of abstraction, and can subsume a 
+pattern of pathophysiological states. In CASNET strong emphasis is placed on the definition 
+of disease in terms of causal pathways of states. Examples are: "acute angle closure glaucoma," 
+"ciliary block mechanism," etc.
+
+</li><li>Treatment Plans or General Classes of Therapies: composed of sets of related treatments, 
+linked among themselves by constraints of interactions, toxicity, patterns of coverage 
+and time dependence of administration. The treatments are also associated with the 
+pathophysiological states and diseases that they cover.
+
+</li></ol>
+
+<p>The four types of data elements are illustrated in <a href="https://groups.csail.mit.edu/medg/people/psz/ftp/AIM82/ch2.html#f3"> Fig. 3</a>, together with some 
+linkages from the normative component of CASNET.</p>
+
+<div align="center">
+  <center>
+  <table border="1" cellpadding="2">
+    <tbody><tr>
+      <td>
+<p align="center"><a name="f3"></a><a href="https://groups.csail.mit.edu/medg/people/psz/ftp/AIM82/CASNETmodel1.gif"><img border="0" src="./Representation of Expert Knowledge for Consultation_ The CASNET and EXPERT Projects_files/CASNETmodel1_small.gif" alt="CASNETmodel1.gif (28681 bytes)" width="600" height="351"></a></p>
+<h4>Fig. 3. The CASNET model for disease processes and treatment.</h4>
+      </td>
+    </tr>
+  </tbody></table>
+  </center>
+</div>
+
+<p>The normative component consists of decision-rules that state:
+</p><ol>
+<li>
+the inference of a pathophysiological state with some degree of confidence from an observed pattern of findings,
+</li><li>the preference for a treatment with some degree of expectation of results from an observed pattern of findings.
+</li></ol>
+
+<p>It should be noted that other possible normative rules, such as between observations 
+and disease states, or between pathophysiological states and treatments are not explicitly 
+included in the CASNET formalism. The general strategies of reasoning generate them 
+implicitly in a dynamic fashion from the descriptive component relationships in the 
+course of interpreting a specific patient's findings. In recognition of the fact that 
+experts often generate such different varieties of rules, which may not coincide with 
+their strategy-generated analogues, we have generalized and extended the CASNET scheme 
+in the more recent EXPERT system described below. A specific glaucoma example of the 
+three planes of disease description is shown in <a href="https://groups.csail.mit.edu/medg/people/psz/ftp/AIM82/ch2.html#f4"> Fig. 4</a>. The case shown traces a causal 
+pathway corresponding to angle closure glaucoma, and shows the links to the observed 
+data. A partial and simplified version of the causal network used in the CASNET/Glaucoma 
+consultation program is illustrated in <a href="https://groups.csail.mit.edu/medg/people/psz/ftp/AIM82/ch2.html#f5"> Fig. 5</a>, superimposed on a diagram of the eye. For 
+a more detailed description see [19] and [20].</p>
+
+<div align="center">
+  <center>
+  <table border="1" cellpadding="2">
+    <tbody><tr>
+      <td>
+<p align="center"><a name="f4"></a><a href="https://groups.csail.mit.edu/medg/people/psz/ftp/AIM82/CASNET3layer.gif"><img border="0" src="./Representation of Expert Knowledge for Consultation_ The CASNET and EXPERT Projects_files/CASNET3layer_small.gif" alt="CASNET3layer.gif (29820 bytes)" width="600" height="766"></a></p>
+
+
+
+<h4>Fig. 4.&nbsp; An example of the three-level description of
+disease abstracted from the CASNET/Glaucoma Model.</h4>
+      </td>
+    </tr>
+  </tbody></table>
+  </center>
+</div>
+<p></p>
+<div align="center">
+  <center>
+  <table border="1" cellpadding="2">
+    <tbody><tr>
+      <td>
+<p align="center"><a name="f5"></a><a href="https://groups.csail.mit.edu/medg/people/psz/ftp/AIM82/CASNETeye.gif"><img border="0" src="./Representation of Expert Knowledge for Consultation_ The CASNET and EXPERT Projects_files/CASNETeye_small.gif" alt="CASNETeye.gif (66932 bytes)" width="600" height="469"></a></p>
+
+
+
+<h4>Fig. 5. Simplified Causal Network for Glaucoma (from [19]).</h4>
+      </td>
+    </tr>
+  </tbody></table>
+  </center>
+</div>
+
+<h3><a name="c2_dx_rx"></a>Diagnostic Interpretation and Treatment Recommendation in CASNET</h3>
+
+<p>The general strategy for diagnosis is implemented by initially interpreting the patient's observations in terms of their underlying pathophysiological states. A three- valued logic (confirmed, denied, undetermined) is used to summarize the truth value of each state taken as a hypothesis for the patient. The truth value is derived by setting a threshold on the confidence measures of all applicable observation-to-state mappings. Diagnoses are then triggered by various configurations of confirmed and denied states within the causal network.</p>
+
+<p>An important aspect of our approach is that we consider diagnostic interpretation to be much more than the simple assignment of a patient to some prespecified
+category. Evaluation of that patient's status is an on-going dynamic process. The patient's clinical status is re-evaluated on successive visits as changes in the presenting signs occur. The causal model summarizes the findings, and guides in the construction of diagnostic and prognostic hypotheses. These hypotheses may be simple
+hypotheses, such as "very elevated intraocular pressure;" or more complex hypotheses (composed of a set of related simple hypotheses) such as "chronic angle closure glaucoma." All hypotheses may include modifiers that further specify a condition by its intensity, duration, progression, topographical distribution, or other characterizing features.</p>
+
+<p>In addition, the statement of the hypotheses will often include a qualitative, verbal estimate of its degree of confirmation (e.g. "very strong likelihood of developing field loss"). Thus, although several measures of confirmation are used in the computations that lead to the selection of the elements that form a hypothesis, no explicit weight has been used in the final recommendations. Among the major factors affecting therapy selection, we consider current diagnostic status, past history, and the desired and expected outcomes for the patient. Once the patient is undergoing treatment the effectiveness of the current medication must be assessed, and new factors considered, such as side effects, complications of the disease for which the current therapy is not effective, conditions not detected at the initial visit, the entire past history and set of updated findings are re-evaluated, and the possibility of a modified diagnosis considered.<br>
+<br>
+The main representational elements that enter into the generation of a therapy recommendation are illustrated in
+<a href="https://groups.csail.mit.edu/medg/people/psz/ftp/AIM82/ch2.html#f3"> Fig. 3</a>. Each diagnostic conclusion points to a general class of therapies, represented as a ranked preference list of specific therapy states. The glaucoma experts have been able to specify various typical sequences of treatments that they follow as the disease fails to be adequately controlled by a therapy at the previous stage. Thus, the ranking within each general class reflects an increasing degree of severity in the disease and the corresponding treatment. To choose a specific therapy within a given general class, the detailed findings of the individual patient must be taken into consideration. Factors that do not directly bear on the diagnostic interpretation (allergies, occupational constraints, etc.) often affect the choice of therapy. Bach specific therapy state is assigned a weight, derived from the observations, indicating a measure of confidence in the success of a treatment. The treatment with the highest weight is selected from the list of treatments within a single general class. This scheme permits encoding of conditions that trigger selection of a therapy at a higher level of severity, bypassing the lower-ranked ones (indicated by transition paths in
+<a href="https://groups.csail.mit.edu/medg/people/psz/ftp/AIM82/ch2.html#f3"> Fig. 3</a>). For example, if progression of visual field loss occurs more rapidly than expected, a higher dosage of the controlling medication is likely to be suggested.<br>
+<br>
+If several different treatment recommendation classes are derived from the diagnostic conclusions, a master list is consulted to see if any of the tentatively recommended treatments is covered by the others and is therefore unnecessary, if there is the possibility of drug
+interactions or if there is some binocular constraint that must be taken into account. Such restriction rules are indicated by the arrows labeled R1, R2, R3 in
+<a href="https://groups.csail.mit.edu/medg/people/psz/ftp/AIM82/ch2.html#f3"> Fig. 3</a>. If complications arise from a treatment, or if the original diagnosis is subsequently found to be incorrect, this will lead to a new diagnostic categorization of the patient, which in turn will lead to the selection of a new general class of therapies.</p>
+
+<h3><a name="c2_onet"></a>The CASNET/Glaucoma Consultation System and its Development by the Ophthalmological Network (ONET)</h3>
+
+<p>The CASNET/Glaucoma consultation system consists of three main programs:
+</p><ol>
+<li>a <i> model building</i> program for creating, editing; and updating a CASNET model (this has also been used to 
+develop models of disease other than glaucoma);
+</li><li>a <i> consultation program</i> that elicits information about a specific patient and interprets it through the CASNET model;
+</li><li>a <i> data base program</i> which searches through the collected records of the glaucoma cases and 
+retrieves information correlated according to the instructions of the clinical researchers.
+</li></ol>
+Thus, the cases entered through the consultation program form the data base which serves as a source for clinical studies of prognostic indicators and treatment evaluation [22]. Selected results from such studies can then be used to improve the CASNET model.
+<p>
+The consultation program is interactive, running in 35K words of memory on a 
+DEC 10 or 20 computer under either the TOPS-20 or TENEX operating systems. 
+Because of speed and efficiency considerations, it is written in FORTRAN. 
+Modifications and updating of the glaucoma model are carried out by interaction 
+with the separate model-building program [8], written in SNOBOL. This program 
+checks the model for consistency and compiles it so that it will run efficiently under CASNET/Glaucoma.</p>
+<p>
+The current glaucoma consultation system has more than 100 states, 400 tests, 
+75 classification tables, and 200 diagnostic and treatment statements. 
+Results must be interpreted for each eye, so that, in effect, twice the 
+number of rules for binocular comparisons of states, tests, and diagnostic 
+and treatment statements. A set of the program's conclusions for a sample 
+case was illustrated in Fig. 1 and 2.</p>
+<p>
+The consultation program has been designed for efficient performance. 
+Human engineering aspects of program design have also been emphasized. 
+The program has been developed primarily as a tool for research on medical 
+decision-making by computer. However, our approach to program development 
+involved the collaboration of a network of physicians with little prior 
+experience in the use of computers. Their active participation in the 
+project required careful attention to programming details which would 
+allow our collaborators and other ophthalmologists to use the programs 
+with little difficulty. This meant that typing had to be kept to a minimum, 
+and quick response time, even for complex diagnostic interpretations, 
+had to be ensured.</p>
+<p>
+Because the program's logic is contained in general strategies that analyze the 
+CASNET model, it is relatively easy to incorporate new medical knowledge or improve 
+
+</p><p>Early in our work, we collected a sample of 40 difficult cases. 
+Initially, the program did not classify (diagnose) all cases correctly. 
+However, as our model improved, it was soon able to diagnose the 40 
+cases correctly. This result demonstrated, at a relatively early stage, 
+that our approach did provide an incremental means of improving the 
+program's performance. We became confident that poor or inaccurate conclusions 
+could be corrected, that cases diagnosed correctly would remain correct, and 
+that diagnostic and therapeutic recommendations could be improved.</p>
+<p>
+This first cycle of development was followed by a second stage, which began 
+when an improved prototype of the glaucoma consultation program was presented 
+at the annual meeting of the Association for Research in Vision and Ophthalmology 
+in 1973. Interest in the program, arising from this demonstration of its 
+capabilities, led to the collaboration with several glaucoma researchers. 
+It was hoped that their advice would result in a program that could provide 
+consultation at a sophisticated level. Another motivation for this approach 
+was our desire to test the applicability of the consultation system as a tool 
+for clinical research. The consultation system would serve as a point of entry 
+for difficult clinical cases. A data base of such cases would then be 
+accumulated to test the consultation program. Statistical analysis of the 
+data might provide new insights into the disease process itself.</p>
+<p>
+The Ophthalmological Network was established in 1974 to promote development 
+and testing of computer consultation and research support programs for clinical 
+investigators in ophthalmology. It uses advanced time-shared computers accessed 
+through a national communications network. The initial nucleus of ONET was formed 
+when Drs. Steven Podos and Bernard Becker from Washington University and Drs. 
+Irvin Pollack and Laurence Viernstein from Johns Hopkins University began 
+collaborating with the Rutgers-Mount Sinai group to help develop the glaucoma 
+consultation program into a proficient clinical tool.</p>
+<p>
+In 1974 an added impetus was given to this work when the Mount Sinai-Rutgers 
+Health Care Computer Laboratory was established by HEW to promote the further 
+development of computer consultation systems f6r health care delivery.  
+Shortly afterwards, ONET was expanded to include Dr. Jacob Wilensky of 
+the University of Illinois at Chicago, and Dr. Michael Kass who now 
+coordinates ONET activities at Washington University. Dr. Douglas Anderson 
+of the University of Miami joined ONET in 1976.</p>
+
+<p>Since 1975, the ONET researchers have been able to access and test the 
+glaucoma consultation program. Each chose a sub-specialty of glaucoma for 
+testing and developing the program in depth. Many subtleties of description 
+and reasoning in several types of glaucoma (primary open angle, angle 
+closure, and the secondary glaucomas) have been added in this manner. 
+In addition each ONET member is free to enter any case of glaucoma, and is also able to review the cases entered by his colleagues. At
+periodic meetings of the ONET group, opinions on the different glaucoma topics are discussed and compared. Thus, the sources for alternative opinions that are incorporated into the program include:</p>
+
+<ol>
+  <li>an ONET member's comments about another's cases;</li>
+  <li>suggestions by the originator of a case on alternative conclusions;</li>
+  <li>systematic review by the computer science group, which discovers differences in the handling of similar cases;</li>
+  <li>review of the research literature that suggests new alternatives.</li>
+</ol>
+<p>The ONET computing is carried out on large DEC 20 and DEC 10 time-shared computers at Rutgers University and Stanford University. Both machines are accessible by local phone dial-up from cities throughout the country. Development of program prototypes is carried out on the Rutgers computer, while testing by the ONET members is performed on the SUMEX-AIM computer (Stanford University Medical Experimental Computer for Artificial Intelligence in Medicine) as well as on the Rutgers facility. SUMEX-AIM was established in 1974 as the first national shared computing resource for medical research. The Rutgers computer resource became the second AIM shared facility in 1977. The ONET glaucoma network is the first example of a group of collaborating clinical researchers making use of the AIM resources.</p>
+<h3><a name="c2_eval"></a>Evaluations of CASNET/Glaucoma</h3>
+<p>Although we currently have several hundred cases on file, it is difficult to evaluate program performance in a simple manner. Classifying conclusions as being merely correct or incorrect is an oversimplification. The program's conclusions are presented not as single unique diagnoses but rather as combinations of judgments about a patient's status. These may include such factors as: the type and severity of disease, evaluation of current therapy, and recommendations for future testing or therapy. In an objective evaluation of program performance, each of these elements must be considered. Most of the cases selected by our clinical collaborators are complex and difficult ones requiring expert judgment. Our sample of cases has thus been deliberately biased to enable us to develop an expert consultant program rather than one that merely does well in a large percentage of typical glaucoma cases. The ONET members have estimated that the program arrives at reasonable and often sophisticated judgments in about 75% of the difficult cases of glaucoma.<br>
+<br>
+The CASNET/Glaucoma system was subject to an intensive evaluation by a large and varied group of ophthalmologists during the 1976 meeting of the American Academy of Ophthalmology and Otolaryngology. The consultation program was used to
+summarize results of cases and present its recommendations, contrasting them to the opinions of a panel of experts, at the glaucoma symposium just preceding the formal opening of the Academy convention. The cases had been entered into the computer in advance of the symposium, but the program's conclusions were left
+unaltered. The panel gave a variety of opinions about the cases, and in almost all of them the program included in its alternatives the main interpretation given by the panel.<br>
+<br>
+We also tested the program in a more detailed manner. It was one of the scientific exhibits at the Academy meeting. It was displayed and made available for
+testing by all conference attendees. Evaluation questionnaires were filled out by those ophthalmologists who tested the program. Forty nine responses were obtained. The results are summarized in Table 1.</p>
+<table border="1" cellpadding="2">
+  <tbody><tr>
+    <td>
+<table border="0" cellpadding="4">
+  <tbody><tr>
+    <th valign="top">1.</th>
+    <th valign="top" colspan="2">Level of Clinical Proficiency<br>
+      (N=44)</th>
+    <th valign="top">&nbsp;&nbsp;&nbsp;</th>
+    <th valign="top">2.</th>
+    <th valign="top" colspan="2">Applicability to Glaucoma Research<br>
+      (N=41)</th>
+    <th valign="top">&nbsp;&nbsp;&nbsp;</th>
+    <th valign="top">3.</th>
+    <th valign="top" colspan="2">Importance to Health Care<br>
+      (N=45)</th>
+  </tr>
+  <tr>
+    <td>a)</td>
+    <td>Expert</td>
+    <td align="right">25%</td>
+    <td></td>
+    <td>a)</td>
+    <td>Very Applicable</td>
+    <td align="right">71%</td>
+    <td></td>
+    <td>a)</td>
+    <td>Very Important</td>
+    <td align="right">45%</td>
+  </tr>
+  <tr>
+    <td>b)</td>
+    <td>Very Competent</td>
+    <td align="right">52%</td>
+    <td></td>
+    <td>b)</td>
+    <td>Moderately Applicable</td>
+    <td align="right">24%</td>
+    <td></td>
+    <td>b)</td>
+    <td>Moderately Important</td>
+    <td align="right">42%</td>
+  </tr>
+  <tr>
+    <td>c)</td>
+    <td>Acceptably Competent</td>
+    <td align="right">18%</td>
+    <td></td>
+    <td>c)</td>
+    <td>Somewhat Applicable</td>
+    <td align="right">5%</td>
+    <td></td>
+    <td>c)</td>
+    <td>Somewhat Important</td>
+    <td align="right">11%</td>
+  </tr>
+  <tr>
+    <td>d)</td>
+    <td>Inadequate</td>
+    <td align="right">5%</td>
+    <td></td>
+    <td>d)</td>
+    <td>Of Little Value</td>
+    <td align="right">0%</td>
+    <td></td>
+    <td>d)</td>
+    <td>Of Little Importance</td>
+    <td align="right">2%</td>
+  </tr>
+</tbody></table>
+<h4>Table 1.&nbsp; Summary of Program Evaluation Responses</h4>
+   </td>
+  </tr>
+</tbody></table>
+
+<p>
+A 95% acceptance rate for clinical proficiency in the sample questioned is high given the amount of unknown material presented to the consultation system by the ophthalmologists, who were encouraged to test it with their difficult cases. The two cases (5%) in which the program was judged to perform inadequately corresponded to situations in which diseases other than glaucoma formed a significant part of the diagnosis, and the appropriate information had not yet been included in the model. The 77% rate of high competence (the "expert" and "very competent" responses) ascribed to the system by this independent sample of
+ophthalmologists accords well with the previously cited judgment of our glaucoma collaborators. Efforts
+currently being devoted to including alternative expert opinions in complex cases are expected to improve this performance index in the coming years. The answers to the second question listed in Table 1 indicate the strong potential that the ophthalmologists saw in using the consultation program as a support tool for organizing clinical trails, and for summarizing and analyzing their results.<br>
+<br>
+It is interesting to observe the differences between the responses to the second and third questions. Clearly, the ophthalmologists see an important ultimate contribution to health care (87% for very or moderately important), but this is secondary to the applicability to glaucoma research (95% for the two top responses).</p>
+
+<p>More recently, in 1978, a comparison of Japanese and American reasoning about glaucoma has been carried out. Dr. F. Mizoguchi of the Tokyo University of Science
+transferred the CASNET/Glaucoma System to a DEC-10 system in Japan, and tested the program with 12 complex cases from the clinical records of Dr. Y. Kitazawa. In comparing Dr. Kitazawa's conclusions with those of the program, H of the 12 were in substantial agreement. The single case of a notable disagreement involved the interpretation of a characteristically Japanese form of glaucoma-Harada's disease. One important outcome of this study is that a further alternative mode of reasoning about glaucoma has been identified, and is in the process of being incorporated into the knowledge-base. Another is that the collaborative activities of the Resource have been successfully expanded to the international level. The joint work is continuing on the refinement of the glaucoma model, which is being recast into the new EXPERT scheme described below.</p>
+
+<h2><a name="c2_expert"></a>The EXPERT Project</h2>
+
+<p>With the goal of incorporating a wider variety of knowledge structures and 
+facilitating the acquisition of both descriptive and normative knowledge from 
+experts, the CASNET formalism has been recently generalized and extended and 
+a new scheme called EXPERT has been developed.</p>
+
+<h3><a name="c2_ka"></a>Knowledge Acquisition in EXPERT</h3>
+
+<p>Since there exist no consistent conventions according to which medical 
+specialists structure their knowledge, for the near future computer scientists 
+will have to assist in abstracting from the experts those aspects of their 
+knowledge that are important in consultative reasoning. The design of a system 
+that is to encompass increasingly varied relationships in different areas of 
+medicine must have a flexible manner of including new forms of knowledge. 
+Rather than invest a large developmental effort in designing a system for 
+prompting the expert or model-builder to structure the knowledge in forms 
+acceptable to the computer representation, a simple expedient is to allow 
+the knowledge to be input into a file according to a pre-ordained format.
+This can be done by any available editor. The file can later be processed 
+by a special interpretation program, similar to a compiler.</p>
+<p>
+A major advantage of this approach is that the modeler has direct access to the model, and modifications are easy to make.  A disadvantage is the lack of immediate intelligent feedback to the model-builder, during the process of structuring his knowledge. Such feedback requires strong inference capabilities that would check the consistency of new additions with the previous knowledge base. For simple models this is not necessary, and for complex ones this represents a long-term research task. The simpler option of providing a well-structured and
+cross-referenced set of listings of the model which can be examined for consistency by the model-builder with ease, may well be the most effective means for handling realistic
+intermediate-sized models in the near future.</p>
+<h3>
+<a name="c2_kr"></a>
+Knowledge Representation in EXPERT</h3>
+<p>
+The major changes from the CASNET formalism are as follows:
+</p><ol>
+<li>explicit statement of reasoning rules in the normative component;
+</li><li>explicit taxonomic structure added to the causal structure in the descriptive component;
+</li><li>a simplification in the conceptual structure that distinguishes only 
+two major elements: findings and hypotheses (which encompass pathophysiological 
+states, disease categories and treatments).
+</li></ol>
+
+<p>The major advantages of CASNET that were retained include:
+</p><ol>
+<li>a partially ordered structure for hypotheses that permits precompilation 
+of the model, and hence efficient processing;
+</li><li>the detailed structuring of findings so that data on a patient can be 
+acquired in a "focused" and rapid manner by the specification of appropriate 
+question types (multiple choice, alternative choice, binary, continuous 
+valued, etc.) to reduce the asking of irrelevant questions;
+</li><li>the maintenance of several different weights of confirmation that 
+depend on the types of relations underlying a particular inference (i.e. 
+causal vs. direct evidential) so that conflicts and contradictions can be 
+more easily detected, and the coherence of a particular set of 
+hypotheses assessed.
+</li></ol>
+
+<h3>
+
+<a name="c2_reason"></a>
+
+Reasoning Procedures and the EXPERT Representation</h3>
+
+<p>
+
+The explicit rules of reasoning mentioned in the previous section include three forms of production rules:
+</p><ol>
+  <li><i>F-F Rules</i>: These rules assert the inference of a finding given that another specific finding is known to be true for the patient. They are of the
+    form<br>
+    &nbsp;f<sub>i</sub> ---&gt; f<sub>j</sub>&nbsp;<br>
+    were f<sub>i</sub>, f<sub>i</sub> stand for assertions about findings. The assertion may be in the form of a simple predicate statement or it may indicate that a variable is within a given range of values. The truth values of these assertions may be
+    <i>true</i>, <i>false</i>, or <i>unknown</i>.</li>
+  <li><i>F-H Rules</i>: These rules assert the inference of a hypothesis with a certain weight of confidence given that a conjunctive pattern of findings is held to be true for the
+    patient. They are of the form:<br>
+    B({f<sub>i</sub>}) --(w<sub>j</sub>)--&gt; h<sub>j</sub><br>
+    where B({f<sub>i</sub>}) is a logical conjunction of truth values of findings, and
+    -1 &lt; w<sub>j</sub> &lt; + 1. w<sub>j</sub> gives the confidence or weight of evidence for hypothesis
+    h<sub>j</sub> conditional on the pattern B({f<sub>i</sub>}) being true.  Confirmatory evidence is taken as positive, disconfirmatory as negative.  Disjunctive forms are handled as separate rules or through choice rules of the form:
+    "If n of the following findings have the specified truth values, infer the following hypothesis."</li>
+  <li><i>H-H Rules</i>: These rules assert the inference of a hypothesis given that some conjunctive form of other hypotheses and findings is asserted to be true of the patient, under the constraint that a certain
+    <i> context</i> is satisfied.</li>
+</ol>
+<p>A context is defined as a conjunctive pattern of findings and hypotheses 
+that is the prerequisite for a given H-H rule to be applicable to the patient. 
+The H-H rules can be anchored on findings alone, if we wish to formalize the 
+definition of higher-level hypotheses in terms of necessary sets of observable
+clinical end-points. A hypothesis may be a diagnostic status, a prognostic 
+assessment, the suggestion of a therapy, or the suggestion of proceedings 
+with further tests or the questioning for new findings. Thus, H-H rules 
+cover all explicit inferential relations between situations and actions 
+relevant to the patient. These rules can be written in the form:</p>
+<blockquote>
+IF:	a precondition B, (with the hypotheses having confidence weights in prespecified intervals) is found to be
+true,<br>
+THEN:	apply the production rule:&nbsp; B({f<sub>i</sub>}) --(w<sub>j</sub>)--&gt; h<sub>j</sub>
+</blockquote>
+<p>Thus, a truth value of w<sub>k</sub> (which ranges from -1 for full denial 
+to +1 for lull confirmation) is assigned to hypothesis h<sub>k</sub>
+as the result of the conjunctive Boolean combination B of findings and 
+hypotheses being evaluated as true for the patient. This permits nesting 
+of conditions in the antecedents of rules. It is not necessary that a 
+set of findings be included in the Boolean conjunction, hence it is 
+possible to implement purely hypothesis-to-hypothesis inferences. The 
+requirement of a context can he effectively bypassed, if desired, by 
+creating in the knowledge-base a finding that establishes a global 
+context (true of all patients).</p>
+
+<p>The reasoning procedures of EXPERT are invoked in the following 
+sequence of seven steps:</p>
+<p>
+1. <i>Initialization</i>: The program user is asked to enter a set of 
+initial findings, or else the knowledge-base (model) can be designed 
+to ask for preliminary items, such as the chief complaints or a 
+referring complaint of the patient.</p>
+<p>
+2. <i> Evaluation of F-F rules</i>: The current set of findings are 
+used to propagate information in a purely deterministic logical manner 
+to other findings. For instance, knowing the sex of the patient will 
+set to FALSE all findings that are associated exclusively with the 
+opposite sex, or knowing that a patient is asymptomatic will rule out 
+asking for the individual subsumed symptoms. Findings are always 
+assumed to be either TRUE, (taken implicitly for the range of continuous 
+valued variables), FALSE, or, UNKNOWN for a given patient, and the F-F 
+rules are expressed as a mapping of one finding into another. If it is 
+desirable to associate a degree of uncertainty with a certain observation, 
+the approach is to explicitly represent this uncertainty as a separate 
+finding" about the reliability of a
+test.</p>
+<p>
+3. <i>	Hypothesis Generation by the Evaluation of F-H Rules</i>: The system 
+evaluates all the F-H rules that are triggered by either the initial findings, 
+the response to questions asked by the consultation program, or the ones 
+whose truth values have been established through the F-F rules. Since the 
+findings have no confidence factors associated with them and once true or 
+false for a given patient they remain so, it is simple to partition the 
+entire group of F-H rules from the knowledge base into those that are 
+applicable to the patient (by having the required truth values of all 
+findings of the left-hand side combination satisfied), those that are 
+not applicable (by having at lease one false member in the F-side) and 
+those that remain of undetermined applicability. The status of applicable 
+or not applicable is a permanent one for a given patient consultation 
+session since the truth values of the findings remains constant (excluding 
+corrections of mistakes, which results in a re-evaluation of the relevant 
+rules.) The group of rules of undetermined applicability can be partitioned 
+into those that are completely undetermined, and those that are partially 
+determined. The latter type of rule is one for which some of the required 
+truth values of its findings have been satisfied, whereas the former type 
+has had none. The distinction of these types is important since rules of 
+partially determined applicability will be those most likely to have 
+their applicability status determined as the immediately following 
+findings are entered.</p>
+<p>
+When separate rules of evidence for a given hypothesis are found applicable 
+to a patient, they can result in several different weights of evidence 
+being returned. These are combined by the simple heuristic of choosing 
+the weight with maximum absolute value as the most applicable one. In 
+the special case where contradictory information is found (both positive 
+and negative weights of evidence of equal magnitude obtain for the same 
+hypothesis) both are carried, and the hypothesis is marked for special 
+consideration in selecting future findings that will disambiguate the 
+situation.</p>
+<p>
+4. <i>	Hypothesis Generation by Evaluation of H-H rules</i>: Once all 
+F-H rules have been evaluated, the consultation system proceeds to 
+generate weights for hypotheses that can be inferred through the H-H 
+rules. Only H-H rules found in tables which have their IF part evaluated 
+as true are considered. All such H-H rules must be reevaluated sequentially 
+after new results of findings are received. The premise and consequents of 
+H-H rules may include hypotheses and associated intervals of confidence. 
+Unlike findings which remain true or false, these intervals can change 
+not only directly from finding results, but also indirectly from other 
+rules (both F-H and Il-H) which affect the confidence measure of a hypothesis. 
+H-H rules are evaluated in the order of their appearance in the model. 
+There is no backwards chaining, because the order of evaluation is known 
+in advance. Because of this explicit ordering, no assumptions of 
+independence of hypotheses or limits on self-referencing rules are 
+required.</p>
+
+<p>The above procedures result in the assignment of those confidence 
+measures, CF<sub>i</sub>, which can be directly determined from the rules of 
+evidence and hypothesis weight propagation: the F-H and H-H rules. 
+When more than one rule is applicable, the maximum absolute value of 
+confidence is used. Another procedure is invoked that is helpful both 
+in question selection and as a simple heuristic to adjust weights
+slightly. Each hypothesis which has some positive evidence, in the form 
+of a satisfied rule or a partially satisfied rule (with unknown truth 
+value) is marked. The count of such rules which apply to each hypothesis 
+is kept. This corresponds approximately to the number of positive 
+indications of the hypothesis.</p>
+<p>
+5. <i>	Hypothesis Generation by Propagation of Taxonomic-Causal 
+Weights</i>: Another mechanism for generating weights for hypotheses 
+is to compute forward and inverse weights propagated through the 
+taxonomic and causal links connecting hypotheses in the descriptive 
+component of the knowledge base. The computation of these weights is 
+based on a generalized version of the CASNET method [20].</p>
+
+<p>Forward weights are propagated from predecessor to successor whereas 
+inverse weights are propagated from successor to predecessor. A taxonomy 
+contains implied relationships between hypotheses that can be treated 
+similarly to causal connections. The procedures used to generate weights 
+are similar, but not identical, to those used in
+CASNET [20].</p>
+
+<p>6. <i> Overall Ranking of Hypotheses</i>: A final weight is derived 
+from the rule-based and taxonomic-causal net weight. It is taken as 
+the maximum absolute value from all the indicated directions (with the 
+appropriate sign). A bonus may be awarded to the final weights. The 
+bonus is given on the basis of the percentage and number of rules 
+(derived directly from findings) that are covered by any single hypothesis. 
+The largest bonus is given to the hypothesis which can potentially cover 
+the most rules. The bonus effect is slight and has its greatest effect 
+when some results of findings have not yet been received and fewer high 
+confidence rules are satisfied. It is most useful when the model contains 
+many rules between single findings and hypotheses, and few or no rules 
+with combined findings in their left-hand side. The bonus weight can be 
+adjusted by the model designer to have the effect of a scoring function, 
+or if desired, it can be removed.</p>
+
+<p>At the present stage of development of EXPERT, the overall weight of 
+a hypothesis is computed from the various partial weights described above.
+Based on this overall weight, a ranking of the various hypotheses can be 
+obtained. Different problem-solving strategies can be
+formulated based on the weights, and the characteristics of the hypotheses.
+These are currently under investigation.</p>
+<p>
+7. <i> Interpretive Summary</i>: Our experience in the CASNET/Glaucoma 
+project showed us that a simple ranking of pre-defined hypotheses, 
+however complex each one of them may be, becomes only the core of a 
+more general interpretive summary of a case. This must be expressed 
+in a richer subset of medical language. The summary can include patterns 
+of the most supportive intermediate hypotheses and their relationships, 
+but only when they are
+informative about the case at hand. We are currently developing an 
+interpretive language that will enable the model builder to write the 
+grammatical rules that best express interpretations for various 
+conclusive patterns of hypotheses.
+These can then be generated at the conclusion of a session as the 
+final interpretation of the patient's condition, in a form similar 
+to that used by the human consultant in writing up a report on a patient.</p>
+
+<h3><a name="c2_xp"></a>The XP and EXPERT Programs</h3>
+<p>
+The system is written in interactive FORTRAN and occupies about 70K on 
+a DEC- 20 computer. FORTRAN provides an increased capability to produce 
+relatively efficient production models and also the potential for implementation 
+on a mini-computer. The program XP compiles a model for use by the EXPERT 
+consultation program, and indicates any errors found in the model.</p>
+<p>
+There are two particularly interesting capabilities of the compiler. 
+First, it can automatically review and convert saved cases to a new 
+format  This allows the modification and updating of a model without 
+loss of time and effort in reentering old cases. A list of added or 
+deleted findings and hypotheses is determined by comparing the mnemonics 
+of the two models.</p>
+<p>
+Secondly, the consistency checking module considers the effect of 
+changes to a model. A major goal of the TEIRESIAS system was to aid 
+in correcting an erroneous conclusion by guiding the user through the 
+knowledge base [16]. This involves coding a great amount of additional 
+information in the form of meta-rules. It can assist the model builder 
+in writing new rules which are consistent with a new model that corrects 
+misdiagnosed cases. It does not "directly" determine the effects of rule 
+changes on previously correct diagnoses and whether they have been 
+adversely affected. An important means of noting the effect of rule 
+changes on conclusions is to keep a data base of cases and list changes 
+in the conclusions for each case. This is a practical means of handling 
+consistency in a model, without requiring powerful theorem proving 
+capabilities. The XP program proceeds through the cases sequentially, 
+noting any significant changes in conclusions, such as changes in 
+the weight assignments.</p>
+<p>
+The user communicates with EXPERT by responding to questions posed 
+by the program or by using a simple command language. Commands may 
+be issued on a sequential basis, so that the current ranking of 
+conclusions may be determined. Explanatory information is also available, 
+such as reasons for asking a question, or an analysis of why a hypothesis 
+has a particular confidence weight</p>
+<p>
+Some of the elements of an EXPERT model are illustrated by the 
+example of a thyroid model shown in <a href="https://groups.csail.mit.edu/medg/people/psz/ftp/AIM82/ch2.html#f6"> Fig. 6</a>, developed in collaboration 
+with Dr. R. Nordyke of the Straub Clinic.</p>
+
+
+<div align="center">
+  <center>
+  <table border="1" cellpadding="2">
+    <tbody><tr>
+      <td>
+<pre><a name="f6"></a>
+**HYPOTHESES
+
+*TAXONOMY
+TS      Thyroid Status
+THF        Thyroid function
+EU            Euthyroid (.75)
+THO           Thyroid Dysfunction (.25)
+HYPER            Hyperthyroidism (.05)
+HYPO             Hypothyroidism (.20)
+THP     Thyroid Pathology Status
+NOP        No Pathology (.70) 
+GRAV       Graves' Disease (.30)
+PHYE          Physiological Enlargement
+DIFE          Diffuse Enlargement
+
+*NUMERICAL
+PATNO   Patient ID Number:
+
+*NUMERICAL/MIN=1/MAX100
+AGE	     Age:
+
+*MULTIPLE CHOICE
+Sex:
+N	Male
+F	Female
+
+*CHECKLIST
+Symptoms - Appeared or Intensified in the Past Year:
+RHP     Rapid Heart, Palpitations
+NSS     Nervous, Shaky or Startled
+AID     Angry, Irritable or Disturbed
+SKD     Skin Unusually Dry
+PRSP    Perspiration Increased
+TRD     Tired, Run-down
+IBM     Increased Bowel Movements
+WTI     Weight Increased (More than 5 lbs)
+WTD     Weight Decreased (More than 5 lbs)
+AI      Appetite Increased
+AD      Appetite Decreased
+WRM     Feel Warmer than Others in the Same Environment
+CLDR    Feel Cooler than Others in the Same Environment
+
+*CHECKLIST
+Signs:
+FFT     Fine Finger Tremor
+SKDC    Skin Dry and Cool
+SKWM    Skin Warm and Moist
+
+*NUMERICAL/MIN=1O/MAX=100
+ART     Achilles Reflex Time:
+
+*MULTIPLE CHOICE
+Thyroid Gland Palpation:
+THPAN   Normal
+THPAA   Abnormal
+THPNP   Not Performed
+
+**RULES
+
+*FF Rules
+
+F(PTHS,F) -&gt; F(PSUK:PSCL,F)
+F(PTHS,U) -&gt; F(PSUK:PSCL,F)
+F(MUSP:MTHY,F) -&gt; F(GRAIN,F)
+F(PTU:TAP,F) -&gt; F(MG,F)
+
+
+*FH RULES
+
+/RULES COMBINING SYMPTOMS &amp; SIGNS 
+/HYPERTHYROIDISM RULES
+
+F(RHP,T) &amp; F(FFT,T) -&gt; H(HYPER,.5)
+F(RHP,T) &amp; F(AI,T) &amp; F(FFT,T) -&gt;	H(HYPER, .55)
+F(RHP,T) &amp; F(AI,T) &amp; F(WTD,T) &amp; F(FFT,T) -) H(HYPER, .6)
+F(AI,T) &amp; F(WTD,T) &amp; F(FFT,T) -&gt;	H(HYPER. .55)
+F(RHP,T) &amp; F(AI,T) &amp; F(WTD,T) &amp; F(ETHO,T) -&gt; H(HYPER, .55)
+F(AI,T) &amp; F(WTD,T) &amp; F(ETHO,T) -&gt;	 H(HYPER,.50)
+F(RHP,T) &amp; F(FFT,T) &amp; F(ETHO,T) -&gt; H(HYPER,.6)
+F(RHP,T) &amp; F(AI,T) &amp; F(WTD,T) &amp; F(FFT,T) &amp; F(ETHO,T) -&gt;	H(HYPER. .675)
+F(AI,T) &amp; F(WTD,T) &amp; F(FFT,T) &amp; F(ETHO,T) -&gt; H(HYPER,.625)
+F(RHP,T) &amp; F(EEEX,T) -&gt; H(HYPER,.45)
+F(RHP,T) &amp; F(AI,T) &amp; F(WTD,T) &amp; F(EEEX,T) -&gt; H(HYPER,.6)
+F(RHP,T) &amp; F(AID,T) &amp; F(WTD,T) &amp; F(EEEX,T) &amp; F(FFT,T) -&gt; H(HYPER. .65)
+F(RHP,T) &amp; F(AID,T) &amp; F(WTD,T) &amp; F(ETHO,T) &amp; F(FFT,T) -&gt; H(HYPER,.65)
+F(RHP,T) &amp; F(AID,T) &amp; F(WTD,T) &amp; F(ETHO,T) &amp; F(EEEX,T) &amp; F(FFT,T) -&gt; H(HYPER,.75)
+
+*HH RULES
+
+/EYE SIGN FH C0NTEXT RULES
+
+*IF
+
+[1:F(EELL,T), F(EEEOM,T). F(EECH,T), F(EECON,T), F(EEPOP,T)]
+
+*THEN
+
+[1:F(EELR,T), F(EEEX,T)] -&gt; H(GRAV,.75)
+F(EELR,T) &amp; F(EEEX,T) -&gt; H(GRAV,.85)
+F(ETHO,T) &amp; F(EELR,T) &amp; F(EEEX,T) -&gt; H(GRAV,.975)</pre>
+        <h4>Fig. 6.&nbsp; Example of data structures abstracted from a thyroid model in
+EXPERT.</h4>
+      </td>
+    </tr>
+  </tbody></table>
+  </center>
+</div>
+
+
+<h3><a name="c2_session"></a>A Session with EXPERT using the Thyroid Model</h3>
+
+<p>The following excerpts from a session illustrate some of the capabilities of the generalized consultation program. This session is based on use of the thyroid model from which the sections shown in
+<a href="https://groups.csail.mit.edu/medg/people/psz/ftp/AIM82/ch2.html#f6"> Fig. 6</a> were extracted. The program first requests the name of the file that contains the disease model to be used in interpreting the current patient's findings. Then the nature of the case must be stated: whether it is a new case for the system, a return visit of an already stored case, a retrieval or a modification of an existing case. A distinction is also made between real and hypothetical cases, since
+the former are used to build a clinical data base for studies, testing and verification of the model, while the latter can be used to challenge the system with unusual combinations of findings.
+</p>
+
+<table border="1" cellpadding="2">
+  <tbody><tr>
+    <td>
+<pre>@EXPERT
+-- EXPERT Consultation System --
+
+Enter File Name: * THY3
+
+Type ? for summary of valid responses to questions asked by program.
+
+CASE TYPE: (1) New Case Entry          (2) New Visit Entry
+           (3) Saved Visit Retrieval   (4) Saved Case Deletion: * 1
+Enter Name or ID Number:               * Jane Doe
+Case Type: (1) Real (2) Hypothetical   * 2
+Enter Date of Visit:                   * 11/23/79
+Enter Initial Findings:
+* ETR=.74
+* Age=2l
+* TSH=58
+*
+1. Patient ID Number:                  * 5643
+2. Sex:   1) Male   2) Female
+   Choose one: * 2</pre> 
+    </td>
+  </tr>
+</tbody></table>
+
+<p>The above shows the capability of entering an initial set of findings as directed by the system user, following which the system prompts for data, guided by the model. If at this stage we wish to see the diagnosis based on the
+initial findings alone, the commands DX can be used to obtain the conclusions up to this point.</p>
+
+<table border="1" cellpadding="2">
+  <tbody><tr>
+    <td>
+<pre>        * DX
+DIAGNOSTIC CATEGORIES:
+HYPO   0.95  Hypothyroidism
+THD    0.95  Thyroid Dysfunction
+HOCL   0.24  Clinical Hypothyroidism
+
+INTERMEDIATE-CAUSAL HYPOTHESES:
+ETSH   0.99  Elevated TSH
+DFTHX  0.95  Decreased Free Thyroxine
+HOPRF  0.24  Hypothyroidism-Peripheral signs
+        * FIX ART=45
+        * DX
+DIAGNOSTIC CATEGORIES
+HYPO   0.95  Hypothyroidism
+THD    0.95  Thyroid Dysfunction
+HOCL   0.25  Clinical Hypothyroidism
+
+INTERMEDIATE-CAUSAL HYPOTHESES:
+DFTHX  0.99  Decreased Free Thyroxine
+ETSH   0.99  Elevated TSH
+HOPRF  0.90  Hypothyroidism-Peripheral signs</pre> 
+    </td>
+  </tr>
+</tbody></table>
+
+<p>The first part of the above excerpt shows that the patient has a high likelihood of hypothyroidism. The higher level condition of thyroid dysfunction is deduced from the taxonomy. At the level of intermediate causal hypotheses, we see that correct interpretations were made of the laboratory test results: the TSH was taken as elevated, and a decreased free thyroxine was deduced from the value of ETR. We also see that the next most likely intermediate hypothesis to follow these would be the peripheral signs of hypothyroidism.</p>
+
+<p>If the user wishes to enter one of these signs such as the Achilles reflex time (ART), it is possible to do so using the FIX command. As shown in the final part of the excerpt, this raises the weight of the corresponding intermediate hypothesis to what might be considered a
+<i> confirmed</i> level.</p>
+
+<table border="1" cellpadding="2">
+  <tbody><tr>
+    <td>
+<pre>3. Race:  1) Caucasian  2) Black     3) Japanese  4) Chinese
+          5) Hawaiian	6) Filipino  7) Korean    8) Other Race
+Checklist:   * 1
+
+4.	Information Available on the Following:
+1) Presenting Problem  2) Established Previous Diagnosis
+3) Thyroid History     4) Patient On Thyroid Medications
+5) Symptoms            6) Patient Signs
+Checklist:	* 1,2,5
+
+7. Symptoms - Appeared or Intensified in the Past Year:
+1) Rapid Heart, Palpitations      2) Nervous, Shaky or Startled
+3) Angry, Irritable or Disturbed  4) Skin Unusually Dry
+5) Perspiration Increased         6) Tired, Run-down
+7)	Increased Bowel Movements
+8)	Weight Increased (More than 5 lbs)
+9)	Weight Decreased (More than 5 lbs)
+10)	Appetite Increased
+11)	Appetite Decreased
+12)	Feel Warmer than Others in the Same Environment
+13)	Feel Cooler than Others in the Same Environment
+Checklist:	* 3,4,6,13
+ 
+B.	Pulse:	* 75
+	* DX
+
+HOCLM  0.67  Mild Clinical Hypothyroidism
+	* QUIT
+Would you like to SAVE this visit?  * Y
+[CASE  10: VISIT  1 SAVED]
+[DONE]</pre> 
+    </td>
+  </tr>
+</tbody></table>
+
+<p>In the above excerpt we show how initiative is again taken by the system, which prompts (through the model) for additional findings. The above example shows how after entry of a few symptoms, the system concludes that the patient also has mild clinical hypothyroidism with a reasonable high weight. To conclude, the QUIT command is used which asks whether the case ought to be saved or not.</p>
+
+<p>The above illustrates one possible sequence of data entry and reasoning, emphasizing user initiative through the command language. If no initial findings are entered, and commands not used, the system will automatically prompt for
+information under the guidance of the model.</p>
+
+<table border="1" cellpadding="2">
+  <tbody><tr>
+    <td>
+<pre>*	HYPO(HYPO)
+
+HYPO  Hypothyroidism
+
+Direct confidence weight:      0.950 set by HH-Rule Table 7:
+
+Y Decreased Free Thyroxine [DFTHX, O.9 : 1]
+Y --&gt; Hypothyroidism [HYPO, 0.95]
+
+Final weight:                            0.950
+
+Weights implied by the taxonomy-causal model:
+   Forward (from predecessors) positive: 0.000
+   Forward (from predecessors) negative: 0.000
+   Inverse (from successors):            0.000
+
+Evidence for this hypothesis can be found in:
+   1 Associative rules directly
+   0 Associative rules implied by the taxonomy
+
+*	HYPO(THD)
+
+THD     Thyroid Dysfunction
+Final weight:                            0.950
+
+Weights implied by the taxonomy/causal model:
+   Forward (from predecessors) positive: 0.001
+   Forward (from predecessors) negative: 0.000
+   Inverse (from successors):            0.950
+
+Evidence for this hypothesis can be found In:
+   0 Associative rules directly
+   4 Associative rules implied by the taxonomy</pre> 
+    </td>
+  </tr>
+</tbody></table>
+
+<p>The excerpt above illustrates one additional important capability of EXPERT-- the explanation of how a particular hypothesis is supported by the decision rules and beliefs in other hypotheses in the disease model. This is
+accomplished by using the HYPOTHESIS command (abbreviated HYPO), followed by the mnemonic for the hypothesis to be explained.</p>
+
+<p>The example shows that hypothyroidism was confirmed by an H-H rule from the already
+confirmed hypothesis of an elevated free thyroxine, and had no further weight derived from the taxonomy or causal model. in contrast, the hypothesis of thyroid dysfunction was inferred solely through the taxonomy, since it is a predecessor
+of hypothyroidism. Being the sole predecessor in this case results in the propagation of an inverse weight of confidence equal to that of its confirmed successor hypothesis.</p>
+
+<div align="center">
+  <center>
+
+<table border="1" cellpadding="2">
+  <tbody><tr>
+    <td>
+      <table border="0" cellpadding="2">
+        <tbody><tr>
+          <td align="right"></td>
+          <td colspan="7">
+            <p align="center"><b>Physician Diagnosis</b></p></td>
+        </tr>
+        <tr>
+          <td align="right"><b>Consultation Diagnosis:</b></td>
+          <td align="right">RA</td>
+          <td align="right">MCTD</td>
+          <td align="right">SLE</td>
+          <td align="right">PSS</td>
+          <td align="right">PM</td>
+          <td align="right">PR</td>
+          <td align="right">TOTALS</td>
+        </tr>
+        <tr>
+          <td align="right">RA</td>
+          <td align="right">42</td>
+          <td align="right">0</td>
+          <td align="right">0</td>
+          <td align="right">0</td>
+          <td align="right">0</td>
+          <td align="right">0</td>
+          <td align="right">42</td>
+        </tr>
+        <tr>
+          <td align="right">MCTD</td>
+          <td align="right">0</td>
+          <td align="right">29</td>
+          <td align="right">1</td>
+          <td align="right">0</td>
+          <td align="right">0</td>
+          <td align="right">0</td>
+          <td align="right">30</td>
+        </tr>
+        <tr>
+          <td align="right">SLE</td>
+          <td align="right">0</td>
+          <td align="right">0</td>
+          <td align="right">17</td>
+          <td align="right">0</td>
+          <td align="right">0</td>
+          <td align="right">0</td>
+          <td align="right">17</td>
+        </tr>
+        <tr>
+          <td align="right">PSS</td>
+          <td align="right">0</td>
+          <td align="right">0</td>
+          <td align="right">0</td>
+          <td align="right">23</td>
+          <td align="right">0</td>
+          <td align="right">1</td>
+          <td align="right">24</td>
+        </tr>
+        <tr>
+          <td align="right">PM</td>
+          <td align="right">0</td>
+          <td align="right">1</td>
+          <td align="right">0</td>
+          <td align="right">0</td>
+          <td align="right">5</td>
+          <td align="right">4</td>
+          <td align="right">10</td>
+        </tr>
+        <tr>
+          <td align="right">PR</td>
+          <td align="right">0</td>
+          <td align="right">1</td>
+          <td align="right">0</td>
+          <td align="right">0</td>
+          <td align="right">0</td>
+          <td align="right">15</td>
+          <td align="right">16</td>
+        </tr>
+        <tr>
+          <td align="right">TOTALS</td>
+          <td align="right">42</td>
+          <td align="right">31</td>
+          <td align="right">18</td>
+          <td align="right">23</td>
+          <td align="right">5</td>
+          <td align="right">20</td>
+          <td align="right">139</td>
+        </tr>
+        <tr>
+          <td align="right">% Correctly Diagnosed by Model</td>
+          <td align="right">100%</td>
+          <td align="right">94%</td>
+          <td align="right">94%</td>
+          <td align="right">100%</td>
+          <td align="right">100%</td>
+          <td align="right">75%</td>
+          <td align="right">94%</td>
+        </tr>
+        <tr>
+          <td align="right">Abbreviation:</td>
+          <td align="right" colspan="7">
+            <hr>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">RA -</td>
+          <td align="left" colspan="7">Rheumatoid Arthritis</td>
+        </tr>
+        <tr>
+          <td align="right">MCTD -</td>
+          <td align="left" colspan="7">Mixed Connective Tissue Disease</td>
+        </tr>
+        <tr>
+          <td align="right">SLE -</td>
+          <td align="left" colspan="7">Systemic Lupus Erythematosus</td>
+        </tr>
+        <tr>
+          <td align="right">PSS -</td>
+          <td align="left" colspan="7">Progressive Systemic Sclerosis</td>
+        </tr>
+        <tr>
+          <td align="right">PM	-</td>
+          <td align="left" colspan="7"> Polymyositis</td>
+        </tr>
+        <tr>
+          <td align="right">PR -</td>
+          <td align="left" colspan="7">Primary Raynaud's</td>
+        </tr>
+      </tbody></table>
+      <h4>Table 2.&nbsp; Performance of an EXPERT/Rheumatology Consultation
+      Model</h4>
+    </td>
+  </tr>
+</tbody></table>
+
+  </center>
+</div>
+
+<h3><a name="c2_applications"></a>Application of EXPERT in Rheumatology and Neuro-Ophthalmology</h3>
+
+<p>The work in rheumatology was begun as a collaboration with Dr. Gordon Sharp and his research group at the University of Missouri at Columbia. The work was suggested and facilitated from its inception by Dr. Donald Lindberg, who heads the National Health Care Technology Center at the University of Missouri. The rheumatology group has used the EXPERT representation to develop a preliminary model of seven major rheumatological entities, including rheumatoid arthritis, mixed connective tissue disease and systemic lupus erythematosus.</p>
+
+<p>After a first cycle of development, a new and expanded set of findings was developed, and a detailed model of mixed connective tissue disease and related disorders was created. Over the past year six versions of this model have evolved. The latest one has 8 hypotheses, over 150 findings, and approximately 100 decisions rules. As shown in Table 2, it has correctly diagnosed 131/139, or 94% of the cases that it has been tested with. The breakdown of the results depends, of course, on the nature of the cases presented for interpretation. In this situation they were chosen to be representative of complex clinical cases with considerable overlap among the diagnostic possibilities. The testing and validation of large structured Al consultation models in terms of adequately selected samples of cases is one that is only recently beginning to be examined [2,7]. In our projects we have found that the key to careful validation lies in formulating a structure of the most important intermediate hypotheses that support the final diagnostic or prognostic and therapeutic conclusions. It is then possible to sub-categorize cases within a diagnostic category according to their typicalness with respect to the pathophysiological
+mechanisms or clusters that are represented by the intermediate hypotheses. It is also possible to represent very atypical or outlier cases, and most importantly, cases that are on the boundary between two or more subcategories. Because combinations of findings are so numerous in large and complex models, it is crucial to control the complexity of the validation, while preserving its physiological-motivated intermediate hypotheses is an important approach that has been facilitated by the development of structured hypothesis representations such as that of CASNET, EXPERT and the other AIM systems.</p>
+
+<p>In addition to the detailed "specialist" model in diffuse connective tissue diseases, we are developing as practitioner-oriented consultation program covering the complete spectrum of rheumatic diseases. It is based on the American Rheumatism Association (ARA) classification and a necessarily more comprehensive set of findings. The prototype version of this model is being developed in collaboration with Dr.
+William Pincus of the University of California at San Diego. One of the purposes of this work is to gain insight into methods of relating consultation models at different levels of expertise and depth of knowledge in a specialty.</p>
+
+<p>The EXPERT framework allows for intercompatibility of models that differ in their organization of findings and hypotheses, but have various subsets of these in common. An important practical barrier to the usefulness of computer consultation systems in the past has been the difficulty of "customizing" the mode of acquisition of patient findings to a specific clinical environment while preserving the major components of reasoning that are common to all. In EXPERT the use of a common set of mnemonics for findings and hypotheses together with a kernel of environment- independent decision rules, serves as the core model for a set of diseases. The structure of findings, their style of acquisition, and the addition of other findings and hypotheses used in a given local environment, together with the corresponding set of decision rules, form the
+environment-specific mode? that can vary from one clinical setting to another. At present each model can be used separately by the general EXPERT consultation program as the basis for an individual consultation. We are currently in the process of designing an advanced version of EXPERT that will accept multiple models of diseases, their clinical courses of illness, and their clinical environments. in increasing order of specialization and complexity. This will enable us to experiment with control-of-reasoning strategies for linking such modules. It is reasonable to expect that a practical clinical system will be one where the most detailed and complex models needed to interpret difficult cases will be available on large computers, such as those of the AIM facilities at Rutgers and Stanford. Clinical programs for handling cases that are routine and of intermediate complexity will be available on smaller local computers. Through task-to-task linkage, these local programs will call on the expert programs when needed.</p>
+
+<p>Another medical domain where such experiments are beginning is in neuro-ophthalmology, with the collaboration of Dr. William Hart of Washington University. Together with the glaucoma specialist program, the neuro-ophthalmological consultant will form the nucleus
+of a generalized ophthalmological consultation system.</p>
+
+<h2><a name="c2_discuss"></a>Discussion and Conclusion</h2>
+
+<p>The two programs described in this paper are examples of systems that attempt to provide general frameworks for describing the knowledge of expert consultants so that it can be effectively and efficiently used by decision-making schemes. From the beginning, the goal of this research was to discover some of the underlying qualitative models that physicians use in reasoning, and to generalize them in the form of consistent procedures that lead to the correct decisions. In doing so we recognize that to some extent we are simulating various aspects of the cognitive processes of clinicians. However, this has not been the main focus of our work. Our major goal has been to produce consultation programs that perform at an expert level in terms of the final conclusions and a coherent structure of intermediate hypotheses that support and justify the conclusions.</p>
+
+<p>We recognize that many of the consciously verbalized explanations provided by expert consultants in the course of a consultation (which can be revealed by a careful protocol analysis), may often include after-the-fact justifications rather than the actual process of reasoning that led to a conclusion. It is for this reason that we have not concentrated on a step-by-step simulation, or tracing of the human expert's reasoning, but have concentrated on insuring the coherence and consistency of the final hypothesis structure that is generated by our programs.</p>
+
+<p>Our experience with CASNET showed us that although we could indeed arrive at a correct set of diagnostic and prognostic conclusions on the basis of
+strictly causal reasoning, there was need for a more flexible and general scheme of reasoning that would permit the introduction of empirical knowledge where knowledge of disease mechanisms is absent. The EXPERT system attempts to introduce such facilities of representation and reasoning. It is up to the designer of a model in a specific medical area to decide how much structured taxonomic and causal knowledge to introduce in the model, and how much reliance should be placed on empirically derived decision rules. The EXPERT system provides us with a tool to conduct experiments on the desirability of introducing structured knowledge about diseases, courses of illness and clinical environments into consultation systems. It is well known among those who construct consultation systems that the need to introduce structure depends on the degree of
+complexity of medical knowledge in a domain. Nevertheless, in the past it has been difficult to carry out systematic studies to assess the benefits and limitations of introducing structure in a broad spectrum of medical applications. We now have the tools to do this.</p>
+
+<p>Expert human problem-solvers make use of many domain-specific concepts and rules-of-thumb to supplement their general strategies of
+reasoning.. Knowing how and when to apply such rules with the best effect is often considered to he a major ingredient of expert judgment. This ability does not directly involve long chains of deductive reasoning. but rather the ability to recognize and match patterns of findings, hypotheses and their constituent concepts at a level of abstraction that is best suited to solve the problem at hand. Many tactical rules of when
+and how to perform pattern matching can often be elicited from expert human problem solvers. This can be represented on the computer as modules of "compiled" expert knowledge. What is often missing is a precise and consistently-used definition of the context in which they are applied. In trying to incorporate such knowledge into computer-based consultation systems, this presents a major difficulty, as does the problem of designing the general strategies that will guide the course of a consultative session. The EXPERT system uses a simple strategy of prompting the user to acquire patient information in a sequence that can be either constrained by the model-builder through the use of finding-to-finding rules, or else is guided by the system's criterion of pursuing the "best" leads at least cost. After each piece of evidence is obtained, a global reassessment of its impact on all hypotheses is carried out. In contrast many other M systems will ask for findings in order to satisfy the succession of goals and subgoals of the consultation. This involves a considerable amount of interpretive reasoning, which takes into account at every step only a small component of the entire knowledge base. The greater generality of goal-directed reasoning is most necessary in problem solving situations where there is a strong component of structured knowledge, based on underlying conceptual theories. Most of the examples of clinical consultation that we have encountered include only fragmentary conceptual structures embedded in the predominantly empirical associations among findings and hypotheses. We have found that a pre-compiled model such as that used by EXPERT can simulate the results of a goal-driven system with much greater efficiency. We have built models that have several hundred hypotheses and findings and the amount of CPU processing has not been significantly large. We are carrying out experiments and analyzing the nature of the expected increase in complexity as models include thousands of hypotheses and findings. Results to date look encouraging. The modular nature of EXPERT is facilitating its implementation on minicomputers and micro-processors. Once ready, these mini-EXPERT systems will become powerful, economical and easily available tools for aiding in clinical consultations.</p>
+
+<h2><a name="c2_refs"></a>References</h2>
+<small>
+<p>1. Amarel, S., "Computer-based Modeling and Interpretation in Medicine and Psychology: The Rutgers Research Resource,"
+<i> Federation Proceedings</i> <b>33</b>, (12) (1974), 2341-2347.</p>
+
+</small><p><small>2. Blum,
+</small>
+
+<small>R. L</small><small>. and Wiederhold, G., "Inferring Knowledge from Clinical Data Banks Utilizing Techniques from Artificial Intelligence,"
+<i> Proc. 2nd Annual Symposium on Computer Applications in Medical Care</i>, (1978), 303-307.</small></p><small>
+
+</small><p><small>3. Buchanan,
+</small>
+
+<small>B. G</small><small>., Smith,
+</small>
+
+<small>D. H</small><small>., White,
+</small>
+
+<small>W. C</small><small>.. Gritter, R.J., Feigenbaum,
+</small>
+
+<small>E. A</small><small>.,
+Lederberg, J. and Djerassi, C., "Applications of Artificial Intelligence for Clinical
+Inference XXII. Automatic Rule Formation in Mass Spectrometry by Means of the
+Meta-DENDRAL Program," <i> Journal of the ACS</i> <b>98</b>. (1976). 6168.</small></p><small>
+
+<p>4. Feinstein, A., Clinical Judgment, Williams and Wilkins, Baltimore, (1967).</p>
+
+</small><p><small>5. Feinstein,
+</small>
+
+<small>A. R</small><small>., Pritchett.
+</small>
+
+<small>J. A</small><small>.. and Schimpff, C.R., "The Epidemiology of Cancer Therapy,"
+<i> Arch. Intern. Med</i>. <b> 123</b> (1969), 323-344.</small></p><small>
+
+<p>6. Kulikowski, CA. and Weiss, S.. <i>Computer-based Models for Glaucoma</i>, CBM-TM-MS1, Rutgers University, (1971).</p>
+
+<p>7. Kulikowski, C.A. and Weiss, S., "The Evaluation of Performance in Empirical and Theoretical Models of Medical Decision-Making,"
+<i> Proc. of IEEE-CS Workshop on PR &amp; AI.</i> Princeton, (1978).</p>
+
+<p>8. Kulikowski, C. and Weiss, S., "An Interactive Facility for the Inferential Modeling of Disease,"
+<i> Proceedings 1973 Princeton Conference on Information Sciences and Systems</i>,
+(1973), 524.</p>
+
+<p>9.	Lichter. P. and Anderson, D., <i> Discussions on Glaucoma</i>, Grune and Stratton, New York, (1977).</p>
+
+</small><p><small>10.	Pauker.
+</small>
+
+<small>S. G</small><small>., Gorry,
+</small>
+
+<small>G. A</small><small>., Kassirer, J.P. and Schwartz,
+</small>
+
+<small>W. B</small><small>., "Toward the Simulation of Clinical Cognition: Taking a Present Illness by Computer,"
+<i> The American Journal of Medicine</i> <b>60</b>, (June 1976), 981-995.</small></p><small>
+
+</small><p><small>
+11.	Pople,
+</small>
+
+<small>H. E</small><small>., Jr., Myers, J.D. and Miller RA "DIALOG: A Model of Diagnostic
+Logic for
+</small>
+
+<small>Internal</small><small> Medicine," <i> Advance Papers of the Fourth International Joint Conference on Artificial
+Intelligence</i>, Artificial Intelligence Laboratory, Massachusetts Institute of Technology, (1975).
+</small></p><p><small>
+12.	Schoolman,
+</small>
+
+<small>H. M</small><small>. and Bernstein,
+</small>
+
+<small>L. M</small><small>., "Computer Use in Diagnosis, Prognosis, and Therapy,"
+<i> Science</i> <b>200</b>, (1978), 926-931.
+</small></p><p><small>
+13.	Schwartz.
+</small>
+
+<small>W. B</small><small>., "Medicine and the Computer. The Promise and Problems of Change,"
+<i> NEJM</i> <b>283</b>, (1970), 1257-1264.
+</small></p><p><small>
+14.	Shortliffe,
+</small>
+
+<small>E. H</small><small>., <i> Computer Based Medical Consultations: MYCIN</i>,
+Elsevier, North-Holland Inc., (1976).
+</small></p><p><small>
+15. Shortliffe,
+</small>
+
+<small>E. H</small><small>. and Buchanan,
+</small>
+
+<small>B. B</small><small>., "A Model of inexact reasoning in medicine,"
+<i>Mathematical Biosciences</i> <b>23</b>, (1975), 351-379.
+</small></p><p><small>
+16.	Starmer, C.F. and Rosati,
+</small>
+
+<small>R. A</small><small>., "Computer-based aid to Managing Patients with Chronic Illness."
+<i> Computer</i> (1975), 46-50.
+</small></p><p><small>
+17. Szolovits, P. and Pauker,
+</small>
+
+<small>S. G</small><small>., "Categorical and Probabilistic Reasoning in Medical Diagnosis,"
+<i> Artificial Intelligence</i> <b>11</b>, (1978), H5-144.
+</small></p><p><small>
+18. Trigoboff,
+</small>
+
+<small>M. L</small><small>., <i> IRIS: A Framework for the Construction of Clinical
+Consultation Systems</i>. Ph.D. thesis, Rutgers
+</small>
+
+<small>University</small><small>, (May 1978).
+</small></p><p><small>
+19.	Weiss, S., Kulikowski, C.A. and Safir, A., "Glaucoma Consultation by Computer," Comp. Biol Med. <b>8</b>, (1978), 24-40.
+</small></p><p><small>
+20.	Weiss. S.. Kulikowski, C., Amarel, S. and Safir. A., "A Model-Based Method for Computer-Aided Medical Decision-Making,"
+<i> Artificial Intelligence</i> <b>11</b>, (1978), 145-172.
+</small></p><p><small>
+21.	Weiss, S., and Kulikowski, C.A., <i>EXPERT: A System for Developing Consultation Models.</i> CBM-TR-95. Rutgers University,  (1979), also in
+<i> Proceedings Sixth International Conference on Artificial Intelligence</i> Tokyo, 1979.
+</small></p><p><small>
+22.	Weiss, S., Kern, K., Kulikowski. C. and Safir, A., "System for Interactive Analysis of a Time-Sequenced
+Ophthalmological Data Base," <i> Proc. Third Illinois Conference on Medical Information
+Systems</i>,  (1976).
+</small></p><p><small>
+23.	Woods. W., "What's in a Link: Foundations for Semantic Networks," in Bobrow and Collins (Eds.),
+<i> Representation and Understanding.</i> Academic Press, New York, (1975).</small></p><small>
+</small>
+
+<h2>Notes</h2>
+<p><a name="n1"></a>(1) The work reported in this paper was supported in part by
+Grant RR-643 of the NIH Biotechnology Resources Program, and in part by Grant
+1-R01-MB00161 of HRA, HEW.</p>
+
+<hr>
+<p>This is part of a <a href="https://groups.csail.mit.edu/medg/people/psz/ftp/AIM82/ch0.html">Web-based reconstruction</a> of the book
+originally published as<br>
+&nbsp;&nbsp; Szolovits, P. (Ed.).&nbsp; <i><a href="https://groups.csail.mit.edu/medg/people/psz/ftp/AIM82/ch0.html">Artificial
+Intelligence in Medicine</a>.</i> Westview Press, Boulder, Colorado. 1982.<br>
+The text was scanned, OCR'd, and re-set in HTML by <a href="mailto:psz@mit.edu">Peter
+Szolovits</a> in 2000.</p>
+
+
+
+
+
+
+</body></html>

@@ -1,0 +1,11 @@
+Panagiotis Papadimitroulas, Lennart Brocki, Neo Christopher Chung, Wistan Marchadour, Franck Vermet, Laurent Gaubert, Vasilis Eleftheriadis, Dimitris Plachouris, Dimitris Visvikis, George C. Kagadis, Mathieu Hatt,
+Artificial intelligence: Deep learning in oncological radiomics and challenges of interpretability and data harmonization,
+Physica Medica,
+Volume 83,
+2021,
+Pages 108-121,
+ISSN 1120-1797,
+https://doi.org/10.1016/j.ejmp.2021.03.009.
+(https://www.sciencedirect.com/science/article/pii/S1120179721001253)
+Abstract: Over the last decade there has been an extensive evolution in the Artificial Intelligence (AI) field. Modern radiation oncology is based on the exploitation of advanced computational methods aiming to personalization and high diagnostic and therapeutic precision. The quantity of the available imaging data and the increased developments of Machine Learning (ML), particularly Deep Learning (DL), triggered the research on uncovering “hidden” biomarkers and quantitative features from anatomical and functional medical images. Deep Neural Networks (DNN) have achieved outstanding performance and broad implementation in image processing tasks. Lately, DNNs have been considered for radiomics and their potentials for explainable AI (XAI) may help classification and prediction in clinical practice. However, most of them are using limited datasets and lack generalized applicability. In this study we review the basics of radiomics feature extraction, DNNs in image analysis, and major interpretability methods that help enable explainable AI. Furthermore, we discuss the crucial requirement of multicenter recruitment of large datasets, increasing the biomarkers variability, so as to establish the potential clinical value of radiomics and the development of robust explainable AI models.
+Keywords: Deep learning; Machine learning; Convolutional neural network; Radiomics; Data curation; Explainability; Interpretability

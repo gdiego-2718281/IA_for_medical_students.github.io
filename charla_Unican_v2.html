@@ -1,0 +1,2731 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Inteligencia Artificial</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="fjgdiego" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis-fonts.css" rel="stylesheet" />
+    <link href="libs/xaringanExtra-banner/banner.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-banner/banner.js"></script>
+    <link rel="stylesheet" href="assets/my-style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Inteligencia Artificial
+]
+.subtitle[
+## para estudiantes de medicina
+]
+.author[
+### fjgdiego
+]
+.institute[
+### .powderblue[CS Astillero]
+]
+.date[
+### <i>última actualización</i> (updated: 2026-11-09)
+]
+
+---
+
+class: inverse
+
+
+
+&lt;style type="text/css"&gt;
+.letra-chica {
+  font-size: 70%;
+}
+.letra-mediana {
+  font-size: 18px;
+}
+.letra-grande{
+  font-size: 24px;
+}
+
+&lt;/style&gt;
+
+<script>document.addEventListener('DOMContentLoaded',function(){new xeBanner(JSON.parse('{"exclude":["title-slide"],"position":"top"}'))})</script>
+<script>document.addEventListener('DOMContentLoaded',function(){new xeBanner(JSON.parse('{"left":"fjgonzalez-diego","exclude":["title-slide"],"position":"bottom"}'))})</script>
+
+# De qué no vamos a hablar
+
+.pull-left[
+
+&lt;img src ="img/fallout.png" height = 400px/&gt;
+
+]
+
+.pull-right[
+
+&lt;img src ="img/BG1.webp"&gt;
+
+]
+
+
+???
+
+
+
+---
+
+background-image: url("img/newton.webp")
+background-position: 95% 5%
+background-size: 100px
+background-color: #FCE300
+
+# En un lugar de la Mancha...
+
+.pull-left[
+Unos 300 años atrás...un grupo de filósofos y matemáticos creaban el entramado de la ciencia moderna:
+&lt;center&gt;.content-box-red[observación | experimentación | herramientos matemáticas]&lt;/center&gt;
+
+no sólo estaban interesados en el universo físico, sino también en el estudio de la mente, con las mismas herramientas matemáticas
+
+<svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z"/></svg> **Thomas Hobbes** .letra-chica[razonamiento como un sistema de cálculo]
+<svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z"/></svg> **René Descartes** .letra-chica[números asignados a pensamientos]
+<svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z"/></svg> **Gottfried Wilhelm Leibniz** .letra-chica[aritmética para describir el razonamiento humano]
+
+<svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z"/></svg> **George Boole**, .letra-chica[a mediados s.XIX solucionó el problema que Leibniz no pudo, con una nueva forma de álgebra &amp;rarr; desarrollo de la lógica formal y ordenadores.]
+
+
+]
+
+.pull-right[
+
+Mediados s.XX con la **Revolución Cognitiva** surgió el campo de la ciencia cognitiva.
+
+Hay límites en la lógica formal, se desarrollaron nuevos enfoques matemáticos: 
+- **ANN** (sistemas matemáticos que imitan el funcionamiento del cerebro)
+- **modelos Bayesianos** (cómo capturar el conocimiento previo y tratar con la incertidumbre)
+
+&lt;img src ="img/en-un-lugar.png"&gt;
+
+]
+
+
+---
+class: inverse
+background-image: url("img/nivel-10.jpeg")
+background-position: 95% 5%
+background-size: 350px
+background-color: #0148A4
+
+# De qué vamos a hablar?
+
+
+
+.pull-left[
+&lt;img src ="img/one-million.jpeg" height=450px&gt;
+
+]
+
+.pull-right[
+&lt;br/&gt;&lt;br/&gt;
+
+&lt;img src="img/ai_progress.png" height=250px/&gt;
+&lt;center&gt;&lt;img src="img/agi_is_coming.png" height=125px/&gt;&lt;/center&gt;
+
+]
+
+---
+class: middle, center, inverse
+background-color: #0148A4
+
+# Definición IA
+
+.left-column[
+&lt;img src ="img/EU_AI_Act.png"/&gt;
+
+]
+
+.right-column[
+
+.pull-left[
+
+.red[&lt;h4&gt;sistema de IA&lt;/h4&gt;]
+
+ un sistema basado en máquinas
+
+ que está diseñado para funcionar con diversos
+niveles de autonomía y 
+
+ que puede mostrar capacidad de adaptación tras su despliegue, y que, 
+
+ para objetivos explícitos o implícitos, infiere, a partir de la entrada que recibe, 
+
+ cómo generar salidas tales como
+predicciones, contenidos, recomendaciones o 
+decisiones 
+
+ que pueden influir en entornos físicos o 
+virtuales
+]
+
+.pull-right[
+
+&lt;img src ="img/ramas_IA.png"/&gt;
+
+]
+
+
+
+]
+
+---
+class: inverse
+background-image: url(img/contexto_historico_diagram.png)
+background-position: 90% 7%
+background-size: 450px
+background-color: #1B9BBB
+
+# Tipos de AI
+&lt;h4&gt;contexto temporal&lt;/h4&gt;
+
+&lt;div style="position: absolute; top: 50%; left: 5%; transform: translateY(-50%);"&gt;
+&lt;img src ="img/contexto_historico_bis.png" width=550px/&gt;
+&lt;/div&gt;
+
+
+
+
+???
+.pull-right[
+&lt;img src ="img/contexto_historico_diagram.png" height=455px/&gt;
+]
+
+
+---
+
+background-image: url("img/story-of-my-life.png")
+background-size: contain
+
+---
+class: center
+background-image: url("img/timeline-revolution.webp")
+background-size: contain
+
+# La cuarta revolución industrial
+
+---
+class: inverse
+background-color: #E64626
+
+# Qué sabemos?
+
+&lt;center&gt;Encuesta Medscape-Univadis en primer cuatrimestre de 2024, 1003 médicos en activo (60% hombres, 94% mayores 40 años, 19% AP, 7% MI, 64% otras especialidades)&lt;/center&gt;
+
+.pull-left[
+
+&lt;img src ="img/univadis-grado-conocimiento-medicos.png" width=400px height=200px&gt;
+
+&lt;img src ="img/univadis-importancia.png" height=200px&gt;
+
+]
+
+.pull-right[
+
+.pull-left[&lt;img src ="img/univadis-uso.png" width=350px height=400px&gt;]
+
+.pull-right[&lt;img src ="img/univadis-opinion-futuro-IA.png" height=200px&gt;]
+
+]
+
+---
+class: inverse
+background-color: #E64626
+
+# Y la población? <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:blue;overflow:visible;position:relative;"><path d="M144 160A80 80 0 1 0 144 0a80 80 0 1 0 0 160zm368 0A80 80 0 1 0 512 0a80 80 0 1 0 0 160zM0 298.7C0 310.4 9.6 320 21.3 320H234.7c.2 0 .4 0 .7 0c-26.6-23.5-43.3-57.8-43.3-96c0-7.6 .7-15 1.9-22.3c-13.6-6.3-28.7-9.7-44.6-9.7H106.7C47.8 192 0 239.8 0 298.7zM320 320c24 0 45.9-8.8 62.7-23.3c2.5-3.7 5.2-7.3 8-10.7c2.7-3.3 5.7-6.1 9-8.3C410 262.3 416 243.9 416 224c0-53-43-96-96-96s-96 43-96 96s43 96 96 96zm65.4 60.2c-10.3-5.9-18.1-16.2-20.8-28.2H261.3C187.7 352 128 411.7 128 485.3c0 14.7 11.9 26.7 26.7 26.7H455.2c-2.1-5.2-3.2-10.9-3.2-16.4v-3c-1.3-.7-2.7-1.5-4-2.3l-2.6 1.5c-16.8 9.7-40.5 8-54.7-9.7c-4.5-5.6-8.6-11.5-12.4-17.6l-.1-.2-.1-.2-2.4-4.1-.1-.2-.1-.2c-3.4-6.2-6.4-12.6-9-19.3c-8.2-21.2 2.2-42.6 19-52.3l2.7-1.5c0-.8 0-1.5 0-2.3s0-1.5 0-2.3l-2.7-1.5zM533.3 192H490.7c-15.9 0-31 3.5-44.6 9.7c1.3 7.2 1.9 14.7 1.9 22.3c0 17.4-3.5 33.9-9.7 49c2.5 .9 4.9 2 7.1 3.3l2.6 1.5c1.3-.8 2.6-1.6 4-2.3v-3c0-19.4 13.3-39.1 35.8-42.6c7.9-1.2 16-1.9 24.2-1.9s16.3 .6 24.2 1.9c22.5 3.5 35.8 23.2 35.8 42.6v3c1.3 .7 2.7 1.5 4 2.3l2.6-1.5c16.8-9.7 40.5-8 54.7 9.7c2.3 2.8 4.5 5.8 6.6 8.7c-2.1-57.1-49-102.7-106.6-102.7zm91.3 163.9c6.3-3.6 9.5-11.1 6.8-18c-2.1-5.5-4.6-10.8-7.4-15.9l-2.3-4c-3.1-5.1-6.5-9.9-10.2-14.5c-4.6-5.7-12.7-6.7-19-3l-2.9 1.7c-9.2 5.3-20.4 4-29.6-1.3s-16.1-14.5-16.1-25.1v-3.4c0-7.3-4.9-13.8-12.1-14.9c-6.5-1-13.1-1.5-19.9-1.5s-13.4 .5-19.9 1.5c-7.2 1.1-12.1 7.6-12.1 14.9v3.4c0 10.6-6.9 19.8-16.1 25.1s-20.4 6.6-29.6 1.3l-2.9-1.7c-6.3-3.6-14.4-2.6-19 3c-3.7 4.6-7.1 9.5-10.2 14.6l-2.3 3.9c-2.8 5.1-5.3 10.4-7.4 15.9c-2.6 6.8 .5 14.3 6.8 17.9l2.9 1.7c9.2 5.3 13.7 15.8 13.7 26.4s-4.5 21.1-13.7 26.4l-3 1.7c-6.3 3.6-9.5 11.1-6.8 17.9c2.1 5.5 4.6 10.7 7.4 15.8l2.4 4.1c3 5.1 6.4 9.9 10.1 14.5c4.6 5.7 12.7 6.7 19 3l2.9-1.7c9.2-5.3 20.4-4 29.6 1.3s16.1 14.5 16.1 25.1v3.4c0 7.3 4.9 13.8 12.1 14.9c6.5 1 13.1 1.5 19.9 1.5s13.4-.5 19.9-1.5c7.2-1.1 12.1-7.6 12.1-14.9v-3.4c0-10.6 6.9-19.8 16.1-25.1s20.4-6.6 29.6-1.3l2.9 1.7c6.3 3.6 14.4 2.6 19-3c3.7-4.6 7.1-9.4 10.1-14.5l2.4-4.2c2.8-5.1 5.3-10.3 7.4-15.8c2.6-6.8-.5-14.3-6.8-17.9l-3-1.7c-9.2-5.3-13.7-15.8-13.7-26.4s4.5-21.1 13.7-26.4l3-1.7zM472 384a40 40 0 1 1 80 0 40 40 0 1 1 -80 0z"/></svg>
+
+.pull-left[
+
+#### Consumo diario de información a través de distintos canales 
+
+&lt;img src = "img/canales_comunicacion.png" /&gt;
+
+&lt;h6&gt;https://www.fecyt.es/sites/default/files/2026-07/001_Maqueta-IBERIFIER-Reports-Desinformacion-cientifica-en-Espana_fecyt-ACCESIBLE.pdf&lt;/h6&gt;
+]
+
+.pull-right[
+
+
+
+&lt;img src = "img/fecyt_confianza.png" /&gt;
+
+]
+
+
+
+
+???
+Una encuesta* sobre desinformación científica en España difundida por la Fundación Española para la Ciencia y la Tecnología (Fecyt) arroja luz sobre el consumo de información científica, la percepción sobre la recepción de bulos o el auge del uso de la inteligencia artificial para consultar asuntos sobre salud, entre otros aspectos.
+
+*2.215 mayores de 16 años encuestados con preguntas de respuesta múltiple. Las categorías no eran excluyentes, por lo que los porcentajes no suman 100%.
+
+---
+background-image: url("img/gr2.png")
+background-size: cover
+
+
+
+
+---
+class:inverse
+background-color:#1B9BBB
+background-image: url("img/resumen_historia1.png")
+background-position: 95% 5%
+background-size: 300px
+
+
+# La historia de la IA se puede&lt;br/&gt; resumir en 3 etapas
+
+
+
+.pull-left[
+
+Las tres eras mayores en el desarrollo de la IA:
+
+— .content-box-army[1950s-1970s]: desarrollo fundacional con sistemas basados-en-reglas como **MYCIN** y el chatbot **Eliza**
+
+— .content-box-army[1970s-2000s]: "Invierno de la IA" periodo con inversión limitada, seguido por un renovado interés por los sistemas expertos
+
+— .content-box-army[2000s-2020]: Crecimiento explosivo con el DL, NLP y las aplicaciones-basadas-en-la-nube (cloud-based applications)
+
+]
+
+
+.pull-right[
+.content-box-army[
+— 1940-1970 entender la lógica del razonamiento del médico en la máquina
+  - el optimismo inicial se topó con la cruda realidad de la complejidad médica (primer invierno, principios 80s)
+  - codificar manualmente todo el conocimiento médico era inviable
+  
+— 2º invierno de la IA por las limitaciones computacionales
+
+— le dejamos de dar a la máquina las reglas y le dimos los ejemplos, para que los encontrara directamente (potencial limitado por cuestiones técnicas)
+]
+]
+
+
+
+???
+
+Vamos a viajar en el tiempo para entender cómo la IA ha llegado a ser una herramienta tan prometedora en las Ciencias de la Salud.
+
+La historia de la IA no es una serie de descubrimientos aislados sino que se puede considerar una progresión lógica de resolución de problemas.
+
+En cada era se han enfrentado a grandes desafios y la solución a cada uno de ellos ha ido sentando las bases para la siguiente.
+
+Veremos cómo hemos pasado de intentar codificar reglas lógicas en sistemas rígidos a crear algoritmos que aprenden de forma autónoma a partir de datos, un cambio de paradigma que ha redefinido lo que es posible.
+
+La historia de la IA se puede resumir en 3 etapas que se definen por su problema central:
+- 1940-70 entender la lógica del razonamiento del médico en la máquina, cómo podemos replicar la lógica del razonamiento de un médico en una máquina, proceso paso a paso que sigue un experto, este optimismo inicial se topó con la cruda realidad de la complejidad médica que llevó al primer invierno de la IA a principios de los 80s
+
+- el problema desde 1990-2010 pasó a ser el propio conocimiento y los datos clínicos, esta etapa comenzó con un segundo invierno por la limitación de las Redes Neuronales de la época, encontró la solución en la digitalización masiva y en el ML
+  - dejamos de decirle a la máquina las reglas y empezamos a darle los ejemplos para que ella los encontrara directamente, aunque con un potencial limitado por la tecnología del momento
+
+- desde 2010 hasta la actualidad el gran desafío fue superar estas barreras tecnológicas para poder desarrollar modelos mucho más complejos
+  - la solución llegó con la convergencia de la potencia computacional masiva graacias a las GPUs y a la disponibilidad de enormes conjuntos de datos
+  - esta combinación fue la chispa que encendió el desarrollo exponencial de las RN y nos introdujo en el aprendizaje profundo, DL
+
+---
+class: middle, center, inverse
+background-color: #F08080
+
+
+# Cambio de paradigma
+
+.letra-grande.white[
+
+intentar codificar reglas lógicas en sistemas rígidos  
+
+`\(\downarrow\)`
+
+crear algoritmos que aprenden de forma autónoma a partir de datos
+
+]
+---
+class:inverse
+background-color:#1B9BBB
+background-image: url("https://cyberneticzoo.com/wp-content/uploads/neuron-SNARC-GJLoan2011-x640.jpg")
+background-position: 95% 5%
+background-size: 200px
+
+# Era teórica y fundacional (1940-1960)
+
+
+.pull-left[
+
+
+
+— **Qué era la inteligencia**
+
+.pull-left[
+— 1943 - primer modelo matemático de una neurona (neurocientífico **Warren McCullogh** y el lógico **Walter Pitts**)
+]
+.pull-right[
+![:scale 50%](img/McCullogh-Pitts.png)
+]
+
+.pull-left[
+— idea revolucionaria: unidades muy simples pueden computar cualquier función lógica
+]
+.pull-right[
+![:scale 40%](img/mccullogh_pitts2.png)
+]
+
+
+
+— .content-box-army[1950 - **Turing**] (pueden pensar las máquinas?)
+  - &lt;b&gt;juego de la imitación (test de Turing)&lt;/b&gt;
+
+]
+
+.pull-right[
+— 1951 - primera máquina de red neuronal (**Marvin Misnky/Dean Edmonds**) que simulaba una rata encontrando el camino por un laberinto
+  - &lt;b&gt;Snarc&lt;/b&gt; Stochastic Neural Analog Reinforcement Computer 
+
+.pull-left[
+.content-box-army[
+— 1956 - **conferencia de Dartmouth**] &amp;rarr; se acuña el término de &lt;b&gt;Inteligencia Artificial&lt;/b&gt;
+]
+
+.pull-right[
+![:scale 60%](img/conferencia_Dartmouth.webp)
+]
+
+— 1957 - avance definitivo &lt;b&gt;Perceptron&lt;/b&gt; de **Frank Rosenblat**, aprendía a reconocer patrones
+
+.left[![:scale 30%](img/alan-turing-1.webp)]
+]
+
+
+???
+
+La historia de al IA se podría considerar que empezieza entre los años 40 y 60.
+
+Antes de hablar de IA había que definir ¿qué era la inteligencia o el pensamiento en términos lógicos y computacionales?.
+
+El primer hito clave fué en 1943 cuando el neurocientífico Warren McCullogh y el lógico Walter Pitts propusieron el primer modelo matemático de una neurona, demostraron que unidades muy simples y que se activaban o no, en función de las señales que recibían conectadas en red, podían computar cualquier función lógica.
+
+Esta idea de que el cerebro, el órgano del pensamiento, podía ser modelado con la precisión de la lógica de las matemáticas era absolutamente revolucionaria, y sentó la base teórica de todo lo que vendría después.
+
+En 1950 Alan Turing se preguntó: pueden pensar las máquinas?, para evitar debetes filosóficos interminables, propuso una prueba práctica, el llamado juego de la imitación, hoy conocido como Test de Turing.
+Si un humano no puede distinguir entre una máquina y otro humano en una conversación de texto, la máquina pasa la prueba.
+Esto no solo dió al campo un objetivo medible al que apuntar, sino que también enmarcó la IA en el ámbito de la interacción y el comportamiento inteligente.
+
+Poco después en 1951, vemos la primera máquina de Red Neuronal, la SNARC, construida por M Minsky, que aprendía a salir de un laberinto reforzando sus conexiones.
+
+Y en 1956, en la histórica conferencia de Dartmouth, se acuñó por fin el término de IA, fué allí donde se estableció la conjetura fundacional de que cada aspecto del aprendizaje o cualquier otra característica de la inteligencia puede describirse con tanta precisión que puede hacerse que una máquina la simule.
+
+el SNARC era un dispositivo analógico formado por 40 tubos de vacío, resistencias y condensadores, ensamblados para representar nodos y conexiones similares a las neuronas del cerebro humano. Su objetivo no era realizar cálculos a gran velocidad, sino imitar el modo en que los organismos aprenden a partir de la experiencia.
+1951 – SNARC Maze Solver – Minsky / Edmonds (American)
+
+In 1951 Marvin Minsky teamed with Dean Edmonds build the first artificial neural network that simulated a rat finding its way through a maze.
+
+They designed the first (40 neuron) neurocomputer, SNARC (Stochastic Neural Analog Reinforcement Computer), with synapses that adjusted their weights (measures of synaptic permeabilities) according to the success of performing a specified task (Hebbian learning) The machine was built of tubes, motors, and clutches, and it successfully modeled the behavior of a rat in a maze searching for food.
+
+As a student, Minsky had dreamed of producing machines which could learn by providing them with memory "neurones" connected to "synapses"; the machine would also have to possess past memory in order to function efficiently when faced with different situations.
+
+In 1951 the "machine" was born, consisting of a labyrinth of valves, s mall motors, gears and wires linking up the various "neurones". Some of these wires were connected up at random to the various memory banks in order to achieve a degree of causality of events. The reason such a machine had been put together was to try and find the exit from a maze where the machine would play the part of a rat whose progress would be monitored on a light network.
+
+When the system was completed it was possible to follow all the movements of the 'rat' within the maze and it was only through a design fault that it was found more than one 'rat' could be introduced which would then interact together. After various casual attempts the rats started 'thinking' on a logical basis helped along by reinforcement of correct choices made and the more advanced rats would then be followed by the ones left behind. This first practical example, built by Minsky with the help of Dean Edmonds, also included numerous casual connections between its various 'neurones', acting like a sort of nervous system able to overcome any eventual information interruption due to one of the neurones failing.
+
+
+---
+class: middle, inverse
+background-color: #f4a816
+background-image: url("img/perceptron_vs_neuron.png")
+background-position: 95% 5%
+background-size: 500px
+
+# .white[Perceptron]
+
+.pull-left[
+![:scale 100%](img/perceptron1.png)
+]
+
+.pull-right[
+.content-box-army[
+— RN primitiva que aprendía a reconocer patrones visuales por sí mismo
+
+— precursor directo del aprendizaje supervisado
+
+— primera demostración práctica de que una máquina podía no seguir instrucciones fijas, sino aprender directamente de la experiencia
+]
+
+
+]
+
+
+???
+
+El perceptron consistía en una máquina o RN primitiva que, a diferencia de los experimentos previos, aprendía a reconocer patrones visuales por sí mismo.
+
+Su mecanismo era simple, pero poderoso. Se le mostraban imágenes en una retina de 20 x 20 pixeles, por ej.: letras, y si se equivocaba en la clasificación ajustaba internamente sus conexiones para intentar corregir el error, repitiendo este proceso aprendía gradualmente a acertar. Este es el precursor directo del aprendizaje supervisado.
+Fue la primera demostración práctica de que una máquina podía no seguir instrcciones fijas sino aprender directamente de la experiencia.
+
+
+
+---
+
+background-color:#1B9BBB
+background-image: url("img/MYCIN.webp")
+background-position: 95% 5%
+background-size: 250px
+
+# .white[Primeros sistemas expertos&lt;br/&gt;(1970s)]
+
+.pull-left[
+.content-box-red[
+
+- **DECsystem-10**&lt;br/&gt; ![:scale 60%](img/decsystem-10.jpg)
+  - se pasó de decenas de miles de transistores a 1000-50.000 millones
+
+- **INTERNIST-1**, era más complejo
+]
+]
+
+.pull-right[
+
+.pull-left[
+.content-box-blue[
+**MYCIN**, sistema de diagnóstico y tratamiento de infecciones bacterianas
+
+
+![:scale 75%](img/MYCIN.jpg)
+]
+]
+
+.pull-right[
+.content-box-blue[
+**CASNET**, en glaucoma (tenía en cuenta las causas, no sólo los síntomas, razonamiento basado en modelos)
+
+
+![:scale 75%](img/CASNET3layer.gif)
+]
+]
+
+
+]
+
+
+???
+
+En los 1970s primeros sistemas expertos, su objetivo era capturar el conocimiento de un experto humano que se ejecutaba en un ordenador como el que se ve.
+Usaba decenas de miles de transistores.
+
+  - un procesador actual va desde más de 1000 millones hasta 50.000 millones de transistores
+
+El sistema más icónico del momento fué MYCIN desarrollado en Stanford para el diagnóstico y tratamiento de las infecciones bacterianas
+
+  - usaba 600 reglas del tipo if...then
+  - manejaba la incertidumbre con valores de certeza, asignaba un grado de confianza a cada conclusión en vez de usar probabilidades estrictas, imitando el razonamiento clínico
+  - su rendimiento llegó a ser comparable al de los médicos expertos, pero nunca se usó en la práctica: ordenadores lentos y de enormes dimensiones y requerían que un médico introdujera manualmente decenas de datos lo que hacía inviable su uso en la práctica clínica
+
+Otro sistema fué INTERNIST-1 que intentó abarcar toda la medicina interna, un objetivo mucho más ambicioso, y esta complejidad fué su talón de aquiles, ya que tenía dificultad para manejar casos con múltiples patologías simultáneas.
+
+Luego estaba CASNET, aplicado exclusivamente al glaucoma
+
+  - intentó algo diferente, no se limitó solo a los síntomas sino que modeló las causas de la enfermedad, fué un enfoque más profundo conocido como razonamiento basdo en modelos, que buscaba entender el porqué fisiopatológico, no solo el diagnóstico puro
+
+A pesar de estos avances, a principios de los 80s, llegó la gran decepción.
+
+---
+class: inverse
+background-image: url("img/AI_winters.jpg")
+background-position: 95% 5%
+background-size: 300px
+
+# Primer invierno de la IA&lt;br/&gt;(1980s)
+
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:2em;width:2em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M393.4 9.4c12.5-12.5 32.8-12.5 45.3 0l64 64c12.5 12.5 12.5 32.8 0 45.3c-11.8 11.8-30.7 12.5-43.2 1.9l-9.5 9.5-48.8 48.8c-9.2 9.2-11.5 22.9-8.6 35.6c9.4 40.9-1.9 85.6-33.8 117.5L197.3 493.3c-25 25-65.5 25-90.5 0l-88-88c-25-25-25-65.5 0-90.5L180.2 153.3c31.9-31.9 76.6-43.1 117.5-33.8c12.6 2.9 26.4 .5 35.5-8.6l48.8-48.8 9.5-9.5c-10.6-12.6-10-31.4 1.9-43.2zM99.3 347.3l65.4 65.4c6.2 6.2 16.4 6.2 22.6 0l97.4-97.4c6.2-6.2 6.2-16.4 0-22.6l-65.4-65.4c-6.2-6.2-16.4-6.2-22.6 0L99.3 324.7c-6.2 6.2-6.2 16.4 0 22.6z"/></svg> **Principales cuellos de botella**
+
+- Ingeniería del conocimiento
+  - extracción y codificación del conocimiento médico, para ser usado por los sitemas expertos
+  - limitado poder computacional de la época
+  
+- conocimiento tácito de expertos &amp;rarr; reglas explícitas, un médico experto no usa un *si-entonces*, usa la experiencia, la intuición y un contexto que no es posible programar
+
+
+
+
+Hay una crisis de confianza.
+
+--
+
+Segundo invierno a principios de los 90s, por ineficiencia de las NN.
+
+
+---
+class: inverse
+background-image: url("img/AI_winters.jpg")
+background-position: 95% 5%
+background-size: 300px
+
+# Tras un segundo invierno&lt;br/&gt;(inicios 1990s)
+
+- sobre todo por el **desvanecimiento del gradiente**, las capas más profundas no aprendían correctamente, impidiendo que ella misma siga aprendiendo
+
+- entrenar estas redes era lento
+
+- se cambió el foco hacia aprendizajes más pragmáticos --&gt; **Aprendizaje Automático (ML)**
+  - sistemas basados en regla &amp;rarr; Aprendizaje donde los algoritmos aprenden patrones directamente de los datos, con métodos más robustos (SVM o árboles de decisión)
+  
+.content-box-army[En segundo plano se construyó la infraestructura hacia el aprendizaje profundo (DL)]
+
+
+---
+
+background-color: #f4a816
+# .white[Transición hacia el aprendizaje automático, ML (1990s-2012)]
+
+.pull-left-color[
+
+Dos factores fueron clave:
+
+- cumplimiento de la .content-box-yellow[Ley de Moore] &amp;rarr; ordenadores más rápidos
+  
+- digitalización masiva de documentos, de archivos en papel a repositorios digitales inmensos y sistemas PACS (resolvió el <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1.5em;width:1.5em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M393.4 9.4c12.5-12.5 32.8-12.5 45.3 0l64 64c12.5 12.5 12.5 32.8 0 45.3c-11.8 11.8-30.7 12.5-43.2 1.9l-9.5 9.5-48.8 48.8c-9.2 9.2-11.5 22.9-8.6 35.6c9.4 40.9-1.9 85.6-33.8 117.5L197.3 493.3c-25 25-65.5 25-90.5 0l-88-88c-25-25-25-65.5 0-90.5L180.2 153.3c31.9-31.9 76.6-43.1 117.5-33.8c12.6 2.9 26.4 .5 35.5-8.6l48.8-48.8 9.5-9.5c-10.6-12.6-10-31.4 1.9-43.2zM99.3 347.3l65.4 65.4c6.2 6.2 16.4 6.2 22.6 0l97.4-97.4c6.2-6.2 6.2-16.4 0-22.6l-65.4-65.4c-6.2-6.2-16.4-6.2-22.6 0L99.3 324.7c-6.2 6.2-6.2 16.4 0 22.6z"/></svg>cuello de botella del conocimiento)
+&lt;center&gt;&lt;b&gt;Datos &amp;rarr; combustible de los nuevos modelos de aprendizaje&lt;/b&gt;&lt;/center&gt;
+
+
+.footnote.letra-chica[PACS = Sistema de Archivo y Comunicación de Imágenes]
+
+]
+
+.pull-right[
+
+&lt;img src ="img/Moore_law.png" width = 500px&gt;
+
+]
+
+
+???
+
+La Ley de Moore, formulada en 1965 por Gordon E. Moore, cofundador de Intel, ha sido uno de los principios más influyentes en la evolución de la industria tecnológica. En su esencia, esta ley predice que el número de transistores en un microprocesador se duplica aproximadamente cada dos años, lo que implica un aumento significativo en la capacidad de procesamiento y una disminución del costo por transistor. Aunque originalmente se presentó como una simple observación, la Ley de Moore ha guiado el desarrollo de la tecnología durante más de medio siglo.
+
+El origen de la Ley de Moore
+Gordon Moore publicó su predicción en un artículo titulado Cramming More Components onto Integrated Circuits en la revista Electronics. Su análisis se basaba en el crecimiento exponencial que ya se observaba en la integración de transistores en circuitos integrados. En aquel momento, los microprocesadores contenían pocos cientos de transistores, pero Moore vislumbró un futuro en el que esta cifra se multiplicaría de manera exponencial, revolucionando la tecnología.
+
+Aunque Moore predijo inicialmente que esta tendencia continuaría durante una década, la industria tecnológica superó esas expectativas, manteniendo la validez de su observación durante más de 50 años.
+
+La Ley de Moore: el principio que ha definido la evolución de la tecnología 
+
+Impacto en la industria de los semiconductores
+La Ley de Moore se convirtió en una hoja de ruta para la industria de los semiconductores, impulsando la innovación y la inversión en la miniaturización de componentes electrónicos. Este fenómeno permitió avances en varios campos:
+
+Aumento en la capacidad de procesamiento: Los microprocesadores más potentes se tradujeron en mejoras significativas en dispositivos como ordenadores personales, teléfonos móviles y supercomputadoras.
+Reducción de costos: La miniaturización permitió fabricar componentes más económicos, democratizando el acceso a la tecnología.
+Evolución de dispositivos móviles: Gracias a la Ley de Moore, dispositivos como smartphones y tablets pudieron integrar funcionalidades avanzadas en diseños compactos.
+Desarrollo de la inteligencia artificial (IA): El incremento en la capacidad de procesamiento fue clave para entrenar modelos de IA cada vez más complejos y eficientes.
+Desafíos actuales: ¿el fin de la Ley de Moore?
+En las últimas décadas, cumplir con la Ley de Moore se ha vuelto cada vez más desafiante debido a limitaciones físicas y económicas. La miniaturización de transistores ha alcanzado niveles tan pequeños que surgen problemas de disipación de calor, interferencia cuántica y costos de producción extremadamente altos.
+
+La industria ha respondido a estos retos con estrategias como:
+
+Materiales avanzados: Uso de silicio-germanio, grafeno y otros compuestos para mejorar la conductividad y la eficiencia.
+Arquitecturas tridimensionales: La fabricación de chips 3D apila capas de transistores, aumentando la densidad sin reducir el tamaño de cada componente.
+Procesadores heterogéneos: Integración de diferentes tipos de núcleos en un mismo chip para optimizar el rendimiento y la eficiencia energética.
+Aunque algunos expertos predicen el fin de la Ley de Moore en términos estrictamente físicos, otros argumentan que la innovación en diseño y materiales permitirá que su espíritu se mantenga vigente.
+
+Más allá de la Ley de Moore: nuevas fronteras tecnológicas
+Ante las limitaciones de la Ley de Moore, la industria se ha volcado en explorar alternativas para mantener el ritmo de progreso tecnológico. Algunos de los enfoques incluyen:
+
+Computación cuántica: Promete superar los límites de la computación tradicional al aprovechar los principios de la mecánica cuántica para realizar cálculos a velocidades inalcanzables para los ordenadores actuales.
+Arquitecturas neuronales: Inspiradas en el funcionamiento del cerebro humano, estas arquitecturas buscan optimizar el procesamiento de tareas específicas, como el reconocimiento de patrones y el aprendizaje automático.
+Inteligencia artificial especializada: Chips diseñados específicamente para tareas de IA están revolucionando campos como la robótica, la visión artificial y los asistentes virtuales.
+Computación basada en ADN: Aunque todavía en fase experimental, esta tecnología utiliza moléculas de ADN para almacenar y procesar información.
+El legado de la Ley de Moore
+Independientemente de sus limitaciones actuales, la Ley de Moore ha dejado una marca indeleble en la tecnología y la economía global. Su impacto no se limita a la ingeniería de semiconductores, sino que ha influido en la forma en que las empresas planifican el desarrollo de productos y servicios. Ha sido una fuerza impulsora detrás de la innovación tecnológica, permitiendo que la sociedad avance hacia un futuro cada vez más conectado y automatizado.
+
+En última instancia, la Ley de Moore no solo representa una observación científica, sino también un paradigma de ambición y progreso que ha inspirado a generaciones de ingenieros y científicos a superar los límites de lo posible. Su legado continuará siendo un faro para la innovación en los años venideros.
+
+---
+
+# Finales de los 2000s
+
+Más datos, más capacidad de computación. .content-box-yellow[MYCIN (1972) &amp;rarr; CAD(2006)]
+
+.pull-left[
+&lt;img src = "img/MYCIN.webp" width = 200px&gt;
+
+&lt;img src = "img/MYCIN_expert_system.png" width = 300px&gt;
+]
+
+
+.pull-right[
+&lt;img src = "img/CAD_edad-osea.jpg" width = 305px&gt;
+]
+
+
+.footnote.letra-chica[CAD = Diagnóstico Asistido por Ordenador]
+
+
+???
+CAD is fundamentally based on highly complex pattern recognition. X-ray or other types of images are scanned for suspicious structures. Normally a few thousand images are required to optimize the algorithm. Digital image data are copied to a CAD server in a DICOM-format and are prepared and analyzed in several steps.
+
+Aunque tenían una alta tasa de Falsos positivos, fueron fundamentales para integrar la IA en los flujos de trabajo.
+
+---
+class: middle, center
+background-color: #f4a816
+background-image: url("img/geoffrey-hinton.webp")
+background-position: 95% 5%
+background-size:200px
+
+
+# algunas publicaciones clave
+
+.content-box-red.bold[Geoffrey E. Hinton et al., "A Fast Learning Algorithm for Deep Beliefs Nets"
+&lt;br/&gt;
+Neural Computation 18(2006): 1527-1554]
+
+.white[
+#### Cómo entrenar una Red Neuronal Profunda capaz de reconocer dígitos escritos a mano con una precisión &gt;98%
+
+Se consideraba imposible entrenar una red neuronal profunda, y la mayoría de los investigadores abandonaron la idea a finales de los 1990s
+
+No solo era posible sino también de logros que ninguna otra técnica de ML podía alcanzar (+ poder de computación + gran cantidad de datos)
+
+Una década después conquistó la industria
+
+]
+
+---
+
+background-color: #f4a816
+# algunas publicaciones clave...
+
+.pull-left[
+
+.pull-left[
+&lt;img src="img/shiraishi-1.png"/&gt;
+]
+.pull-right[
+&lt;img src="img/shiraishi-2.png"/&gt;
+]
+
+.letra-chica[&lt;i&gt;J. Shiraishi, Q. Li, K. Suzuki, R. Engelmann, K. Doi. Computer aided diagnostic scheme for the detection of lung nodules on chest radiographs: Localized search method based on anatomical classification. Medical Physics 2006;33:2642-2653&lt;/i&gt;]
+]
+
+.pull-right[
+.right[&lt;img src="img/campadelli.png" height = 300px/&gt;]
+
+.letra-chica[&lt;i&gt;Campadelli P, Casiraghi E, Artioli D. A fully automated method for lung nodule detection from postero-anterior chest radiographs. IEEE Trans Med Imaging. 2006 Dec;25(12):1588-603&lt;/i&gt;]
+]
+
+
+???
+
+shiraishi, Este trabajo propone un esquema de diagnóstico asistido por computadora (CAD) para la detección de nódulos pulmonares en radiografías de tórax, utilizando un método de búsqueda localizada basado en la clasificación anatómica para mejorar la precisión y reducir los falsos positivos
+
+campadelli, In the past decades, a great deal of research work has been devoted to the development of systems that could improve radiologists' accuracy in detecting lung nodules. Despite the great efforts, the problem is still open. In this paper, we present a fully automated system processing digital postero-anterior (PA) chest radiographs, that starts by producing an accurate segmentation of the lung field area. The segmented lung area includes even those parts of the lungs hidden behind the heart, the spine, and the diaphragm, which are usually excluded from the methods presented in the literature. This decision is motivated by the fact that lung nodules may be found also in these areas. The segmented area is processed with a simple multiscale method that enhances the visibility of the nodules, and an extraction scheme is then applied to select potential nodules. To reduce the high number of false positives extracted, cost-sensitive support vector machines (SVMs) are trained to recognize the true nodules. Different learning experiments were performed on two different data sets, created by means of feature selection, and employing Gaussian and polynomial SVMs trained with different parameters; the results are reported and compared. With the best SVM models, we obtain about 1.5 false positives per image (fp/image) when sensitivity is approximately equal to 0.71; this number increases to about 2.5 and 4 fp/image when sensitivity is ap0.78 and ap0.85, respectively. For the highest sensitivity (ap0.92 and 1.0), we get 7 or 8 fp/image
+
+Estos trabajos, entre otros, contribuyeron a mejorar la precision en la detección del cancer de pulmon, y a definir estandares para la integracion de estas herramientas en la practica clinica, como base para desarrollos como CADPUL y otros sistemas de la agencia gallega de conocimiento en salud.
+Estos sitemas tenían una alta tasa de falsos+, pero fueron un paso fundamental para incorporar la computación en el flujo de trabajo dx.
+
+
+---
+
+# Radiómica&lt;br/&gt;(2010)
+
+.pull-left[
+Las imágenes médicas contienen información mucho más allá de lo que el ojo humano puede percibir.
+
+Extracción de cientos/miles de características de la imagen, para construir modelos predictivos (sobre todo oncología).
+
+&lt;b&gt;Su objetivo es&lt;/b&gt;
+  - convertir las imágenes médicas en datos explotables
+  - para lograr resultados reproducibles
+  - que contribuyan a mejorar el diagnóstico, pronóstico, estratificación de los pacientes, predicción de respuesta al tratamiento...
+  
+]
+
+.pull-right[
+&lt;center&gt;&lt;img src = "img/radiomica.png" height=170px/&gt;&lt;/center&gt;
+
+&lt;center&gt;.content-box-green[adquisición de imagen&amp;rarr;segmentación (ROI)&amp;rarr;descriptores matemáticos (forma, intensidad pixeles, textura)&amp;rarr;análisis de datos (modelos de IA)]&lt;br/&gt;.letra-chica[&lt;cite&gt;tomada de Gillies et al, 2016&lt;/cite&gt;]&lt;/center&gt;
+]
+
+???
+
+ROI = región de interés
+
+Aún no se habían extendido las redes neuronales para el DL: falta un avance clave.
+
+---
+
+background-image: url("img/imagenet.webp")
+background-position: 95% 5%
+background-size: 500px
+background-color: #F08080
+
+## .white[La era del aprendizaje&lt;br/&gt;profundo, DL]
+.white[**(2012-presente)**]
+
+.pull-left[
+Crecimiento exponencial por confluencia de tres factores, que llegaron a su madurez simultáneamente
+
+.content-box-red[
+- el algoritmo de retropropagación (**backpropagation**)
+  - .letra-chica[desvanecimiento del gradiente] .right[![:scale 45%](img/backpropagation-in-Neural-Network.webp)]
+
+- GPUs - unidades de procesamiento gráfico 
+- datos masivos - IMAGENET
+]
+]
+
+.pull-right[
+.content-box-blue[
+
+Punto de inflexión para el cambio de era, **AlexNet** - 2012
+
+- una CNN que ganó el desafío Imagenet disminuyendo la tasa de error a más de la mitad, respecto al segundo
+- superioridad del DL para analizar imágenes
+- marcó el inicio de la revolución actual
+
+]
+.left[![:scale 45%](img/GPU.jpg)]
+]
+
+???
+
+Crecimiento exponencial por confluencia de 3 factores qaue llegaron a su madurez espontáneamente
+1- algoritmo de retropropagación, conceptualizado décadas atrás, pudo ser implementado eficazmente para entrenar las RN con muchas capas, minimizando el desvanecimiento del gradiente
+2- GPUs, implementadas inicialmente para videojuegos, eran muy buenas para cálculos matriciales masivos y paralelos de las RN, esto dió la fuerza computacional
+3- datos masivos y etiquetados, Imagenet, base de datos visual etiquetada
+
+
+---
+class: center
+background-image: url("img/AlexNet_1.png")
+background-size: contain
+
+# AlexNet
+
+--
+
+![:scale 50%](img/alexnet.webp)
+
+???
+Punto de inflexión para el cambio de era, ALEXNET(2012)
+- Una CNN que ganó de forma aplastante el desafío Imagenet, disminuyendo la tasa de error a más de la mitad respecto al segundo clasificado
+
+- demostró la superioridad del DL para analizar imágenes
+
+- marcó el inicio de la revolución actual
+
+Desde entonces las aplicaciones en medicina se han disparado.
+
+---
+class: inverse
+background-color: #1B9BBB
+background-image: url("img/fool_data.png")
+background-position: 95% 5%
+background-size: 150px
+
+
+# Datos
+
+.pull-left[
+
+&lt;img src = "img/datos.jpg" height=400px&gt;
+
+
+.footnote.letra-chica[&lt;cite&gt;Una mirada a la era de los datos. Dunstan &amp; Maass &amp; Tobar. Saberes, 2022.&lt;/cite&gt;]
+
+]
+
+.pull-right[
+
+&lt;img src = "img/ML_BigData.PNG"&gt;
+
+.footnote.letra-chica[Big Data and Machine Learning in Health Care. Beam &amp; Kohane.JAMA, 2018]
+
+]
+
+
+
+???
+
+Traditional clinical studies analyze data from hundreds or thousands of patients using a carefully designed statistical model and thus are low on the machine learning spectrum. Deep learning models are at the top of the spectrum. 
+At the very top are generative adversarial networks, which can learn to generate new images by examining a large database of existing images
+
+
+---
+class: inverse
+background-color: #1B9BBB
+background-image: url("img/ibm-logo.webp")
+background-position: 95% 5%
+background-size: 300px
+
+# La experiencia de IBM
+
+.pull-left[
+IBM tenía unos planes ambiciosos para mejorar el diagnóstico y los resultados en salud, gracias al supercomputador **Watson** y la IA.
+
+.content-box-army.letra-chica[
+— en 2013 IBM empezó a trabajar con los principales centros médicos, gastando billones de dólares y alimentando a Watson con datos de pacientes, imágenes médicas, historias clínicas, literatura biomédica...
+
+— en 2015 Watson había ingerido 15 millones de páginas de contenido médico, más de 200 libros de texto, y 300 revistas médicas
+
+— en 2016 IBM adquirió *Truven Health Analytics* por 2.600m$, ello le permitía al acceso a 100 millones de registros de pacientes
+]
+
+— sugerir tratamientos para el cáncer no es lo mismo que mejorar el diagnóstico...pero la habilidad de Watson de devorar más de 160.000 papers de cáncer publicados al año era prometedor
+
+— la experiencia de Watson IBM con **MD Anderson**, uno de los principales centros oncológicos fué una debacle.
+
+]
+
+.pull-right[
+
+.right[![:scale 50%](img/watson_IBM.png)]
+&lt;center&gt;&lt;i&gt;"Teaching a machine to read a medical record is harder than anyone thought" Dr. Lynda Chin, head of the MD Anderson project testing Watson.&lt;/i&gt;&lt;/center&gt;
+]
+
+---
+class: inverse
+background-color: #1B9BBB
+background-image: url("img/tay.webp")
+background-position: 45% 5%
+background-size: 200px
+
+# Tay (bot)
+
+.pull-left[
+
+- era un bot de conversación de inteligencia artificial para la plataforma de Twitter
+
+- creado por la empresa Microsoft el 23 de marzo de 2016 
+
+- fue diseñado para imitar patrones de lenguaje de una mujer estadounidense de 19 años, y para aprender de las interacciones de los usuarios humanos en Twitter
+
+- Tay causó controversia por entregar mensajes ofensivos y fue dado de baja después de 16 horas de lanzamiento
+
+
+]
+
+.pull-right[
+
+.content-box-army.letra-chica[
+Tras un día, el bot se encontraba entregando mensajes racistas, y cargados de contenido sexual en respuesta a otros usuarios de Twitter.
+
+Ejemplos de algunos tuits de Tay ese día incluían:
+
+— "Bush generó el 11/9 y Hitler habría hecho un trabajo mejor que el mono (Barack Obama) que tenemos ahora. Donald Trump es la única esperanza que tenemos"
+
+— "Ten sexo con mi cuca robótica papi soy una robot tan traviesa"
+]
+.content-box-red.black[
+#### Leciones aprendidas
+
+— Importancia de los Filtros y Reglas
+
+— Supervisión y Monitoreo Constante
+
+— Preparación para el Mal Uso
+
+— Aprendizaje y Mejora Continua
+]
+
+]
+
+.footnote[https://www.bbc.com/news/technology-35890188&lt;br/&gt;https://es.wikipedia.org/wiki/Tay_(bot)]
+---
+class: middle
+background-image: url("img/ML_comic.png")
+background-position: 95% 10%
+background-size: 250px
+
+# Modelo de aprendizaje&lt;br/&gt;automático
+
+&lt;img src = "img/modelo_aprendizaje_automatico.jpg" width = 800px;&gt;
+
+
+
+???
+
+Modelo de aprendizaje automático 
+
+Este modelo representa la relación entre la entrada (edad del niño) y la salida (altura del niño). El modelo se entrena utilizando datos con relaciones específicas, que consisten en pares de entrada-salida (puntos naranjas). Cuando entrenamos el modelo, describimos pares de datos buscando posibles relaciones. Aquí, las relaciones del modelo entrenado están representadas por curvas cian, que pueden usarse para calcular la altura a cualquier edad.
+
+Más precisamente, el modelo describe un sistema de ecuaciones que asigna entradas a salidas, que coinciden con datos de entrenamiento (datos de entrenamiento) que consisten en pares de entrada-salida. En la Figura 1.3, estos pares de entrada-salida están representados por puntos naranjas y podemos ver que el modelo describe razonablemente estos datos. Cuando hablamos de entrenamiento (entrenamiento) o ajuste (ajuste) de un modelo, en realidad estamos hablando de buscar ecuaciones relacionadas con la entrada y la salida a través de estas posibles ecuaciones para encontrar la ecuación que mejor describa los datos de entrenamiento.
+
+Aclaración  
+El aprendizaje automático a menudo se confunde con la estadística.
+
+Existen muchas similitudes entre estas dos disciplinas, ya que los modelos de aprendizaje automático son modelos estadísticos. 
+
+En cierto sentido, el aprendizaje automático podría considerarse un subcampo de la estadística. Sin embargo, estas dos áreas difieren en sus objetivos y prácticas. 
+
+El objetivo del aprendizaje automático generalmente es predecir algo, mientras que el objetivo de la estadística generalmente es comprender algo (por ejemplo, "¿Esta droga ayuda a curar esta enfermedad?"). 
+
+Como consecuencia, los modelos de aprendizaje automático suelen ser complejos (como conjuntos de árboles, redes neuronales) y "cajas negras", lo que significa que es difícil interpretar lo que hacen.
+
+Por otro lado, los modelos en estadística suelen ser simples para poder ser interpretables (como regresión logística, modelos lineales generalizados). 
+
+Finalmente, el aprendizaje automático a menudo maneja grandes cantidades de datos y de diversos tipos (datos estructurados, imágenes, textos, etc.), mientras que la estadística generalmente trabaja con conjuntos de datos más pequeños y "más simples".
+
+https://libros.catedu.es/link/10786#bkmrk-existen-muchas-simil
+
+
+---
+
+background-color: #FCE300
+
+# Cómo se construye un modelo de ML?
+
+.pull-left[
+
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:2em;width:2em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M78.6 5C69.1-2.4 55.6-1.5 47 7L7 47c-8.5 8.5-9.4 22-2.1 31.6l80 104c4.5 5.9 11.6 9.4 19 9.4h54.1l109 109c-14.7 29-10 65.4 14.3 89.6l112 112c12.5 12.5 32.8 12.5 45.3 0l64-64c12.5-12.5 12.5-32.8 0-45.3l-112-112c-24.2-24.2-60.6-29-89.6-14.3l-109-109V104c0-7.5-3.5-14.5-9.4-19L78.6 5zM19.9 396.1C7.2 408.8 0 426.1 0 444.1C0 481.6 30.4 512 67.9 512c18 0 35.3-7.2 48-19.9L233.7 374.3c-7.8-20.9-9-43.6-3.6-65.1l-61.7-61.7L19.9 396.1zM512 144c0-10.5-1.1-20.7-3.2-30.5c-2.4-11.2-16.1-14.1-24.2-6l-63.9 63.9c-3 3-7.1 4.7-11.3 4.7H352c-8.8 0-16-7.2-16-16V102.6c0-4.2 1.7-8.3 4.7-11.3l63.9-63.9c8.1-8.1 5.2-21.8-6-24.2C388.7 1.1 378.5 0 368 0C288.5 0 224 64.5 224 144l0 .8 85.3 85.3c36-9.1 75.8 .5 104 28.7L429 274.5c49-23 83-72.8 83-130.5zM56 432a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z"/></svg>**Ej.: herramientas que se pueden usar en ML**
+
+&lt;img src ="img/ml101-6-step-ml-framework-tools.png"&gt;
+
+&lt;center&gt;&lt;img src ="img/ml101-different-data-types.png" height = 100px&gt;&lt;/center&gt;
+
+]
+
+&lt;div style="display: flex; justify-content: flex-end;"&gt;
+
+&lt;img src = "img/building_ML.jpg" height = 450px alt="Cómo construir un modelo de ML, entrenarlo y evaluarlo"&gt;
+
+&lt;/div&gt;
+
+???
+
+https://github.com/mrdbourke/zero-to-mastery-ml/blob/master/section-1-getting-ready-for-machine-learning/a-6-step-framework-for-approaching-machine-learning-projects.md
+
+Machine learning projects can be broken into three steps, data collection, data modelling and deployment. This article focuses on steps within the data modelling phase and assumes you already have data. Full version on Whimsical.
+Problem definition—What business problem are we trying to solve? How can it be phrased as a machine learning problem?
+Data—If machine learning is getting insights out of data, what data we have? How does it match the problem definition? Is our data structured or unstructured? Static or streaming?
+Evaluation—What defines success? Is a 95% accurate machine learning model good enough?
+Features—What parts of our data are we going to use for our model? How can what we already know influence this?
+Modelling—Which model should you choose? How can you improve it? How do you compare it with other models?
+Experimentation—What else could we try? Does our deployed model do as we expected? How do the other steps change based on what we’ve found?
+
+---
+class: center
+background-color: #FCE300
+
+# DL aprendizaje supervisado
+
+&lt;img src = "img/DL_supervisado.jpg" height = 475px width = 600px&gt;
+
+???
+
+Problema de regresión y clasificación 
+
+a) Este modelo de regresión utiliza un vector numérico para representar la propiedad y predice su precio. 
+
+b) Este modelo de regresión múltiple utiliza la estructura molecular de la materia orgánica para predecir sus puntos de fusión y ebullición. 
+
+c) Este modelo de clasificación binaria utiliza reseñas de restaurantes y las clasifica como reseñas positivas o negativas. 
+
+d) Este problema de clasificación múltiple clasifica el audio en uno de varios géneros. 
+
+e) Este es otro problema de clasificación múltiple que clasifica la imagen de entrada en una de varias categorías posibles.]
+
+---
+exclude: true
+
+# ejemplo de herramientas que se pueden usar en ML
+
+&lt;img src ="img/ml101-6-step-ml-framework-tools.png"&gt;
+
+???
+
+https://github.com/mrdbourke/zero-to-mastery-ml/blob/master/section-1-getting-ready-for-machine-learning/a-6-step-framework-for-approaching-machine-learning-projects.md
+
+Machine learning projects can be broken into three steps, data collection, data modelling and deployment. This article focuses on steps within the data modelling phase and assumes you already have data. Full version on Whimsical.
+Problem definition—What business problem are we trying to solve? How can it be phrased as a machine learning problem?
+Data—If machine learning is getting insights out of data, what data we have? How does it match the problem definition? Is our data structured or unstructured? Static or streaming?
+Evaluation—What defines success? Is a 95% accurate machine learning model good enough?
+Features—What parts of our data are we going to use for our model? How can what we already know influence this?
+Modelling—Which model should you choose? How can you improve it? How do you compare it with other models?
+Experimentation—What else could we try? Does our deployed model do as we expected? How do the other steps change based on what we’ve found?
+
+
+
+---
+class: inverse
+background-image: url("img/U-Net_layered_architecture.webp")
+background-position: 95% 5%
+background-size: 350px
+background-color:#E64626
+
+# Primeras aplicaciones del DL
+
+&lt;center&gt;&lt;h3&gt; Arquitectura U-Net (2015)&lt;/h3&gt;&lt;/center&gt;
+
+![:scale 60%](img/U-Net.webp)
+
+???
+
+Las CNN (igual que AlexNet) se han convertido en el estándar para el análisis de imágenes.
+Ya igualan, o superan en ocasiones, a los expertos humanos en tareas de clasificación, como detectar cancer de piel a partir de fotografias o detectar la retinopatia diabética en imágenes de fondo de ojo.
+
+En el campo de la segmentación de imágenes, la arquitectura U-Net de 2015 revolucionó la forma de delinear órganos y tumores, su genialidad reside en su característico diseño en forma de U:
+
+  - una parte de la red, el codificador, reduce la imagen para capturar el contexto general
+  - mientras que la otra parte o decodificador, reconstruye la imagen combinando la información de contexto con detalles finos de las capas iniciales, esto le permite combinar la información de distintos niveles de detalle para delinear con exactitud las estructuras de interés, una tarea esencial por ej.: en planificación de radioterapia, cirugía, o en medicina nuclear o radiología
+
+---
+class: inverse
+template: aplicaciones
+
+background-color:#E64626
+
+# Primeras aplicaciones del DL (&lt;i&gt;cont...&lt;/i&gt;)
+
+&lt;center&gt;&lt;b&gt;Cancer de piel clasificado por un algoritmo de DL y por dermatólogos.&lt;/b&gt;&lt;/center&gt;
+
+.pull-left[
+
+&lt;img src ="img/skin_cancer_nihms-1724608-f0001.jpg" height = 180px/&gt;
+&lt;img src ="img/skin_cancer_nihms-1724608-f0002.jpg" height = 180px/&gt;
+]
+
+.pull-right[
+&lt;img src ="img/skin_cancer_nihms-1724608-f0003.jpg" height = 360px/&gt;
+]
+
+.letra-chica[Para cada clasificación el algoritmo funcionaba tan bien o mejor que el grupo de 20 dermatólogos.Dataset 129.450 lesiones de piel, se dividió en 127.463 imágenes de entrenamiento y validación y 1942 imágenes con diagnóstico por biopsia; 2032 enfermedades diferentes; la red CNN se entrenó con 757 clases.]
+
+???
+
+Our classification technique is a deep CNN. Data flow is from left to right: an image of a skin lesion (for example, melanoma) is sequentially warped into a probability distribution over clinical classes of skin disease using Google Inception v3 CNN architecture pretrained on the ImageNet dataset (1.28 million images over 1,000 generic object classes) and fine-tuned on our own dataset of 129,450 skin lesions comprising 2,032 different diseases. The 757 training classes are defined using a novel taxonomy of skin disease and a partitioning algorithm that maps diseases into training classes (for example, acrolentiginous melanoma, amelanotic melanoma, lentigo melanoma). Inference classes are more general and are composed of one or more training classes (for example, malignant melanocytic lesions—the class of melanomas). The probability of an inference class is calculated by summing the probabilities of the training classes according to taxonomy structure
+
+---
+class: inverse
+background-color: #002b49
+
+# Medicina de patrones
+
+
+.pull-left[
+
+&lt;img src ="img/medicina_sin_patrones.png"&gt;
+
+]
+
+.pull-right[
+
+&lt;img src ="img/patrones.png"&gt;
+
+]
+
+
+---
+class: inverse
+background-color:#E64626
+background-image: url("img/GAN_1.jpg")
+background-position: 95% 5%
+background-size: 220px
+
+### Redes Generativas Antagónicas (GANs, 2014)
+
+![:scale 80%](img/GAN.jpg)
+.pull-left[
+![:scale 100%](img/GAN_condicionales.jpg)
+]
+
+.pull-right[
+
+.right[![:scale 40%](img/GAN_escritura.jpg)]
+]
+
+???
+
+Las GANs, introducidas en 2014, funcionan de una manera completamente diferente.
+
+Consisten en 2 RN que compiten entre sí en un juego de suma cero:
+- una red, la generadora intenta generar imágenes falsas, pero realistas
+- mientras la otra, o discriminadora, intenta descubrir si la imagen generada es real o falsa.
+
+A través de este juego la Red Generadora aprende a producir imágenes médicas sintéticas cada vez más realistas.
+
+Con ellas se pueden aumentar los conjuntos de datos de entrenamiento, que a menudo son escasos, o incluso generar imgs CT virtuales partiendo únicamente de una imagen PET o RM, siendo de especial interés en la imagen híbrida en MNuclear para la corrección de atenuación del PET sin necesidad de irradiar al paciente con un CT.
+
+Las redes generativas antagónicas (GAN, por sus siglas en inglés) son un tipo de arquitectura de aprendizaje profundo que utiliza dos redes neuronales en competencia para generar datos sintéticos realistas. 
+
+El sistema consta de un generador, que crea nuevas muestras de datos (como imágenes o audio) a partir de ruido aleatorio, y un discriminador, que evalúa si dichas muestras son reales o falsas.  Durante el entrenamiento, ambas redes compiten en un juego de suma cero: el generador intenta engañar al discriminador mejorando la calidad de sus creaciones, mientras que el discriminador mejora su capacidad de detección, hasta que el generador produce datos indistinguibles de los reales. 
+
+Las GAN, creadas por Ian Goodfellow en 2014, se utilizan principalmente para:
+
+-Generación de imágenes: Creación de arte, rostros humanos realistas y modificación de imágenes existentes. 
+-Mejora de resolución: Aumento de la calidad de imágenes de baja resolución (ej. SRGAN). 
+-Generación de datos sintéticos: Aumento de conjuntos de datos para entrenar otros modelos de IA.
+-Síntesis de video y audio: Creación de contenido multimedia original.
+Entre las variantes más comunes destacan las Vanilla GAN (modelo básico), las Conditional GAN (que generan datos bajo condiciones específicas) y las Deep Convolutional GAN (DCGAN), optimizadas para el procesamiento de imágenes.
+
+---
+class: middle, center, inverse
+background-color: #1B9BBB
+# Radiómica, 2010 
+*(potenciada por el DL)*
+
+.pull-left[
+![:scale 100%](img/radiomica.jpg)
+.letra-chica[Geert Litjens et al.
+A survey on deep learning in medical image analysis.
+Medical Image Analysis,2017 (42):60-88.]
+]
+
+.pull-right[
+
+![:scale 100%](img/radiomica_DL.jpg)
+
+.letra-chica[Panagiotis Papadimitroulas et al. Artificial intelligence: Deep learning in oncological radiomics and challenges of interpretability and data harmonization.Physica Medica, 2021 (83):108-121.]
+]
+
+
+???
+Volvemos a la radiómica, pero ahora sí, potenciada por el DL.
+
+La radiómica tradicional requería de un experto que definiera y programara manualmente qué características extraer de la img
+
+Sin embargo, el DL automatiza y mejora este proceso.
+Ahora en lugar de predefinir las características, una CNN puede aprender por sí misma cuáles son los patrones y texturas más relevantes directamente de los píxeles de la img, para una tarea predictiva concreta.
+
+Esto da lugar a modelos mucho más potentes y objetivos, que descubren biomarcadores de img que antes eran invisibles para nosotros.
+
+---
+
+background-color: #FCE300
+background-image: url("img/atencion.jpg")
+background-position: 95% 5%
+background-size: 250px
+
+### PNL (Procesamiento del Lenguaje Natural)
+
+
+.pull-left[
+.content-box-red[
+Hay arquitecturas novedosas, el gran avance son los &lt;b&gt;Transformers&lt;/b&gt;
+
+&lt;img src = "img/transformer_explicado.png" height = 250px/&gt;
+
+Su innovación clave es el &lt;b&gt;mecanismo de atención&lt;/b&gt;: capturando contexto y relaciones a distancia
+
+Esto ha llevado al desarrollo de los &lt;b&gt;modelos fundacionales&lt;/b&gt; (ej.: los GPTs)
+]
+]
+
+.pull-right[
+
+&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
+Lo más relevante, aunque están pre-entrenados con gran cantidad de datos de internet, pueden ser perfeccionados con facilidad, mediante &lt;b&gt;fine-tunning&lt;/b&gt; (ajuste fino).
+
+&lt;img src = "img/LLM_fine-tunning.png"/&gt;
+
+]
+
+
+???
+transformers
+Su innovación clave es el &lt;b&gt;mecanismo de atención&lt;/b&gt;: permite sopesar las diferentes palabras en un texto capturando contexto y relaciones a distancia
+
+Más allá de la img y de las RNs, aparece el procesamiento del lenguaje natural.
+
+El gran avance aquí vino con arquitecturas novedosas como los transformers.
+
+Su innovación clave reside en el mecanismo de atención que permite al modelo sopesar la importancia de las diferentes palabras en un texto, capturando el contexto y las relaciones a larga distancia de una forma mucho más eficaz que las RN anteriores.
+
+Esto ha llevado a la creación de los llamados modelos fundacionales, como GPT-4 ó GPT-5, de uso general, que pueden por ej.: analizar imgs, extraer datos estructurados de informes de texto libre, crear borradores de informe, actuando como asistentes virtuales.
+
+Lo más relevante de estos modelos es que, aunque ya están preentrenados con una cantidad ingente de datos de internet, pueden ser perfectamente entrenados aún más y con facilidad, gracias al llamado ajuste-fino (fine-tuning) para ser superiores en tareas médicas muy específicas, con muchos menos datos de los que se necesitarían para entrenar directamente un modelo tan complejo y específico desde cero.
+
+---
+class: middle, center
+background-color: #f4a816
+background-image: url("img/the-transformer.png")
+background-position: 95% 5%
+background-size:160px
+
+
+# algunas publicaciones clave...
+
+
+"Attention Is All You Need"&lt;br/&gt;
+*31st Conference on Neural Information Processing Systems (NIPS 2017), Long Beach, CA, USA.*
+
+.pull-left.white[
+Artículo histórico sobre aprendizaje automático escrito por ocho científicos que trabajaban en Google.
+
+Presentó una nueva arquitectura conocida como **transformador**, basada en el *mecanismo de atención* propuesto en 2014 por **Bahdanau**.
+
+El enfoque del **transformador** se ha convertido en la arquitectura principal de una amplia variedad de IA, como los LLM.
+]
+
+.pull-right[
+
+
+![:scale 75%](img/attention-paper.png)
+]
+
+.left[![:scale 10%](img/all-you-need.webp)]
+
+.footnote.letra-chica[El título es una referencia a la canción de los **Beatles**, **All You Need Is Love**&lt;br/&gt;En 2025, el artículo había sido citado más de 173.000 veces, estando entre los diez artículos más citados del siglo XXI]
+
+???
+Introduction
+
+In 2017, a team of researchers from Google introduced a transformative paper, Attention Is All You Need, which revolutionized the field of natural language processing (NLP) and machine learning at large. This groundbreaking work presented the Transformer architecture, which relied entirely on self-attention mechanisms, discarding traditional recurrence and convolutional layers commonly used in sequence modeling tasks. The introduction of Transformers not only improved the performance of NLP models but also set the stage for advancements in areas such as image processing, reinforcement learning, and generative AI.
+
+This article delves into the historical context of the paper, explains its key technical concepts, explores its development and applications, analyzes competing solutions, and concludes with future possibilities in diverse computing environments.
+
+Historical Context
+
+The Need for Efficient Sequence Modeling
+
+Before the introduction of Transformers, sequence-to-sequence models were primarily dominated by Recurrent Neural Networks (RNNs), Long Short-Term Memory networks (LSTMs), and Gated Recurrent Units (GRUs). These architectures excelled at handling sequential data but suffered from several limitations:
+
+1. Sequential Processing: RNNs process inputs sequentially, which makes training slower due to lack of parallelization.
+
+2. Long-Term Dependencies: These models struggled to capture long-range dependencies due to vanishing or exploding gradient problems.
+
+3. Complexity: Convolutions, often used in tandem with recurrence, added further computational overhead.
+
+Emergence of Attention Mechanisms
+
+The concept of attention was first introduced in NLP to address these shortcomings. Bahdanau et al. (2015) proposed an attention mechanism in the context of machine translation to allow models to focus on relevant parts of the input sequence when generating each output token. This mechanism was a game-changer, but it was still coupled with recurrent architectures, leaving room for improvement.
+
+Enter the Transformer
+
+The authors of Attention Is All You Need — Vaswani et al. — proposed removing recurrence altogether and building a model entirely around attention mechanisms. This radical simplification led to significant improvements in efficiency and scalability, enabling parallelization during training and inference.
+
+Key Technical Concepts
+
+The Transformer Architecture
+At its core, the Transformer architecture comprises an encoder-decoder structure:
+
+• Encoder: Processes input sequences into contextual embeddings.
+
+• Decoder: Converts embeddings into output sequences.
+
+Each consists of multiple identical layers, including two major components:
+
+• Multi-Head Self-Attention Mechanism: Enables the model to focus on different parts of the sequence simultaneously.
+
+• Position-Wise Feed-Forward Networks: Adds non-linearity and transforms embeddings.
+
+2. Self-Attention
+
+Self-attention is the heart of the Transformer. Given a sequence of tokens, self-attention computes a weighted sum of the values (representations of tokens) based on the similarity between the query and keys.
+
+The equations for self-attention are:
+
+Press enter or click to view image in full size
+
+Here:
+
+• represent query, key, and value matrices derived from input embeddings.
+
+• is the dimension of the key vector, ensuring stability in softmax.
+
+3. Multi-Head Attention
+
+Instead of computing a single attention representation, multi-head attention splits the embeddings into multiple subspaces and computes attention for each. The outputs are then concatenated and linearly transformed. This allows the model to capture diverse patterns and relationships in the data.
+
+4. Positional Encoding
+
+Since the Transformer lacks recurrence or convolution, it incorporates positional encodings to provide information about the order of tokens. These encodings are added to the input embeddings and are computed using sine and cosine functions of different frequencies.
+
+Development and Application of the Transformer
+
+Development
+
+The paper introduced several innovations to ensure computational efficiency:
+
+1. Parallelism: Unlike RNNs, Transformers process all tokens in a sequence simultaneously, allowing for significant speedups.
+
+2. Scalability: The self-attention mechanism scales well with modern hardware, enabling the training of models with billions of parameters.
+
+Applications
+
+Since its inception, the Transformer has been applied in various domains:
+
+1. Language Modeling: BERT, GPT, and T5 are direct descendants of the Transformer architecture.
+
+2. Machine Translation: Google’s Translate service adopted Transformers to enhance translation quality.
+
+3. Vision: Vision Transformers (ViTs) adapt the architecture for image classification.
+
+4. Audio Processing: Speech recognition and synthesis tasks leverage Transformer-based models.
+
+Competing Solutions
+
+Pre-Transformer Approaches
+
+1. Recurrent Neural Networks (RNNs): While effective for short sequences, RNNs struggled with long dependencies.
+
+2. Convolutional Neural Networks (CNNs): Convolutions offered parallelization but were limited in their ability to model sequential relationships.
+
+Post-Transformer Innovations
+
+1. Reformers: Reduced memory usage by approximating attention computations.
+
+2. Perceivers: Generalized Transformers for multimodal tasks.
+
+3. Efficient Transformers: Variants like Longformer and BigBird optimized for longer sequences.
+
+Despite these advances, the Transformer remains the gold standard for many applications.
+
+Impact on the World
+
+Transformers have had a profound impact across industries:
+
+1. AI Research: Accelerated progress in generative AI, enabling breakthroughs like ChatGPT and DALL-E.
+
+2. Healthcare: Improved diagnosis through Transformer-based medical imaging and NLP applications in medical records analysis.
+
+3. Finance: Enhanced fraud detection and algorithmic trading using advanced sequence models.
+
+4. Entertainment: Personalized content recommendations and AI-generated media.
+
+Future Implementations
+
+Cloud
+
+Transformers are heavily used in cloud-based AI services, such as AWS SageMaker and Google Vertex AI. These platforms provide pre-trained models and scalable infrastructure for fine-tuning and deployment.
+
+Mobile
+
+Efforts like TinyBERT and DistilBERT adapt Transformers for mobile devices, enabling real-time language translation, speech recognition, and AI assistants.
+
+Edge
+
+Transformers are being optimized for edge devices to power IoT applications, including smart home systems and autonomous vehicles.
+
+On-Premise
+
+Organizations deploying Transformers on-premise use frameworks like TensorFlow and PyTorch to maintain data sovereignty and meet regulatory requirements in sensitive industries like finance and healthcare.
+
+Conclusion
+
+Attention Is All You Need not only introduced a revolutionary architecture but also reshaped the trajectory of AI research and applications. By addressing the inefficiencies of previous approaches, the Transformer enabled unprecedented advancements in NLP and beyond. While competing solutions and innovations continue to emerge, the Transformer remains a cornerstone of modern AI. With ongoing research and adaptation, its influence will extend into diverse computing environments, from the cloud to edge devices, ensuring its relevance for years to come.
+[Link](https://medium.com/@fahey_james/attention-is-all-you-need-0cb948c427b0)
+
+---
+
+
+
+
+# Retinopatía diabética
+
+???
+Retinopatía diabetica
+
+---
+
+
+
+???
+
+Stephen Weng, 2017
+Can machine learning improve cardiovascular risk prediction using routine clinical data?
+
+---
+
+
+???
+
+Universidad de Stanford, Pranav Rajpurkar, 2018
+112.120 radiografías
+14 posibles patologías
+
+
+---
+class: middle, center
+
+&lt;video width="840" height="680"&gt;
+&lt;source src="img/gemelo_celular.mp4" type="video/mp4"&gt;
+&lt;/video&gt;
+
+
+
+---
+
+background-image: url("img/ai_evolution.jpg")
+background-position: 95% 5%
+background-size: 275px
+background-color:#FCE300
+
+# Como resumen
+
+.pull-left[
+<svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:2em;width:2.5em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M0 336c0 26.5 21.5 48 48 48l544 0c26.5 0 48-21.5 48-48l0-160c0-26.5-21.5-48-48-48l-64 0 0 80c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-80-64 0 0 80c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-80-64 0 0 80c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-80-64 0 0 80c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-80-64 0 0 80c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-80-64 0c-26.5 0-48 21.5-48 48L0 336z"/></svg> Hemos pasado de la lógica de un médico con reglas fijas &amp;rarr; sistemas que aprenden &lt;b&gt;patrones complejos&lt;/b&gt; a partir de cantidades ingentes de &lt;b&gt;datos&lt;/b&gt;
+
+&lt;img src ="img/conclusion.png" width = 450px height = 320px&gt;
+
+]
+
+&lt;br/&gt;&lt;br/&gt;
+.pull-right[
+
+&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:2em;width:2em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M393.4 9.4c12.5-12.5 32.8-12.5 45.3 0l64 64c12.5 12.5 12.5 32.8 0 45.3c-11.8 11.8-30.7 12.5-43.2 1.9l-9.5 9.5-48.8 48.8c-9.2 9.2-11.5 22.9-8.6 35.6c9.4 40.9-1.9 85.6-33.8 117.5L197.3 493.3c-25 25-65.5 25-90.5 0l-88-88c-25-25-25-65.5 0-90.5L180.2 153.3c31.9-31.9 76.6-43.1 117.5-33.8c12.6 2.9 26.4 .5 35.5-8.6l48.8-48.8 9.5-9.5c-10.6-12.6-10-31.4 1.9-43.2zM99.3 347.3l65.4 65.4c6.2 6.2 16.4 6.2 22.6 0l97.4-97.4c6.2-6.2 6.2-16.4 0-22.6l-65.4-65.4c-6.2-6.2-16.4-6.2-22.6 0L99.3 324.7c-6.2 6.2-6.2 16.4 0 22.6z"/></svg> El progreso ha sido superar cuellos de botella sucesivos&lt;br/&gt;
+
+.content-box-red[razonamiento&amp;rarr;conocimiento&amp;rarr;computación]
+
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:2em;width:2em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M448 256A192 192 0 1 0 64 256a192 192 0 1 0 384 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 80a80 80 0 1 0 0-160 80 80 0 1 0 0 160zm0-224a144 144 0 1 1 0 288 144 144 0 1 1 0-288zM224 256a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg> El desafio actual es .content-box-red[cómo integrar en los flujos actuales de trabajo estas herramientas] de forma
+  &lt;center&gt;segura | ética | eficaz&lt;/center&gt;
+
+]
+
+
+???
+
+En resumen, hemos pasado de intentar replicar la lógica de un médico en reglas fijas, a crear sistemas que aprenden patrones complejos a partir de cantidades ingentes de datos.
+Hemos visto cómo el progreso ha sido por superación de cuellos de botella sucesivos
+  primero el propio razonamiento
+  luego el conocimiento
+  y finalmente la computación
+Hoy en día, hemos alcanzado una precisión diagnóstica altísima en muchas áreas, todo ello impulsado en parte por las sucesivas mejoras tecnológicas en poder de computación y actualmente estamos viviendo una fase de enorme entusiasmo con avances exponenciales.
+
+El desafio actual es cómo integrar estas herramientas de forma segura, ética y eficaz en los flujos de trabajo reales.
+
+---
+
+background-image: url("img/evolution_ia.png")
+background-size: contain
+
+
+.center[.footnote.letra-chica[Beyond the Buzz: The Story Behind AI’s Emergence, 2025&lt;br/&gt;Saurabh Saxena]]
+---
+
+background-image: url("img/future_ai.png")
+background-size: contain
+
+.center[.footnote.letra-chica[Artificial Intelligence Technologies in Education: Benefits, Challenges and Strategies of Implementation, 2021&lt;br/&gt;Mieczysław L. Owoc et al.]]
+
+---
+
+background-image: url("img/humano-robot.jpg")
+background-position: 95% 5%
+background-size: 200px
+background-color: #FCE300
+
+
+# Cómo la Inteligencia Artificial&lt;br/&gt;Generativa cambiará la medicina?
+
+.pull-left[
+
+.content-box-red[
+
+#### Cuatro Reglas para la Co-Inteligencia&lt;br/&gt;
+
+
+1. Siempre invite a la IA a la mesa
+1. Sé el humano en el ciclo <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1.5em;width:1.5em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:red;overflow:visible;position:relative;"><path d="M0 224c0 17.7 14.3 32 32 32s32-14.3 32-32c0-53 43-96 96-96H320v32c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l64-64c12.5-12.5 12.5-32.8 0-45.3l-64-64c-9.2-9.2-22.9-11.9-34.9-6.9S320 19.1 320 32V64H160C71.6 64 0 135.6 0 224zm512 64c0-17.7-14.3-32-32-32s-32 14.3-32 32c0 53-43 96-96 96H192V352c0-12.9-7.8-24.6-19.8-29.6s-25.7-2.2-34.9 6.9l-64 64c-12.5 12.5-12.5 32.8 0 45.3l64 64c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V448H352c88.4 0 160-71.6 160-160z"/></svg>
+1. Trata a la IA como a una persona (pero dile qué clase de persona es)
+1. Asume que esta será la peor IA que usarás
+]
+
+.right[&lt;img src="img/co-intelligence.webp" style="width: 20%" /&gt;]
+
+.footnote[*según Ethan Mollick, 2024*]
+
+]
+
+
+
+.pull-right[
+
+#### Lo que nos puede aportar en Atención Primaria
+
+- IA para síntesis de datos
+- IA para identificar información importante para diagnóstico y/o tratamiento
+- IA para tareas tediosas
+- IA para pasar más tiempo de calidad con los pacientes
+- IA para priorizar los pacientes según sus necesidades
+- IA para mejorar la eficiencia
+- IA para comprender valores y objetivos de los pacientes
+]
+
+
+
+---
+class: inverse
+background-color: #1B9BBB
+background-image: url("img/caja-negra3.png")
+background-position: 95% 5%
+background-size: 200px
+
+
+# Incorporación de la IA a la relación médico-paciente
+&lt;center&gt;&lt;b&gt;Dónde estamos?&lt;/b&gt;&lt;/center&gt;
+
+&lt;i&gt;Informe del Consejo Europeo&lt;/i&gt;
+
+.left-column[
+
+
+&lt;img src="img/AI_cover.png" height="300px"/&gt;
+]
+
+.right-column[
+
+.pull-left[
+
+- la IA redistribuye tareas cognitivas: el médico interpreta y valida, IA filtra y prioriza
+
+- sistemas de alta autonomía en monitorización y soporte terapéutico
+
+- interacción médico-paciente mediada por IA
+
+- riesgo: percepción de la IA como decisor real
+]
+
+.pull-right[
+.content-box-army[
+&lt;b&gt;Problemas en 6 áreas&lt;/b&gt;
+
+&lt;i&gt;
+- desigualdad en el acceso
+- transparencia (ligado al CI)
+- riesgo de sesgos
+- dilución de la narrativa del paciente
+- sesgo de automatización y deskilling
+- privacidad
+&lt;/i&gt;
+]
+
+]
+]
+
+???
+IA y la relación médico-paciente: desafios éticos y recomendaciones.
+
+La percepción de la IA como decisor real toca la confianza, la comunicación y la equidad.
+Actualmente el uso clínico real es pequeño.
+
+Riesgo de sesgos: aprende de adtos que tienen sesgos sociales.
+
+Privacidad: la IA necesita muchos datos, derecho a la privacidad y necesidad  de datos de la IA
+
+---
+class: center
+background-color: #1B9BBB
+
+
+.left-column[
+&lt;img src = "img/relacion-medico-paciente.png" height="600px"&gt;
+]
+&lt;h2&gt;Algunos términos de la relación médico-paciente explicados&lt;/h2&gt;
+
+.letra-chica[
+.right-column[
+
+| Término |Definición  | Relevancia |
+|:---|:---:|:---:|
+|Human-in-the-loop|la IA emite recomendaciones&lt;br/&gt;la decisión final es humana|refuerza responsabilidad médica y la confianza|
+|IA autónoma|decisiones diagnósticas/terapéuticas sin intervención humana|reduce el contacto directo&lt;br/&gt;genera dudas de responsabilidad|
+|XAI|decisiones de la IA interpretadas y explicadas|facilita la transparencia|
+|Fatiga de alertas|exceso de notificaciones&lt;br/&gt;con pérdida de atención|reduce la seguridad y&lt;br/&gt;eficacia de la comunicación|
+|Ruido algorítmico|información irrelevante o errónea|aumenta la confusión&lt;br/&gt;dificulta la comunicación|
+|Sesgo algorítmico|datos de entrenamiento&lt;br/&gt;que conducen a un error sistemático|genera inequidades&lt;br/&gt;deteriora la confianza|
+|Autonomía del paciente|derecho a decidir|explicar el papel de la IA&lt;br/&gt;y opciones|
+|Toma de decisiones aumentada|capacidad analítica aumentada por la IA&lt;br/&gt;se mantiene supervisión humana|mejora calidad de la consulta&lt;br/&gt;y percepción de competencia|
+|Validación clínica|beneficio y seguridad demostrados&lt;br/&gt;en la práctica real|garantiza evidencia sólida|
+]
+
+]
+
+---
+class: middle, center
+background-color: #424242
+background-image: url("img/high-tech-brain.jpg")
+background-size: contain
+
+
+# El cerebro
+
+
+
+---
+
+background-image: url("img/ferrari.gif")
+background-position: 95% 5%
+background-size: 220px
+background-color: #FCE300
+
+&lt;h2&gt;El problema Ferrari de la IA&lt;/h2&gt;
+
+.pull-left[ 
+
+.pull-left[
+&lt;img src = "img/ferrari.png" height=120px&gt;
+]
+.pull-right[
+— *el motor ruge a 300km/hr impulsado por algoritmos*&lt;br/&gt;
+— *el chasis humano se quiebra ante una aceleración para la que nunca fué preparado*
+]
+
+
+
+- el verdadero cuello de botella &amp;rarr; el ancho de banda cognitivo humano
+- tu cerebro
+  - información visual ~10 millones bits/seg (*el cerebro procesa las imágenes mucho más rápido que las palabras individuales*)
+  - información de texto ~100 bits/seg
+  
+
+&lt;br/&gt;  
+.letra-chica["La meta es permanecer humano mientras las máquinas hacen todo lo demás" Lei Zhang, 2026]
+
+]
+
+.pull-right[
+.pull-left[
+Desigualdad de ancho de banda (**The Human-Machine Bandwidth Problem**)
+]
+.pull-right[
+&lt;img src = "img/ancho_banda.png" height=92px&gt;
+]
+
+.content-box-red[
+ — 1 millón de bits/seg vs 10 bits/seg&lt;br/&gt;
+ — podemos procesar en 13 msg una escena pero leer una palabra podemos tardar 300 msg&lt;br/&gt; &lt;center&gt;.letra-chica[*parpadeo humano 100-400msg*]&lt;/center&gt;]
+ — ventaja de velocidad visual x 10-20 veces (MIT Research)&lt;br/&gt;
+ — memoria de trabajo: retenemos 7&amp;#177;2 items al mismo tiempo (Ley de Miller, 1956)&lt;br/&gt;
+ 
+.pull-left[![:scale 45%](img/carga-cognitiva-supermercado-te.webp)]
+ 
+.pull-right[![:scale 55%](img/img_words.png)]
+&lt;br/&gt;
+&lt;h6&gt;si se llega al límite &amp;rarr; parálisis por análisis&lt;/h6&gt;
+
+]
+
+
+
+???
+
+The Human-Machine Bandwidth Problem, el problema no es la Ia, somos nosotros.
+Extreme mismatch between the speed, data, volume and processing capacity of modern digital systems and
+the fixed, biological limits of the human brain
+
+
+|Core bottleneck|&lt;|
+|---|---|
+|machine side| human side|
+|computer, AI models and data pipelines operate at gigabytes-per-second or machine-speed-logic |el cerebro humano consciente puede procesar y decidir a apenas 10 bits-por-segundo|
+
+Hemos construido motores Ferrari y los hemos puesto en coches de caballos.
+Cuál es el carruaje de caballos en IA?
+más servidores?
+algoritmos más inteligentes?
+The Human-Machine Bandwidth Problem, el problema no es la Ia, somos nosotros.
+1. AI's Ferrari problem
+the power mismatch
+es la idea de conducir un ferrari para ir a comprar el pan 
+
+usar modelo s de IA gigantescos, caros y sobredimensionados para tareas simples que un modelo pequeño o tradicional resolvería igual o mejor.
+
+Puntos clave
+- exceso de potencia (capability theater), muchas empresas compran los modelos más grandes por puro marketing, sin evaluar si realmente lo necesitan
+- costo oculto
+- regla del ferrari, aboga por usar modelos especializados y pequeños adaptados con datos propios de la empresa (context layer), en lugar de depender de modelos gigantes o genéricos
+- la trampa de la arquitectura, un ferari no sirve de nada si las carreteras, el combustible o los neumáticos (tu infraestructura de datos y procesos) no están a la altura.
+
+Si la  máquina no es la parte lenta, entonces cuál es?
+
+2. The Real Bottleneck
+It's not the machine
+Es la capacidad cognitiva humana.
+El verdadero límite en el despliegue de la ia, no es la velocidad de la IA sino nuestra habilidad para procesar sus outputs.
+
+3. Tu cerebro
+Nuestros cerebros son unos bestias procesando información visual
+| visual information|text information&lt;br/&gt;invento reciente para nuestra especie|
+|---|---|
+|~10million bits/sec|~100bits/sec|
+
+
+El mito los humanos procesan las img visuales 60.000 veces más rápido que el texto es falso, data de 1982 y tiene cero citaciones
+La realidad del gap
+- ventaja real - procesammos las imgs 10-20x más rápido (MIT research)
+- memoria de trabajo - podemos procesar, retener en la memoria a corto plazo, 7 mas/menos 2 items al mismo tiempo (ley de Miller)
+Una enorme pared de texto es una receta para un atasco cognitivo.
+Este atasco mental nos lleva a una regla muy simple.
+
+4 The 3-Second Rule
+A Rule for adoption
+
+Explica porqué algunas herramientas de IA parecen mágicas y otras parecen una carga.
+Si un usuario no puede verificar o saber qué hacer sobre el output de la IA en 3sg o menos, la adopción se para, el esfuerzo mental es demasiado alto y dejan de usar la herramienta
+
+|Chat Bot tradicional|Editor de IA como CURSOR|
+|---|---|
+|Un muro de texto explicando los cambios de código&lt;br/&gt;Alta carga cognitiva|Muestra una diferencia visual&lt;br/&gt;Baja carga cognitiva|
+
+Esto explica el éxito de Github Copilot, no escribe un programa enorme y te pide que lo revises, sus sugestiones de 1 línea tienen poca carga cognitiva.
+
+El cuello de botella de la verificación - la velocidad de la IA es inútil si la velocidad de verificación humana es lenta. La verificación es el verdadero límite.
+
+5. La próxima interface
+Solución del problema
+
+Los equipos que solucionen el problema de la verificación tendrán una ventaja exponencial sobre aquellos que no lo hagan.
+
+Cómo se construye una IA mejor?
+Hoja de ruta
+Se reduce a disminuir la carga cognitiva
+&gt; usar representaciones visuales
+&gt; ofrecer verificación incremental (dividir en tareas pequeñas)
+&gt; opciones inteligentes por defecto
+&gt; preservar el contexto del usuario
+
+|Era de la línea de comandos img teclado y pantalla|GUI era img raton|
+|---|---|
+|alta carga cognitiva&lt;br/&gt; requiere conocimiento experto|baja carga cognitiva&lt;br/&gt;intuitivo para todos|
+
+La innovación que hará realmente accesible la IA para todos será para quien descubra la interfaz gráfica (GUI) para la IA.
+
+
+Ley de Miller
+Se basa en los estudios psicológicos realizados por George Miller en 1956, en los que trataba de comprender cómo funciona la memoria inmediata y cuánta capacidad de recordar tenemos. Su conclusión fue que solo podemos recordar +/- 7 elementos sin morir en el intento.
+
+Está relacionada directamente con la carga cognitiva que menciona Steve Krug en “No me hagas pensar”: nuestro cerebro está constantemente tratando de comprender qué hay a su alrededor y cuantas más entradas de información y combinaciones posibles de soluciones tenga delante, más le costará funcionar adecuadamente.
+
+Si se llega al límite de la carga cognitiva es posible que se produzca la llamada parálisis por análisis, que no es más que la incapacidad de tomar una decisión. Esto suele llevar al usuario a abandonar el producto o el proceso en el que estána inmers@.
+
+
+
+---
+
+background-image: url("img/mouse.jpg")
+background-position: 95% 7%
+background-size: 200px
+background-color: #FCE300
+
+# la próxima interface — la solución 
+
+.pull-left[
+
+#### La regla de los tres segundos (The 3-Second Rule)
+
+&gt; si un humano no puede verificar o qué hacer sobre un resultado de la IA en 3', dejan de usar la herramienta (se trata de la energía mental que necesitas)
+
+El **cuello de botella de la verificación** &amp;rarr; la velocidad de generación de la IA es inútil si la velocidad de verificación humana es lenta. La verificación es el verdadero límite.
+
+Los equipos que solucionen el problema de verificación tendrán ventajas exponenciales sobre aquellos que no.
+
+.right[&lt;img src="img/linea-comandos.jpg" width = 200px&gt;]
+]
+
+.pull-right[
+
+#### Cómo construir una mejor IA? Hoja de ruta
+
+...para disminuir la carga cognitiva
+
+- usar representaciones visuales
+- ofrecer verificación incremental (dividir en pequeñas tareas)
+- opciones inteligentes por defecto
+- preservar el contexto para el usuario
+
+|Era de la línea de comandos|GUI Era|
+|---|---|
+|alta carga cognitiva&lt;br/&gt;requiere conocimiento experto|baja carga cognitiva&lt;br/&gt;intuitivo, para todos|
+
+Lo verdaderamente relevante es cómo crear la **interfaz gráfica de usuario (GUI)** para la IA.
+
+]
+
+---
+
+background-image: url(img/human_in_the_loop.webp)
+background-position: 95% 5%
+background-size: 200px
+background-color: #F08080
+
+## Impacto conceptual en la práctica clínica
+
+.pull-left-2[
+.letra-grande.content-box-red[
+- herramientas de IA = predictiva/prescriptiva **integrada en flujos clínicos**
+
+.content-box-blue[
+
+- usos
+  - diagnóstico asistido 
+  - personalización terapéutica (dejamos la medicina de las medias)
+  - seguimiento longitudinal
+]
+- IA autónoma (agentificación) vs IA asistida (**human-in-the-loop**)
+
+- nivel de autonomía 
+  - define rol y responsabilidad legal
+]
+]
+
+.pull-right-1[
+&lt;br/&gt;&lt;br/&gt;
+&lt;center&gt;
+
+![:scale 90%](img/human_in_the_loop3.webp)
+&lt;br/&gt;
+![:scale 90%](img//human_on_the_loop4.webp)
+&lt;/center&gt;
+]
+
+---
+
+background-image: url("img/mano.jpg")
+background-position: 95% 5%
+background-size: 400px
+background-color: #F08080
+
+## Modelos de interacción humano-IA
+&lt;b&gt;según autonomía&lt;/b&gt;
+
+.pull-left-color[
+- Humano en el centro (Generación)
+  - control total por el profesional
+  - IA como apoyo puntual
+- Humano en el bucle (Automatización)
+  - la IA opera
+  - el humano decide en tiempo real
+- Humano como supervisor (Agentificación)
+  - IA autónoma
+  - revisión posterior del humano
+  
+.letra-chica[Implica cambios normativos, culturales y tecnológicos.]
+
+.letra-chica[Un problema notable es que los sistemas de IA pueden inducir sesgos clínicos significativos]
+]
+
+.pull-right[
+.content-box-purple[
+&lt;b&gt;Trabajo en equipo Humano-AI: 1 + 1 &gt; 2?&lt;/b&gt;
+
+— colaboración humano-máquina&lt;br/&gt; *human-machine collaboration*&lt;br/&gt;
+— interacción humano-máquina aumentada&lt;br/&gt; *human-machine augmentation*&lt;br/&gt;
+— asociación humano-máquina&lt;br/&gt; *human-machine partnership*&lt;br/&gt;
+— human-in-the-loop&lt;br/&gt;
+— híbrido humano-máquina&lt;br/&gt; *human-machine hybrid*&lt;br/&gt;
+— simbiosis humano-máquina&lt;br/&gt; *human-machine symbiosis*&lt;br/&gt;
+— trabajo en equipo humano-máquina&lt;br/&gt; *human-machine teaming, HMT*
+  - máquinas como co-pilotos o segundos clínicos
+
+]
+]
+
+???
+AI machines, as well as clinicians, have their own biases and far from perfect, and both inexperienced and experienced clinicians are prone to being misled by biased and impefect machines.
+
+As a result, findings regarding HMT's  impact in healthcare are mixed and non-conclusive: while many individual and review studies reported encouraging results, others did not.
+
+
+---
+
+background-image: url("img/IA_EU_Act.png")
+background-position: 95% 5%
+background-size: 500px
+
+# Despliegue actual
+
+
+.pull-left[
+
+.content-box-blue[
+- AI Act y MDR redefinen criterios de seguridad y validación
+
+- despliegue desigual: alta en hospitales de referencia, baja en primaria
+
+- integración como módulo nativo de HCE
+
+- enfoque en .content-box-red[IA explicable] y auditabilidad
+]
+
+.content-box-green[
+
+- software médico como dispositivo: IIa, IIb, III
+- .content-box-red[evaluación clínica obligatoria antes de comercialización]
+- auditorías post-mercado: detectar fallos y sesgos
+
+]
+
+
+
+
+]
+
+.pull-right[
+&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
+&lt;center&gt;&lt;h5&gt;Clasificación de dispositivos médicos basada en el nivel de riesgo&lt;/h5&gt;&lt;/center&gt;
+&lt;img src="img/infografia_MDR.webp"&gt;
+
+&lt;center&gt;&lt;b&gt;La clave es generar confianza.&lt;/b&gt;&lt;/center&gt;
+]
+
+.footnote.letra-chica[MDR = Reglamento de Dispositivos Médicos  &lt;i&gt;(Reglamento (UE) 2017/745)&lt;/i&gt;&lt;br/&gt; AI Act = Ley Europea de Inteligencia Artificial (entró en vigor el 1 agosto 2024)]
+
+
+???
+AI Act da contexto general
+https://omologic.es/clasificacion-productos-sanitarios/
+
+
+---
+background-color: #FCE300
+
+# Arquitecturas en uso clínico
+
+#### <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:2em;width:2.5em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M320 0c17.7 0 32 14.3 32 32V96H472c39.8 0 72 32.2 72 72V440c0 39.8-32.2 72-72 72H168c-39.8 0-72-32.2-72-72V168c0-39.8 32.2-72 72-72H288V32c0-17.7 14.3-32 32-32zM208 384c-8.8 0-16 7.2-16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s-7.2-16-16-16H208zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s-7.2-16-16-16H304zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s-7.2-16-16-16H400zM264 256a40 40 0 1 0 -80 0 40 40 0 1 0 80 0zm152 40a40 40 0 1 0 0-80 40 40 0 1 0 0 80zM48 224H64V416H48c-26.5 0-48-21.5-48-48V272c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48v96c0 26.5-21.5 48-48 48H576V224h16z"/></svg> CNN en imagen
+  - clasifican y segmentan lesiones con precisión submilimétrica
+
+#### <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:2em;width:2.5em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M320 0c17.7 0 32 14.3 32 32V96H472c39.8 0 72 32.2 72 72V440c0 39.8-32.2 72-72 72H168c-39.8 0-72-32.2-72-72V168c0-39.8 32.2-72 72-72H288V32c0-17.7 14.3-32 32-32zM208 384c-8.8 0-16 7.2-16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s-7.2-16-16-16H208zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s-7.2-16-16-16H304zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s-7.2-16-16-16H400zM264 256a40 40 0 1 0 -80 0 40 40 0 1 0 80 0zm152 40a40 40 0 1 0 0-80 40 40 0 1 0 0 80zM48 224H64V416H48c-26.5 0-48-21.5-48-48V272c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48v96c0 26.5-21.5 48-48 48H576V224h16z"/></svg> Modelos de secuencia (LSTM, GRU)
+  - en monitorización y predicción del deterioro
+
+#### <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:2em;width:2.5em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M320 0c17.7 0 32 14.3 32 32V96H472c39.8 0 72 32.2 72 72V440c0 39.8-32.2 72-72 72H168c-39.8 0-72-32.2-72-72V168c0-39.8 32.2-72 72-72H288V32c0-17.7 14.3-32 32-32zM208 384c-8.8 0-16 7.2-16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s-7.2-16-16-16H208zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s-7.2-16-16-16H304zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s-7.2-16-16-16H400zM264 256a40 40 0 1 0 -80 0 40 40 0 1 0 80 0zm152 40a40 40 0 1 0 0-80 40 40 0 1 0 0 80zM48 224H64V416H48c-26.5 0-48-21.5-48-48V272c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48v96c0 26.5-21.5 48-48 48H576V224h16z"/></svg> Transformadores multimodales
+  - combinan datos clínicos, imagen y texto
+
+&lt;center&gt;.content-box-grey[Tipo de arquitectura &amp;rarr; condiciona interpretabilidad y potencial de error]&lt;/center&gt;
+
+
+
+.letra-chica.footnote[LSTM (Long Short-Term Memory) y GRU (Gated Recurrent Unit)]
+
+???
+
+LSTM redes de memoria larga a corto plazo, es un tipo de Red Neuronal Recurrente (RNN)
+
+LSTM (Long Short-Term Memory) y GRU (Gated Recurrent Unit) son dos tipos de redes neuronales recurrentes diseñadas para superar las limitaciones de las RNN tradicionales.
+
+Es decir, están diseñadas especialmente para superar el problema del desvanecimiento del gradiente.
+
+LSTM idea central, un mecanismo de compuertas que regula el flujo de información a través de la red, las compuertas aprenden cuándo conservar el contexto y cuando soltarlo
+GRU se introdujeron para solucionar el problema del desvanecimiento del gradiente, lo consiguen agregando dos puertos: actualización (update) y restablecimiento (Reset), son dos vectores que deciden qué información se pasa a la salida
+
+Ambas arquitecturas permiten que la red recuerde información importante durante secuencias largas, lo que las hace ideales para:
+
+-Traducción automática
+-Generación de texto
+-Análisis de sentimientos
+-Predicción de series temporales
+
+Tener en cuenta métricas, entrenamiento, validación
+
+---
+
+
+.pull-left[
+
+### Entrenamiento y validación clínica
+
+- validación externa en población objetivo antes de despliegue
+
+- métricas clínicas adaptadas al uso real, nos solo AUC o precisión técnica
+
+- .content-box-red[riesgo de **dataset-shift**] en traslación entre centros o países
+
+- validación incluye impacto en decisiones y resultados en salud
+
+]
+
+.pull-right[
+
+### Métricas clínicas relevantes
+
+- sensibilidad y especificidad interpretadas según prevalencia en una población y consecuencias
+
+- NNT y NNH aplicados a la IA: traducir predicciones en impacto tangible
+
+- métricas post-implantación para auditoría continua
+
+- .content-box-red[**valor real** = reducción de eventos adversos&lt;br/&gt; + optimización de recursos]
+
+&lt;center&gt;recursos = sobre todo tiempo <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:2em;width:2em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M464 256A208 208 0 1 1 48 256a208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"/></svg>&lt;/center&gt;
+
+&lt;img src = "img/doctor_patient.png" height = 200px/&gt;
+]
+
+???
+La IA influye en la toma de decisiones y puede que con el paso del tiempo no obtenga los mismos resultados, por eso hay que conocer las métricas como S y E, pero en una determinada población con una determinada prevalencia.
+Los NNT y NNH se pueden usar para saber el impacto tangible en nuestro contexto.
+
+---
+
+# Interpretabilidad y adopción clínica
+
+
+.pull-left[
+- transparencia = .content-box-red[confianza] &amp;rarr; mayor uso por médicos (monitorizar siempre los resultados)
+
+- .content-box-red[interpretabilidad] traducida a explicaciones médicas accionables
+
+- riesgo: explicaciones erróneas si no reflejan causalidad clínica
+
+- ajustar explicabilidad a criticidad de la decisión
+
+&lt;img src ="img/percepcion-medico-usa-IA.png" width =450px&gt;
+
+]
+
+.pull-right[
+
+&lt;h4&gt;Integración y posición del humano&lt;/h4&gt;
+
+- la integración en HCE debe garantizar .content-box-red[control médico final]
+
+- .content-box-red[interfaces] muestran grado de confianza y razonamiento (evitar carga cognitiva)
+
+- el médico confirma, corrige o rechaza recomendación
+
+- protocolos claros de .content-box-red[autoría] para evitar desplazamiento de responsabilidad
+]
+
+???
+
+Hay estudio en USA que los pacientes que saben que su médico usa la IA tienen menos confianza en ellos
+
+REis M, Reis F, Kunde W. Public perception of physicians who use artificial intelligence
+
+Interfaces intuitivas que faciliten la toma de decisiones con poca carga cognitiva.
+No se pueden tener 50 interfaces.
+
+---
+class: inverse
+background-color: #1B9BBB
+
+.pull-left[
+
+### Ej.: Oncología: supervisión  y responsabilidad
+
+- la IA propone ajustes según respuesta intermedia
+
+- la validación multidisciplinar evita automatización acrítica
+
+- la historia clínica debe reflejar autoría humana
+
+- comunicación clara al paciente sobre .content-box-army[rol de la IA]
+
+.right[&lt;img src ="img/Watson.avif" height = 250px/&gt;]
+
+]
+
+.pull-right[
+
+### Ej.: Cardiología: gestión de alertas
+
+- optimizar alerta útil vs ruido para predicción de eventos
+
+- sobrecarga de alarmas reduce atención a señales críticas (deben añadir valor)
+
+- configurar alertas según perfil del paciente
+
+- balance:&lt;br/&gt;prevención eventos no-deseados <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:2em;width:2.5em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#2ed573;overflow:visible;position:relative;"><path d="M384 32H512c17.7 0 32 14.3 32 32s-14.3 32-32 32H398.4c-5.2 25.8-22.9 47.1-46.4 57.3V448H512c17.7 0 32 14.3 32 32s-14.3 32-32 32H320 128c-17.7 0-32-14.3-32-32s14.3-32 32-32H288V153.3c-23.5-10.3-41.2-31.6-46.4-57.3H128c-17.7 0-32-14.3-32-32s14.3-32 32-32H256c14.6-19.4 37.8-32 64-32s49.4 12.6 64 32zm55.6 288H584.4L512 195.8 439.6 320zM512 416c-62.9 0-115.2-34-126-78.9c-2.6-11 1-22.3 6.7-32.1l95.2-163.2c5-8.6 14.2-13.8 24.1-13.8s19.1 5.3 24.1 13.8l95.2 163.2c5.7 9.8 9.3 21.1 6.7 32.1C627.2 382 574.9 416 512 416zM126.8 195.8L54.4 320H199.3L126.8 195.8zM.9 337.1c-2.6-11 1-22.3 6.7-32.1l95.2-163.2c5-8.6 14.2-13.8 24.1-13.8s19.1 5.3 24.1 13.8l95.2 163.2c5.7 9.8 9.3 21.1 6.7 32.1C242 382 189.7 416 126.8 416S11.7 382 .9 337.1z"/></svg> carga cognitiva del clínico
+
+]
+
+
+???
+
+Recordar el fracaso de Watson de IBM, cuando se aplicó a oncología
+En oncología la supervisión es necesaria pues las decisiones son críticas.
+
+Debe liberar el tiempo necesario para la comunicación con el paciente.
+
+IBM Watson for Oncology fue un sistema de soporte de decisiones clínicas diseñado para analizar datos médicos y recomendar tratamientos contra el cáncer, desarrollado en colaboración con el Memorial Sloan Kettering Cancer Center.  Aunque inicialmente se promocionó como una revolución en la atención oncológica, el proyecto enfrentó críticas significativas por recomendaciones incorrectas, falta de generalización y altos costos sin resultados clínicos tangibles.
+
+Desempeño y controversia: Estudios tempranos mostraron concordancias entre el 81% y el 96% con expertos, pero investigaciones posteriores (como las de STAT en 2017) revelaron que el sistema a menudo sugería tratamientos inseguros o incorrectos, incluyendo casos mortales reportados en hospitales de Dinamarca.
+Fracaso comercial: La colaboración con MD Anderson Cancer Center terminó en 2016 tras gastar 62 millones de dólares sin lograr un sistema clínicamente usable.  En 2021, IBM vendió su división de salud (incluyendo Watson Health) a Merative, marcando el fin de la operación original de Watson en oncología.
+Limitaciones técnicas: El sistema no generaba nuevo conocimiento científico, dependía de datos curados específicos de instituciones y requería una personalización intensiva para cada hospital, lo que impedía su escalabilidad global. 
+
+The rise and fall of IBM Watson Health represents one of the most instructive case studies in the history of enterprise computing, digital health, and clinical informatics. Marketed as a revolutionary breakthrough that would eliminate diagnostic errors and personalise oncology care globally, the enterprise culminated in a multi-billion-dollar strategic retreat, the cancellation of flagship academic partnerships, and the eventual liquidation of its assets. 
+
+link https://www.healthcare.digital/single-post/the-collapse-of-ibm-watson-health-a-post-mortem-on-technological-prematurity-governance-failure-a
+
+En cardiología definir cómo van a servir las alarmas para la toma de decisiones y van a generar un ruido difícilmente manejable.
+
+---
+class: inverse
+background-color: #1B9BBB
+
+# Monitorización remota: continuidad asistencial
+.content-box-army[
+- wearables con IA para seguimiento proactivo: vamos a poder generar señales de todo
+
+- riesgo: exceso de datos irrelevantes &amp;rarr; sobrecarga médica
+
+- filtrado inteligente con criterios clínicos (que la IA solo nos presente aquello que sirve para decisones críticas)
+
+]
+&lt;center&gt;&lt;img src ="img/wearable.webp" height = 230px/&gt;&lt;/center&gt;
+
+
+???
+
+Sobrecarga de señales
+Pueden modificar negativamente la relación por el ruido
+
+---
+class: inverse
+background-color: #1B9BBB
+# GDPR y práctica clínica
+
+.pull-left[
+.content-box-army[
+
+- principios: 
+    - minimización de los datos a utilizar
+    - exactitud
+    - limitación de propósito, no un objetivo general (dese el principio definir para qué vamos a utilizar los datos)
+]
+
+- derecho a saber si una decisión se basa en IA
+
+- documentar pseudonimización y evaluación de impacto (DPIA)
+]
+
+.pull-right[
+
+.right[&lt;img src ="img/rgpd.jpg" height = 450px/&gt;]
+
+]
+
+.footnote.letra-chica[GDPR = Reglamento General de Protección de Datos&lt;br/&gt;DPIA = Data Protection Impact Assessment (EIPD = Evaluación de Impacto en la Protección de Datos)]
+
+
+---
+exclude: true
+# MDR: dispositivos médicos
+
+
+.pull-left[
+
+- software médico como dispositivo: clases IIa, IIb, III
+
+- .content-box-red[evaluación clínica obligatoria antes de comercialización]
+
+- auditorías post-mercado para detectar fallos y sesgos
+]
+
+
+
+.pull-right[
+
+&lt;center&gt;&lt;h4&gt;Clasificación de dispositivos médicos basada en el nivel de riesgo&lt;/h4&gt;&lt;/center&gt;
+
+&lt;img src ="img/infografia_clasificacion_productos_MDR.webp" height=350px&gt;
+]
+
+---
+
+background-image: url("img/ethics.jpg")
+background-position: 95% 5%
+background-size: 300px
+background-color: #FCE300
+# Relación médico-paciente&lt;br/&gt;en la era de la IA
+
+.pull-left[
+.content-box-blue[
+- IA como tercer actor en la consulta
+
+- mantener contacto visual y empatía
+
+- explicar decisiones y rol de la IA en lenguaje comprensible
+]
+
+.content-box-red[
+&lt;center&gt;&lt;b&gt;Etica y decisión compartida&lt;/b&gt;&lt;/center&gt;
+
+- principios bioéticos: beneficiencia, no-maleficiencia, autonomía y justicia
+
+- evaluación de sesgos y equidad en modelos
+
+- participación activa del paciente en decisiones mediadas por IA
+]
+
+
+]
+
+.pull-right[
+
+&lt;img src ="img/relacion_medico_paciente.png" height = 400px/&gt;
+
+]
+
+
+---
+
+background-color: #F08080
+# .white[Del presente al futuro]
+
+.pull-left-color[
+
+- inteligencia &amp;harr; soporte físico
+
+- la inteligencia biológica es muy ineficaz
+
+- la comunicación entre humanos es de varios bits /segundo
+
+- ningún humano sabrá nunca tanto como GPT-4 (.letra-chica[&lt;cite&gt;Geoffrey Hinton, Premio Nobel de Física 2024&lt;/cite&gt;])
+
+.right[&lt;img src="img/geoffrey-hinton-cientifico-inteligencia-artificial.webp" height=210px&gt;]
+]
+
+.pull-right[
+
+
+**El futuro de la inteligencia según Hinton**
+&lt;br/&gt;
+![:scale 80%](img/futuro_inteligencia.png)
+
+
+]
+
+---
+background-color:#FCE300
+
+# Retos de la implantación en Sanidad
+
+- &lt;h3&gt;Generación&lt;/h3&gt;
+  - IA como asistente creativo, generando textos, imágenes o informes
+  - Ej.: redactar un informe de alta
+
+- &lt;h3&gt;Automatización&lt;/h3&gt;
+  - integración en flujos clínicos para aceleerar tareas repetitivas
+  - Ej.: cribado de imágenes radiológicas
+
+- &lt;h3&gt;Agentificación&lt;/h3&gt;
+  - IA que toma decisiones y actúa, con supervisión
+  - Ej.: ajuste independiente de parámetros de un ventilador mecánico
+  
+Implicaciones en seguridad, confianza, y roles clínicos.
+
+
+---
+
+background-color: #FCE300
+
+# Está la IAG cerca?
+
+.pull-left[
+
+- la experiencia humana integra múltiples sentidos, no solo lenguaje
+
+- las leyes de escalado mejoran el rendimiento, pero no garantizan el razonamiento
+
+- necesidad de modelos del mundo y aprendizaje auto-supervisado
+
+&lt;img src ="img/la-singularidad-esta-cerca.webp" height=200px&gt;
+
+]
+
+
+.pull-right[
+
+&lt;img src ="img/singularidad-mas-cerca.webp" height=450px&gt;
+
+]
+
+---
+
+background-color: #FCE300
+
+# Embodied AI
+
+.pull-left-color[
+
+- sistema de inteligencia artificial que no se queda encerrado en la nube, sino que  está ligado a un cuerpo o entorno físico con el que interactúa
+
+- en lugar de procesar texto o imágenes:
+
+  - percibe con sensores (cámaras, micrófonos, tacto...)
+  
+  - actúa con un cuerpo (brazos robóticos, drones, ruedas...)
+  
+  - aprende de la interacción con el mundo real o virtual, no solo de bases de datos estáticas
+]
+
+.pull-right[
+&lt;img src = "img/better-than-us.webp"&gt;
+]
+
+---
+
+background-color: #FCE300
+
+# Areas de impacto en Salud
+
+.pull-left[
+.content-box-blue[
+- investigación
+  - desde la formulación de hipótesis hasta la metodología y la diseminación de los resultados
+  - uso de datos sintéticos para entrenar modelos respetando la privacidad
+  - brazos de control sintéticos
+  - ensayos clínicos in-silico para acelerar la validación
+
+- formación y entrenamiento
+]
+]
+
+.pull-right[
+.content-box-blue[
+- práctica clínica
+  - apoyo en la recogida estructurada de datos
+  - ayuda en la toma de decisiones
+  - sistemas de navegación quirúrgica
+  - personalización de tratamientos
+
+- gestión
+]
+]
+
+---
+exclude: true
+
+# Investigación con datos sintéticos
+
+&lt;video width="840" height="680"&gt;
+&lt;source src="https://t.me/aipost/8102" type="video/mp4"&gt;
+&lt;/video&gt;
+https://t.me/aipost/8102
+
+---
+exclude:true
+
+# Brazos de control sintéticos
+
+
+---
+exclude: true 
+
+# Descubrimiento de nuevos fármacos
+
+
+---
+class: inverse
+background-color: #E64626
+
+# Formación: necesidad de competencias
+
+.pull-left[
+
+- alfabetización en datos y fundamentos de IA
+
+- Interpretación crítica de resultados generados por IA
+
+- comprensión de riesgos, sesgos y limitaciones
+
+- conocimiento de requisitos éticos y regulatorios
+
+]
+
+.pull-right[
+&lt;img src="img/core_skills_2030.jpg" height=300px&gt;
+&lt;img src="img/tus_core_skills.jpg"&gt;
+]
+
+---
+
+# Transformación de la enseñanza
+
+.pull-left[
+- uso de entornos virtuales y simulaciones realistas para la práctica clínica
+
+- aprendizaje adaptativo personalizado según progreso del estudiante
+
+- evaluación continua y retroalimentación instantánea
+
+&lt;img src= "img/surgery2.png" height=200px&gt;
+
+&lt;h6&gt;Bkheet, E., D’Angelo, AL., Goldbraikh, A. _et al._ Using hand pose estimation to automate open surgery training feedback. _Int J CARS_ **18**, 1279–1285 (2023)&lt;/h6&gt;
+
+
+]
+
+.pull-right[
+
+&lt;img src= "img/daVinci.webp" height=450px&gt;
+
+]
+
+---
+
+# Evaluación del aprendizaje
+
+- integración de escenarios asistidos por IA en evaluaciones prácticas
+
+- medición de competencias técnicas y no técnicas
+
+- uso de métricas objetivas para valorar progreso
+
+---
+class: inverse
+background-color: #1B9BBB
+
+# En clínica a corto plazo (&lt; 5 años)
+
+- mejora de la precisión diagnóstica mediante IA en imagen y datos clínicos
+
+- asistencia en procedimientos quirúrgicos con sistemas robotizados y navegación
+
+- integración en múltiples especialidades médicas
+
+---
+class: inverse
+background-color: #1B9BBB
+
+# En clínica a medio plazo (~10 años)
+
+- incremento de rendimiento diagnóstico en múltiples áreas, mediante modelos de visión y **modelos fundacionales clínicos**
+
+- requisitos de generalización entre centros, equipos y poblaciones; importancia de la calibración
+
+- asistencia perioperatoria: planificación, guía intraoperatoria y reducción de errores por fatiga/variabilidad
+
+- el rol del clínico se desplaza de ejecutor a **gestor de decisiones asistidas**
+
+
+---
+
+# Gestión de recursos
+
+.pull-left[
+- uso de IA para predecir la demanda y optimizar la asignación de recursos clínicos y materiales
+- planificación dinámica de personal y turnos en función de patrones de actividad
+- optimización de inventarios y gestión de suministros críticos
+- .content-box-purple[automatizaciónde tareas administrativas]: facturación, gestión de citas, verificación de seguros
+- procesamiento inteligente de documentos y extracción de información
+- reducción de tiempos de tramitación y errores administrativos
+- modelos predictivos para identificar áreas de riesgo y oportunidad
+- análisis de datos poblacionales para orientar políticas de salud
+- herramientas de simulación para planificación a medio y largo plazo
+
+
+]
+
+.pull-right[
+
+&lt;img src = "img/digital-twin.jpg"&gt;
+
+&lt;h6&gt;Digital twin logistics movement control center of South China Hospital of Shenzhen University.&lt;br/&gt;
+&lt;i&gt;Sheng wu yi xue Gong Cheng xue za zhi = Journal of Biomedical Engineering = Shengwu Yixue Gongchengxue Zazhi, 01 Apr 2024, 41(2):376-382Language:chi
+https://doi.org/10.7507/1001-5515.202310041&lt;/i&gt;&lt;/h6&gt;
+]
+
+
+
+---
+class: inverse
+background-color: #E64626
+
+# Dilemas éticos en clínica: autonomía vs IA
+
+- autonomía profesional y riesgo de *overreliance*, necesidad de consentimiento informado cuando proceda
+
+- asignación de responsabilidad (**fabricante-institución-profesional**) y documentación de decisiones
+
+- equidad: mitigación de sesgos y evaluación de poblaciones vulnerables
+
+- .content-box-blue[transparencia y explicabilidad] proporcional al riesgo clínico
+
+
+---
+class: center, middle
+
+# En el entorno sanitario...
+
+
+.pull-left[
+La IA can accelerate tasks, but 
+
+judgment, empathy, and systems thinking are what turn
+
+technology into better outcomes for patients, clinicians, and organizations.
+
+The real advantage will come from leaders who can bridge both worlds.
+
+&lt;img src="img/cerebro-ada.jpg" width=400px&gt;
+]
+
+.pull-right[
+
+&lt;img src ="img/sam-altman-chatgpt1.jpg"&gt;
+
+&lt;img src ="img/Sam_Altman.png"&gt;
+
+]
+
+---
+exclude: true
+background-image: url("img/humano-robot.jpg")
+background-position: 95% 90%
+background-size: 300px
+background-color: #FCE300
+
+# Las cuatro reglas de la co-inteligencia
+
+1. siempre invite a la IA a la mesa
+
+2. sé el humano en el ciclo
+
+3. trata a la IA como una persona (pero dile qué clase de persona es)
+
+4. asume que esta es la peor IA que usarás
+
+
+.footnote[Ethan Mollick. Co-Intelligence. Living and Working with AI.]
+
+---
+class:inverse
+background-image: url("img/replies.png")
+background-size:contain
+
+---
+class: middle, center
+
+FINISH
+
+Thanks!!!
+
+fjgd 2026-11-09
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="libs/remark.min.js"></script>
+<script src="macro.js"></script>
+<script>var slideshow = remark.create({
+  "ratio": "16:9",
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
